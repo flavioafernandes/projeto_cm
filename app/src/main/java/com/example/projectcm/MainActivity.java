@@ -1,4 +1,5 @@
-package com.flavio.projetocm;
+
+package com.example.projectcm;
 
 import androidx.appcompat.app.AppCompatActivity;
 

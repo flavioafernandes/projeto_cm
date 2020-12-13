@@ -1,4 +1,4 @@
-package com.flavio.projetocm;
+package com.example.projectcm;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.flavio.projetocm", appContext.getPackageName());
+        assertEquals("com.example.projectcm", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.flavio.projetocm;
+package com.example.projectcm;
 
 import org.junit.Test;
 
