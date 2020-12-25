@@ -8,5 +8,106 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/remover"
+            android:layout_width="144dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="36dp"
+            android:text="Remover"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info"
+            app:layout_constraintVertical_bias="0.489" />
+
+        <Button
+            android:id="@+id/editar"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Editar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.623"
+            app:layout_constraintStart_toEndOf="@+id/remover"
+            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info" />
+
+        <ImageView
+            android:id="@+id/Car_image"
+            android:layout_width="376dp"
+            android:layout_height="153dp"
+            android:src="@mipmap/car_temp_foreground"
+            app:layout_constraintBottom_toTopOf="@+id/scroll_car_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SubTitle_car"
+            app:layout_constraintVertical_bias="0.464" />
+
+        <ImageView
+            android:id="@+id/Car_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/btn_star"
+            app:layout_constraintBottom_toTopOf="@+id/Car_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.265"
+            app:layout_constraintStart_toEndOf="@+id/Title_car"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.369" />
+
+        <ScrollView
+            android:id="@+id/scroll_car_info"
+            android:layout_width="334dp"
+            android:layout_height="365dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.775">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/Title_car"
+            android:layout_width="223dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="9dp"
+            android:text="Alpha Speed"
+            app:layout_constraintBottom_toTopOf="@+id/SubTitle_car"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.875" />
+
+        <TextView
+            android:id="@+id/SubTitle_car"
+            android:layout_width="226dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="76dp"
+            android:text="Tesla s3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/arrow_down_float"
+            app:layout_constraintBottom_toTopOf="@+id/Car_image"
+            app:layout_constraintEnd_toStartOf="@+id/Title_car"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39"
+            android:rotation="90"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
