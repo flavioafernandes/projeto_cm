@@ -122,6 +122,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean loginUser(String email, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select userpassword from " + USER_TABLE_NAME + " where useremail =" + email, null);
+        while (result.moveToNext()){
+            if (result.getString(0).equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Cursor getUserInfo(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("select username, useremail, userbirthday from " + USER_TABLE_NAME + " where id =" + id, null);
