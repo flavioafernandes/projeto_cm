@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.projectcm.R;
 
@@ -39,12 +42,8 @@ public class Login extends Fragment {
      * @return A new instance of fragment Login.
      */
     // TODO: Rename and change types and number of parameters
-    public static Login newInstance(String param1, String param2) {
+    public static Login newInstance() {
         Login fragment = new Login();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -61,6 +60,28 @@ public class Login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        Button b = v.findViewById(R.id.login);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et1 = v.findViewById(R.id.username);
+                EditText et2 = v.findViewById(R.id.password);
+                String username = et1.getText().toString();
+                String password = et2.getText().toString();
+
+                //verificar
+            }
+        });
+
+
+        TextView tv = v.findViewById(R.id.toRegister);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Enviar para o registo
+            }
+        });
+        return v;
     }
 }
