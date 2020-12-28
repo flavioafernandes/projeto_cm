@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_BIRTHDAY, birth);
         contentValues.put(USER_PASS, pass);
 
-        Cursor verifyExistingUser = db.rawQuery("select username from " + USER_TABLE_NAME + " where useremail =" + email + ";", null);
+        Cursor verifyExistingUser = db.rawQuery("select username from " + USER_TABLE_NAME + " where useremail ='" + email + "';", null);
         if(verifyExistingUser.getCount() == 0){
             long userID = db.insert(USER_TABLE_NAME, null, contentValues);
 
@@ -132,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean loginUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select userpassword from " + USER_TABLE_NAME + " where useremail =" + email + ";", null);
+        Cursor result = db.rawQuery("select userpassword from " + USER_TABLE_NAME + " where useremail ='" + email + "';", null);
         while (result.moveToNext()){
             if (result.getString(0).equals(password)){
                 return true;
@@ -175,7 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllModelsFromAMake(String make){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select carmodel, caryear from " + CAR_LIST_TABLE_NAME + " where make =" + make + ";", null);
+        Cursor result = db.rawQuery("select carmodel, caryear from " + CAR_LIST_TABLE_NAME + " where make ='" + make + "';", null);
         return result;
     }
 
