@@ -98,7 +98,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/GoBackButton"
+            android:id="@+id/voltar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/arrow_down_float"
@@ -124,7 +124,7 @@
             android:elevation="10dp" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/changeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_ellipse_318"
