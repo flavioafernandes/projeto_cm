@@ -113,13 +113,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_EMAIL, email);
         contentValues.put(USER_BIRTHDAY, birth);
         contentValues.put(USER_PASS, pass);
-        long userID = db.insert(USER_TABLE_NAME, null, contentValues);
 
-        if(userID == -1){
+        Cursor verifyExistingUser = db.rawQuery("select username from " + USER_TABLE_NAME + " where useremail = " + email, null);
+        if(verifyExistingUser.getCount() == 0){
+
             return -1;
+
         }else{
-            return userID;
+            long userID = db.insert(USER_TABLE_NAME, null, contentValues);
+
+            if(userID == -1){
+                return -1;
+            }else{
+                return userID;
+            }
         }
+
     }
 
     public boolean loginUser(String email, String password){

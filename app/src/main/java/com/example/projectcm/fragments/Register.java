@@ -108,6 +108,7 @@ public class Register extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
     public interface ListenerToLogin {
         void backToLogin();
     }
