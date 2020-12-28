@@ -1,5 +1,7 @@
 package com.example.projectcm.fragments;
 
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
 /**
@@ -20,6 +23,7 @@ import com.example.projectcm.R;
  */
 public class Login extends Fragment {
 
+    DatabaseHelper db;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,8 +41,6 @@ public class Login extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment Login.
      */
     // TODO: Rename and change types and number of parameters
@@ -49,6 +51,8 @@ public class Login extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseHelper(getContext());
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -83,5 +87,17 @@ public class Login extends Fragment {
             }
         });
         return v;
+    }
+
+
+    private class loginTask extends AsyncTask<Bundle, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Bundle... bundles) {
+
+            boolean result = db.loginUser(bundles[0].getString("email"), bundles[0].getString("password"));
+
+            return result;
+        }
     }
 }

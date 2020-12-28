@@ -1,5 +1,6 @@
 package com.example.projectcm.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
+import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
 /**
@@ -19,6 +21,8 @@ import com.example.projectcm.R;
  * create an instance of this fragment.
  */
 public class Register extends Fragment {
+
+    DatabaseHelper db;
 
     public Register() {
         // Required empty public constructor
@@ -38,6 +42,9 @@ public class Register extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        db = new DatabaseHelper(getContext());
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
@@ -67,4 +74,17 @@ public class Register extends Fragment {
         // Inflate the layout for this fragment
         return v;
     }
+
+
+    private class registTask extends AsyncTask<Bundle, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Bundle... bundles) {
+
+            int id = (int) db.addNewUser(bundles[0].getString("name"), bundles[0].getString("email"), bundles[0].getString("birth"), bundles[0].getString("password"));
+
+            return id;
+        }
+    }
+
 }
