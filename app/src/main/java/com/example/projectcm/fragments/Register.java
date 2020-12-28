@@ -69,6 +69,8 @@ public class Register extends Fragment {
                 cv.getDateTextAppearance();
 
                 //guardar na base de dados
+
+                //ir para o login page
             }
         });
         // Inflate the layout for this fragment

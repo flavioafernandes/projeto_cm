@@ -1,5 +1,6 @@
 package com.example.projectcm.fragments;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,14 +25,9 @@ import com.example.projectcm.R;
 public class Login extends Fragment {
 
     DatabaseHelper db;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    registerClickListener registerListener;
+
 
     public Login() {
         // Required empty public constructor
@@ -55,8 +51,6 @@ public class Login extends Fragment {
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -84,9 +78,31 @@ public class Login extends Fragment {
             @Override
             public void onClick(View v) {
                 //Enviar para o registo
+                registerListener.changeToRegisterPage();
+                System.out.println("Erro?");
             }
         });
         return v;
+
+
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof registerClickListener){
+            registerListener = (registerClickListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
+    public interface registerClickListener {
+        void changeToRegisterPage();
     }
 
     /**

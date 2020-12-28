@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.projectcm.activities.MainActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     private static int Splash_Time_OUT = 4000;
