@@ -76,6 +76,14 @@ public class Register extends Fragment {
     }
 
 
+    /**
+     *
+     * Esta função recebe um Bundle com as seguintes keys:
+     * 0 - name
+     * 1 - email
+     * 2 - birth
+     * 3 - password
+     */
     private class registTask extends AsyncTask<Bundle, Void, Integer> {
 
         @Override

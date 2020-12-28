@@ -89,7 +89,12 @@ public class Login extends Fragment {
         return v;
     }
 
-
+    /**
+     *
+     * Esta função recebe um Bundle com as seguintes keys:
+     * 0 - email
+     * 1 - password
+     */
     private class loginTask extends AsyncTask<Bundle, Void, Boolean> {
 
         @Override
