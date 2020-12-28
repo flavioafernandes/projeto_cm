@@ -7,12 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectcm.DatabaseHelper;
@@ -20,6 +22,7 @@ import com.example.projectcm.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,30 +69,51 @@ public class Register extends Fragment {
         EditText email = v.findViewById(R.id.newEmail);
         EditText password = v.findViewById(R.id.newpassword);
         EditText confirmPassword = v.findViewById(R.id.confirmNewPassword);
+        TextView tvError = v.findViewById(R.id.errorDisplayRegister);
         Button b = v.findViewById(R.id.confirmRegister);
         CalendarView cv = v.findViewById(R.id.calendarView);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         final String[] selectedDate = {""};
+        selectedDate[0] = sdf.format(new Date());
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                System.out.println(view.getDate());
-                selectedDate[0] = sdf.format(new Date(view.getDate()));
+                selectedDate[0] = sdf.format(new Date(year,month,dayOfMonth));
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //guardar na base de dados
-                Bundle info = new Bundle();
-                info.putString("name",name.getText().toString());
-                info.putString("email",email.getText().toString());
-                info.putString("birth", selectedDate[0]);
-                info.putString("password",password.getText().toString());
-                registTask rt = new registTask();
-                rt.execute(info);
-                //ir para o login page
-                ltl.backToLogin();
+                if(password.getText().toString().compareTo(confirmPassword.getText().toString())!=0){
+                    // se as palavras pass forem diferentes aparecer erro
+                    tvError.setText("Passwords são diferentes.");
+                }
+                //verificar se o email existe
+
+                else{
+                    //guardar na base de dados
+                    Bundle info = new Bundle();
+                    info.putString("name",name.getText().toString());
+                    info.putString("email",email.getText().toString());
+                    info.putString("birth", selectedDate[0]);
+                    info.putString("password",password.getText().toString());
+                    registTask rt = new registTask();
+                    try {
+                        int result = rt.execute(info).get();
+                        if(result == -1){
+                            //email existe erro
+                            tvError.setText("Email já existe no sistema");
+                        }
+                        else {
+                            ltl.backToLogin();
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //ir para o login page
+                }
 
             }
         });

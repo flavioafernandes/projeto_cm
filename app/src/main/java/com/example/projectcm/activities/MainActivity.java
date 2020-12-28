@@ -4,6 +4,7 @@ package com.example.projectcm.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.projectcm.R;
@@ -19,14 +20,9 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Login login = Login.newInstance();
-        Detalhes detalhes = Detalhes.newInstance(1,5);
-        //MainPage mainPage = MainPage.newInstance("","");
+        Login login = Login.newInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //fragmentTransaction.add(R.id.mainActivityLayout,login,"login");
-        fragmentTransaction.add(R.id.mainActivityLayout,detalhes,"detalhes");
-        //fragmentTransaction.add(R.id.mainActivityLayout,mainPage,"mainpage");
+        fragmentTransaction.add(R.id.mainActivityLayout,login,"login");
         fragmentTransaction.commit();
     }
 
@@ -37,6 +33,12 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
         fragmentTransaction.replace(R.id.mainActivityLayout,register,"registerPage");
         fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void changeToMainPage() {
+        Intent myIntent = new Intent(this, LoggedIn_Activity.class);
+        startActivity(myIntent);
     }
 
     public void backToLogin(){

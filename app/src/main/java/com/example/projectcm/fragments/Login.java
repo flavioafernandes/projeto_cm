@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Login#newInstance} factory method to
@@ -60,15 +62,33 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         Button b = v.findViewById(R.id.login);
+        EditText et1 = v.findViewById(R.id.username);
+        EditText et2 = v.findViewById(R.id.password);
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText et1 = v.findViewById(R.id.username);
-                EditText et2 = v.findViewById(R.id.password);
-                String username = et1.getText().toString();
+                String email = et1.getText().toString();
                 String password = et2.getText().toString();
-
+                Bundle b = new Bundle();
+                b.putString("email",email);
+                b.putString("password",password);
                 //verificar
+                loginTask lt = new loginTask();
+                try {
+                    Boolean response = lt.execute(b).get();
+                    if(response){
+                        registerListener.changeToMainPage();
+                    }
+                    else{
+                        //mensagem de erro
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -83,9 +103,6 @@ public class Login extends Fragment {
             }
         });
         return v;
-
-
-
     }
 
     @Override
@@ -103,6 +120,7 @@ public class Login extends Fragment {
 
     public interface registerClickListener {
         void changeToRegisterPage();
+        void changeToMainPage();
     }
 
     /**
