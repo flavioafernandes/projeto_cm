@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_BIRTHDAY, birth);
         contentValues.put(USER_PASS, pass);
 
-        Cursor verifyExistingUser = db.rawQuery("select username from " + USER_TABLE_NAME + " where useremail = " + email + ";", null);
+        Cursor verifyExistingUser = db.rawQuery("select username from " + USER_TABLE_NAME + " where useremail =" + email + ";", null);
         if(verifyExistingUser.getCount() == 0){
             long userID = db.insert(USER_TABLE_NAME, null, contentValues);
 
