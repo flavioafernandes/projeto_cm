@@ -10,7 +10,7 @@ import com.example.projectcm.R;
 import com.example.projectcm.fragments.Login;
 import com.example.projectcm.fragments.Register;
 
-public class MainActivity extends AppCompatActivity implements Login.registerClickListener {
+public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
         Register register = Register.newInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.mainActivityLayout,register,"registerPage");
+        fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
+    }
+
+    public void backToLogin(){
+        Login lon = (Login) getSupportFragmentManager().findFragmentByTag("login");
+        getSupportFragmentManager().popBackStack();
+
     }
 }
