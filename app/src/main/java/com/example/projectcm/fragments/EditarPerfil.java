@@ -182,4 +182,21 @@ public class EditarPerfil extends Fragment {
         }
     }
 
+
+    /**
+     * Passar o userID
+     *
+     * Dá return de todos os carros do utilizador.
+     * */
+    private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... ids) {
+
+            Cursor results = db.getCarsFromUser(ids[0]);
+
+            return results;
+        }
+    }
+
 }
