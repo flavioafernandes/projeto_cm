@@ -35,9 +35,16 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
         fragmentTransaction.commit();
     }
 
-    @Override
     public void changeToMainPage() {
         Intent myIntent = new Intent(this, LoggedInActivity.class);
+    }
+
+    public void changeToMainPage(int userID) {
+        Bundle b = new Bundle();
+        b.putInt("userID", userID);
+        Intent myIntent = new Intent(this, LoggedInActivity.class);
+        myIntent.putExtras(b);
+
         startActivity(myIntent);
     }
 

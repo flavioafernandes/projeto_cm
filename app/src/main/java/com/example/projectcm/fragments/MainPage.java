@@ -32,6 +32,7 @@ public class MainPage extends Fragment {
     private static String UserName;
     private static String UserID;
     private  static  String email;
+    static int currentUserID;
 
     public MainPage() {
         // Required empty public constructor
@@ -39,9 +40,10 @@ public class MainPage extends Fragment {
     }
 
 
-    public static MainPage newInstance(String usedmail) {
+    public static MainPage newInstance(String usedmail, int userID) {
         MainPage fragment = new MainPage();
         email=usedmail;
+        currentUserID = userID;
         return fragment;
     }
 
@@ -58,7 +60,7 @@ public class MainPage extends Fragment {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //get username e userid by usermail on DB
         loaduserInfor(email);
-        System.out.println("Username "+UserName+" e  ID" +UserID+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("Username "+UserName+" e  ID" + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         //UserName = "Ambrósio Ferrero";
 
         //Load "Os meus veículos"
@@ -87,7 +89,7 @@ public class MainPage extends Fragment {
 
         Integer numbercars= 5;
         */
-        Cursor resultado1 =db.getCarsFromUser(Integer.parseInt(UserID));
+        Cursor resultado1 =db.getCarsFromUser(currentUserID);
         while (resultado1.moveToNext()){
             String carmake = resultado1.getString(1);
             String carmodel= resultado1.getString(2);
@@ -132,7 +134,7 @@ public class MainPage extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                mListener.onMPImageInteraction(Integer.parseInt(UserID));
+                mListener.onMPImageInteraction(currentUserID);
             }
         });
 

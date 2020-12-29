@@ -76,9 +76,9 @@ public class Login extends Fragment {
                 //verificar
                 loginTask lt = new loginTask();
                 try {
-                    Boolean response = lt.execute(b).get();
-                    if(response){
-                        registerListener.changeToMainPage();
+                    int userID = lt.execute(b).get();
+                    if(userID != -1){
+                        registerListener.changeToMainPage(userID);
                     }
                     else{
                         //mensagem de erro
@@ -120,7 +120,7 @@ public class Login extends Fragment {
 
     public interface registerClickListener {
         void changeToRegisterPage();
-        void changeToMainPage();
+        void changeToMainPage(int userID);
     }
 
     /**
@@ -129,12 +129,12 @@ public class Login extends Fragment {
      * 0 - email
      * 1 - password
      */
-    private class loginTask extends AsyncTask<Bundle, Void, Boolean> {
+    private class loginTask extends AsyncTask<Bundle, Void, Integer> {
 
         @Override
-        protected Boolean doInBackground(Bundle... bundles) {
+        protected Integer doInBackground(Bundle... bundles) {
 
-            boolean result = db.loginUser(bundles[0].getString("email"), bundles[0].getString("password"));
+            int result = db.loginUser(bundles[0].getString("email"), bundles[0].getString("password"));
 
             return result;
         }
