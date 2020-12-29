@@ -18,6 +18,12 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Login login = Login.newInstance();
@@ -35,10 +41,16 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void changeToMainPage(String usedMail) {
-        Intent myIntent = new Intent(this, LoggedIn_Activity.class);
-        myIntent.putExtra("email",usedMail);
+    public void changeToMainPage() {
+        Intent myIntent = new Intent(this, LoggedInActivity.class);
+    }
+
+    public void changeToMainPage(int userID) {
+        Bundle b = new Bundle();
+        b.putInt("userID", userID);
+        Intent myIntent = new Intent(this, LoggedInActivity.class);
+        myIntent.putExtras(b);
+
         startActivity(myIntent);
     }
 

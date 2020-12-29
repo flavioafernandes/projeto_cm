@@ -130,7 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean loginUser(String email, String password){
+wwwwwwwwwwwwww    public boolean loginUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("select userpassword from " + USER_TABLE_NAME + " where useremail ='" + email + "';", null);
         while (result.moveToNext()){
@@ -141,14 +141,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public Cursor getUserInfo(String usermail){
+    public Cursor getUserInfo(String id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select userid, username from " + USER_TABLE_NAME + " where useremail =" + "\""+usermail + "\""+";", null);
-        return result;
-    }
-    public Cursor getUserFullInfo(String id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select username, userbirthday from " + USER_TABLE_NAME + " where userid =" + id + ";", null);
+        Cursor result = db.rawQuery("select username, useremail, userbirthday from " + USER_TABLE_NAME + " where id =" + id + ";", null);
         return result;
     }
 
@@ -244,11 +239,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Funções de auxílio na comunicação com a base de dados local -> Calendar
      */
-    public Cursor getUserNotifications(int userid){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select * from " + CALENDAR_TABLE_NAME + " where userid =" + userid + ";", null);
-        return result;
-    }
     public long addNotif(int userID, String notiftitle, String notifbody, String notifdate, int carID){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

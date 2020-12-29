@@ -32,6 +32,7 @@ public class MainPage extends Fragment {
     private static String UserName;
     private static String UserID;
     private  static  String email;
+    static int currentUserID;
 
     public MainPage() {
         // Required empty public constructor
@@ -39,9 +40,10 @@ public class MainPage extends Fragment {
     }
 
 
-    public static MainPage newInstance(String usedmail) {
+    public static MainPage newInstance(String usedmail, int userID) {
         MainPage fragment = new MainPage();
         email=usedmail;
+        currentUserID = userID;
         return fragment;
     }
 
@@ -58,7 +60,7 @@ public class MainPage extends Fragment {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //get username e userid by usermail on DB
         loaduserInfor(email);
-        System.out.println("Username "+UserName+" e  ID" +UserID+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("Username "+UserName+" e  ID" + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         //UserName = "Ambrósio Ferrero";
 
         //Load "Os meus veículos"
@@ -87,12 +89,14 @@ public class MainPage extends Fragment {
 
         Integer numbercars= 5;
         */
-        Cursor resultado1 =db.getCarsFromUser(Integer.parseInt(UserID));
+        Cursor resultado1 =db.getCarsFromUser(currentUserID);
         while (resultado1.moveToNext()){
+
+            int carID = resultado1.getInt(0);
             String carmake = resultado1.getString(1);
             String carmodel= resultado1.getString(2);
 
-            View view = inflater1.inflate(R.layout.caritem,gallery,false);
+            View view = inflater1.inflate(R.layout.caritem, gallery,false);
 
             TextView textView1 = view.findViewById(R.id.textView4);
             textView1.setText(carmake);
@@ -103,9 +107,20 @@ public class MainPage extends Fragment {
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             ImageView1.setImageResource(R.drawable.avatar);
 
+            Button details = view.findViewById(R.id.button7);
+            details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    //TODO: Passar aqui o carID
+                    mListener.onMPDetailsButtonInteraction();
+                }
+            });
+
             gallery.addView(view);
 
         }
+
         /*
         for (int i =0; i <numbercars; i++){
             View view = inflater1.inflate(R.layout.caritem,gallery,false);
@@ -132,19 +147,10 @@ public class MainPage extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                mListener.onMPImageInteraction(Integer.parseInt(UserID));
+                mListener.onMPImageInteraction(currentUserID);
             }
         });
 
-        //Details button click
-        Button Bdetails = (Button) MainPageView.findViewById(R.id.button7);
-        Bdetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                mListener.onMPDetailsButtonInteraction();
-            }
-        });
         //Add button click
         Button BAdd = (Button) MainPageView.findViewById(R.id.button);
         BAdd.setOnClickListener(new View.OnClickListener() {

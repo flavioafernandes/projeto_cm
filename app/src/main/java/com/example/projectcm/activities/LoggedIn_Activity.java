@@ -14,14 +14,24 @@ import com.example.projectcm.fragments.MainPage;
 
 public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener{
 
+    int userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
         String usedmail = intent.getStringExtra("email");
+        Bundle b = intent.getExtras();
+        userID = b.getInt("userID");
         setContentView(R.layout.activity_logged_in_);
-        MainPage mainPage = MainPage.newInstance(usedmail);
+        MainPage mainPage = MainPage.newInstance(usedmail, userID);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
         fragmentTransaction.commit();   
