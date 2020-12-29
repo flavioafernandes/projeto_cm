@@ -1,11 +1,13 @@
 package com.example.projectcm.fragments;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
 /**
@@ -24,35 +27,21 @@ import com.example.projectcm.R;
  */
 public class MainPage extends Fragment {
 
-
+    private static DatabaseHelper db;
     private OnMainPageListener mListener;
-    String UserName;
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static String UserName;
+    private static String UserID;
+    private  static  String email;
 
     public MainPage() {
         // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MainPage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MainPage newInstance() {
+
+    public static MainPage newInstance(String usedmail) {
         MainPage fragment = new MainPage();
+        email=usedmail;
         return fragment;
     }
 
@@ -60,21 +49,21 @@ public class MainPage extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
+        }
+        db = new DatabaseHelper(getContext());
         //Load from db user name
         //Load avatar /photo/image WIP
-        UserName = "Ambrósio Ferrero";
 
-        //function to get name from DB based on ?? login?
-
-
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //get username e userid by usermail on DB
+        loaduserInfor(email);
+        System.out.println("Username "+UserName+" e  ID" +UserID+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //UserName = "Ambrósio Ferrero";
 
         //Load "Os meus veículos"
+        //get carid usercarmake usercarmodel
 
-        //Creater slider with loaded vehicles
 
         //Transaction for Adicionar
         //Transaction for Partilhar
@@ -91,9 +80,33 @@ public class MainPage extends Fragment {
 
         LinearLayout gallery = MainPageView.findViewById(R.id.galery);
         LayoutInflater inflater1 = LayoutInflater.from(getContext());
+        /*
+        db.addACarToAUser("Opel","Corsa","2000","null",Integer.parseInt(UserID));
+        db.addACarToAUser("Opel1","Corsa","2001","null",Integer.parseInt(UserID));
+        db.addACarToAUser("Opel2","Corsa","2002","null",Integer.parseInt(UserID));
 
-        Integer numbercars= 6;
+        Integer numbercars= 5;
+        */
+        Cursor resultado1 =db.getCarsFromUser(Integer.parseInt(UserID));
+        while (resultado1.moveToNext()){
+            String carmake = resultado1.getString(1);
+            String carmodel= resultado1.getString(2);
 
+            View view = inflater1.inflate(R.layout.caritem,gallery,false);
+
+            TextView textView1 = view.findViewById(R.id.textView4);
+            textView1.setText(carmake);
+
+            TextView textView2 = view.findViewById(R.id.textView5);
+            textView2.setText(carmodel);
+
+            ImageView ImageView1 = view.findViewById(R.id.imageView2);
+            ImageView1.setImageResource(R.drawable.avatar);
+
+            gallery.addView(view);
+
+        }
+        /*
         for (int i =0; i <numbercars; i++){
             View view = inflater1.inflate(R.layout.caritem,gallery,false);
 
@@ -105,17 +118,10 @@ public class MainPage extends Fragment {
 
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             ImageView1.setImageResource(R.drawable.avatar);
-            //Details button click
-            Button Bdetails = (Button) MainPageView.findViewById(R.id.button);
-            Bdetails.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onMPGDetailsButtonInteraction();
-                }
-            });
+
             gallery.addView(view);
         }
-
+        */
         //for test is default avatar + random name
         TextView TVUserName = (TextView)  MainPageView.findViewById(R.id.textView);
         TVUserName.setText(UserName);
@@ -125,16 +131,26 @@ public class MainPage extends Fragment {
         IVAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onMPImageInteraction();
+                System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                mListener.onMPImageInteraction(Integer.parseInt(UserID));
             }
         });
 
+        //Details button click
+        Button Bdetails = (Button) MainPageView.findViewById(R.id.button7);
+        Bdetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                mListener.onMPDetailsButtonInteraction();
+            }
+        });
         //Add button click
         Button BAdd = (Button) MainPageView.findViewById(R.id.button);
         BAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onMPAddButtonInteraction();
+                mListener.onMPAddButtonInteraction(Integer.parseInt(UserID));
             }
         });
         //Add button click
@@ -161,11 +177,19 @@ public class MainPage extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+    private void loaduserInfor(String usedmail) {
+        Cursor resultado=db.getUserInfo(usedmail);
+        while (resultado.moveToNext()){
+            UserID = resultado.getString(0);
+            UserName=resultado.getString(1);
+        }
+    }
     public interface OnMainPageListener{
 
-        void onMPImageInteraction();//open fragment for profile edit
-        void onMPAddButtonInteraction();//open fragment add car
+        void onMPImageInteraction(Integer userid);//open fragment for profile edit
+        void onMPAddButtonInteraction(Integer userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
-        void onMPGDetailsButtonInteraction();// open detalhes do carro
+        void onMPDetailsButtonInteraction();// open detalhes do carro
     }
 }
