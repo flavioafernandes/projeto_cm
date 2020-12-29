@@ -43,9 +43,12 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
 
 
     @Override
-    public void onMPImageInteraction(Integer userid) {
-        System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        EditarPerfil editarPerfil = EditarPerfil.newInstance(userid);
+    public void onMPImageInteraction(int userid) {
+        //System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        EditarPerfil editarPerfil = EditarPerfil.newInstance();
+        Bundle args = new Bundle();
+        args.putInt("userid", userid);
+        editarPerfil.setArguments(args);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.loggedIn, editarPerfil,"editarperfil");
         fragmentTransaction.addToBackStack("Top");
@@ -53,7 +56,7 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
     }
 
     @Override
-    public void onMPAddButtonInteraction(Integer userid) {
+    public void onMPAddButtonInteraction(int userid) {
 
     }
 

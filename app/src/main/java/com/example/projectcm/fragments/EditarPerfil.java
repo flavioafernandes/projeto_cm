@@ -1,5 +1,6 @@
 package com.example.projectcm.fragments;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,9 +10,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.projectcm.DatabaseHelper;
+import com.example.projectcm.Event;
 import com.example.projectcm.R;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,15 +31,8 @@ import com.example.projectcm.R;
 public class EditarPerfil extends Fragment {
 
     DatabaseHelper db;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    int userid;
+    ArrayList<Event> events = new ArrayList<>();
 
     public EditarPerfil() {
         // Required empty public constructor
@@ -37,7 +40,7 @@ public class EditarPerfil extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static EditarPerfil newInstance(int userid) {
+    public static EditarPerfil newInstance() {
         EditarPerfil fragment = new EditarPerfil();
         return fragment;
     }
@@ -48,14 +51,70 @@ public class EditarPerfil extends Fragment {
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Bundle b = getArguments();
+            userid = b.getInt("userid");
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_editar_perfil, container, false);
+        View alertView = getLayoutInflater().inflate(R.layout.add_event_layout, null);
+
+        Button addEvent = v.findViewById(R.id.addToAgenda);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(alertView.getParent() != null) {
+                    ((ViewGroup)alertView.getParent()).removeView(alertView); // <- fix
+                }
+                // criar popup com nome, calendário e descrição
+                AlertDialog.Builder newEvent = new AlertDialog.Builder(v.getContext());
+                newEvent.setTitle("Adicionar Evento");
+                newEvent.setView(alertView);
+                AlertDialog dialog = newEvent.show();
+
+
+                Button confirmEvent = alertView.findViewById(R.id.AddEvent);
+                CalendarView cv = alertView.findViewById(R.id.calendarView2);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                final String[] selectedDate = {""};
+                selectedDate[0] = sdf.format(new Date());
+                cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                        selectedDate[0] = sdf.format(new Date(year,month,dayOfMonth));
+                    }
+                });
+                EditText nameEvent = alertView.findViewById(R.id.NameOfEvent);
+                EditText descriptionEvent = alertView.findViewById(R.id.DescriptionOfEvent);
+
+
+                confirmEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String name = nameEvent.getText().toString();
+                        String description = descriptionEvent.getText().toString();
+                        Event temp = new Event(name,description,selectedDate[0]);
+                        events.add(temp);
+                        System.out.println("Evento adiconado");
+                        dialog.dismiss();
+                    }
+                });
+                Button cancelEvent = alertView.findViewById(R.id.CancelBunttonEvent);
+                cancelEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_editar_perfil, container, false);
     }
@@ -104,4 +163,5 @@ public class EditarPerfil extends Fragment {
             return result;
         }
     }
+
 }

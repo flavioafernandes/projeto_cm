@@ -36,7 +36,6 @@ public class MainPage extends Fragment {
 
     public MainPage() {
         // Required empty public constructor
-
     }
 
 
@@ -150,7 +149,7 @@ public class MainPage extends Fragment {
                 mListener.onMPImageInteraction(currentUserID);
             }
         });
-
+        /*
         //Add button click
         Button BAdd = (Button) MainPageView.findViewById(R.id.button);
         BAdd.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +157,7 @@ public class MainPage extends Fragment {
             public void onClick(View v) {
                 mListener.onMPAddButtonInteraction(Integer.parseInt(UserID));
             }
-        });
+        });*/
         //Add button click
         Button BShare = (Button) MainPageView.findViewById(R.id.button2);
         BShare.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +166,7 @@ public class MainPage extends Fragment {
                 mListener.onMPShareButtonInteraction();
             }
         });
+
 
 
         return MainPageView;
@@ -193,8 +193,8 @@ public class MainPage extends Fragment {
     }
     public interface OnMainPageListener{
 
-        void onMPImageInteraction(Integer userid);//open fragment for profile edit
-        void onMPAddButtonInteraction(Integer userid);//open fragment add car
+        void onMPImageInteraction(int userid);//open fragment for profile edit
+        void onMPAddButtonInteraction(int userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
         void onMPDetailsButtonInteraction();// open detalhes do carro
     }
