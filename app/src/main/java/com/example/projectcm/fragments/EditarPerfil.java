@@ -39,12 +39,8 @@ public class EditarPerfil extends Fragment {
      * @return A new instance of fragment EditarPerfil.
      */
     // TODO: Rename and change types and number of parameters
-    public static EditarPerfil newInstance(String param1, String param2) {
+    public static EditarPerfil newInstance(int userid) {
         EditarPerfil fragment = new EditarPerfil();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -62,5 +58,8 @@ public class EditarPerfil extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_editar_perfil, container, false);
+    }
+
+    public interface OnEditarPerfilListener {
     }
 }
