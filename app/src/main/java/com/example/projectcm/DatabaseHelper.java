@@ -130,7 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-wwwwwwwwwwwwww    public boolean loginUser(String email, String password){
+    public boolean loginUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("select userpassword from " + USER_TABLE_NAME + " where useremail ='" + email + "';", null);
         while (result.moveToNext()){
@@ -255,7 +255,11 @@ wwwwwwwwwwwwww    public boolean loginUser(String email, String password){
             return notifID;
         }
     }
-
+    public Cursor getUserNotifications(int userid){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from " + CALENDAR_TABLE_NAME + " where userid =" + userid + ";", null);
+        return result;
+    }
     public Integer deleteNotif(int notifID){
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(CALENDAR_TABLE_NAME, "notifid = ?", new String[]{String.valueOf(notifID)});
