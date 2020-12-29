@@ -107,7 +107,7 @@ public class AddVeiculo extends Fragment {
 
                 models.moveToFirst();
                 while(!models.isAfterLast()) {
-                    modelsArrayList.add(models.getString(0)); //add the item
+                    modelsArrayList.add(models.getString(0) + " (" + models.getString(1) + ")"); //add the item
                     models.moveToNext();
                 }
 
