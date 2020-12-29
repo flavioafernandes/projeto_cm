@@ -19,6 +19,12 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
