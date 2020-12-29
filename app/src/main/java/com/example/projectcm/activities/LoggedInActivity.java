@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.projectcm.R;
+import com.example.projectcm.fragments.AddVeiculo;
 import com.example.projectcm.fragments.Detalhes;
 import com.example.projectcm.fragments.EditarPerfil;
 import com.example.projectcm.fragments.EditarVeiculo;
 import com.example.projectcm.fragments.MainPage;
 
-public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener{
+public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.EditClickListener{
 
     int userID;
 
@@ -31,9 +32,11 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         Bundle b = intent.getExtras();
         userID = b.getInt("userID");
         setContentView(R.layout.activity_logged_in_);
-        MainPage mainPage = MainPage.newInstance(usedmail, userID);
+        //MainPage mainPage = MainPage.newInstance(usedmail, userID);
+        AddVeiculo addVeiculo = AddVeiculo.newInstance(usedmail, usedmail);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
+        //fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
+        fragmentTransaction.add(R.id.loggedIn, addVeiculo, "addveiculo");
         fragmentTransaction.commit();   
     }
 
@@ -72,6 +75,15 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         fragmentTransaction.commit();
 
          */
+    }
+
+    @Override
+    public void goToEditCarPage(int userID, int carID){
+        EditarVeiculo editarVeiculo = EditarVeiculo.newInstance(userID, carID);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.mainActivityLayout, editarVeiculo,"editarcarro");
+        fragmentTransaction.addToBackStack("Top");
+        fragmentTransaction.commit();
     }
 
 
