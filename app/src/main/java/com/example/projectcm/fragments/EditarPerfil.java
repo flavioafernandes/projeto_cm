@@ -1,5 +1,7 @@
 package com.example.projectcm.fragments;
 
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
 /**
@@ -16,6 +19,8 @@ import com.example.projectcm.R;
  * create an instance of this fragment.
  */
 public class EditarPerfil extends Fragment {
+
+    DatabaseHelper db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,14 +35,7 @@ public class EditarPerfil extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditarPerfil.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static EditarPerfil newInstance(int userid) {
         EditarPerfil fragment = new EditarPerfil();
@@ -46,6 +44,8 @@ public class EditarPerfil extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseHelper(getContext());
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -61,5 +61,47 @@ public class EditarPerfil extends Fragment {
     }
 
     public interface OnEditarPerfilListener {
+    }
+
+
+    /**
+     * Bundle:
+     * 0 - userID
+     * 1 - notifTitle
+     * 2 - notifBody
+     * 3 - notifDate
+     * 4 - carID
+     *
+     * Dá return do ID da notificação
+     * */
+    private class AddNewNotifTask extends AsyncTask<Bundle, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Bundle... bundles) {
+
+            System.out.printf("AddNewNotifTask");
+            Integer result = (int) db.addNotif(bundles[0].getInt("userID"), bundles[0].getString("notifTitle"),
+                    bundles[0].getString("notifBody"), bundles[0].getString("notifDate"), bundles[0].getInt("carID"));
+
+            return result;
+        }
+    }
+
+
+    /**
+     * Passar o userID
+     *
+     * Dá return de todas as notificações desse utilizador.
+     * */
+    private class GetAllNotfifs extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... userid) {
+
+            System.out.printf("AddNewNotifTask");
+            Cursor result = db.getNotifList(userid[0]);
+
+            return result;
+        }
     }
 }

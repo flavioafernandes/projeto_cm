@@ -304,6 +304,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(CALENDAR_TABLE_NAME, "notifid = ?", new String[]{String.valueOf(notifID)});
     }
 
+    public Cursor getNotifList(int userID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from " + CALENDAR_TABLE_NAME + " where userid =" + userID + ";", null);
+        return result;
+    }
+
     public boolean updateNotif(int notifID, String notiftitle, String notifbody, String notifdate, int userid, int carid){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
