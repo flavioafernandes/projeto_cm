@@ -2,4 +2,6 @@
     <string name="app_name">AutoHub</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="insere_a_tua_password">insere a tua password</string>
+    <string name="insere_username">insere o teu email</string>
 </resources>
