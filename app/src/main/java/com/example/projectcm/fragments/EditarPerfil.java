@@ -164,4 +164,22 @@ public class EditarPerfil extends Fragment {
         }
     }
 
+
+    /**
+     * Passar o notifID
+     *
+     * Dá return do número de linhas que apagou.
+     * */
+    private class DeleteNotifTask extends AsyncTask<Integer, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Integer... notifID) {
+
+            System.out.printf("DeleteNotifTask");
+            Integer result = db.deleteNotif(notifID[0]);
+
+            return result;
+        }
+    }
+
 }
