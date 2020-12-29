@@ -2,6 +2,7 @@ package com.example.projectcm.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -88,7 +89,9 @@ public class MainPage extends Fragment {
 
         Integer numbercars= 5;
         */
-        Cursor resultado1 =db.getCarsFromUser(currentUserID);
+        GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
+        Cursor resultado1 = getCarsFromUserTask.doInBackground(currentUserID);
+
         while (resultado1.moveToNext()){
 
             int carID = resultado1.getInt(0);
@@ -197,5 +200,16 @@ public class MainPage extends Fragment {
         void onMPAddButtonInteraction(int userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
         void onMPDetailsButtonInteraction();// open detalhes do carro
+    }
+
+    private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... ids) {
+
+            Cursor results = db.getCarsFromUser(ids[0]);
+
+            return results;
+        }
     }
 }
