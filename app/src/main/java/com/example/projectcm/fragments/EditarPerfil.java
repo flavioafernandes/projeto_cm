@@ -98,7 +98,7 @@ public class EditarPerfil extends Fragment {
         @Override
         protected Cursor doInBackground(Integer... userid) {
 
-            System.out.printf("AddNewNotifTask");
+            System.out.printf("GetAllNotfifs");
             Cursor result = db.getNotifList(userid[0]);
 
             return result;
