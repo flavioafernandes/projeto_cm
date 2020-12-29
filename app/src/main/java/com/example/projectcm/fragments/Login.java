@@ -75,10 +75,13 @@ public class Login extends Fragment {
                 b.putString("password",password);
                 //verificar
                 loginTask lt = new loginTask();
+                System.out.println("I tried log in with "+email+" e " +password+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
                 try {
                     Boolean response = lt.execute(b).get();
+                    System.out.println("Try response was"+response.toString()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     if(response){
-                        registerListener.changeToMainPage();
+                        registerListener.changeToMainPage(email);
                     }
                     else{
                         //mensagem de erro
@@ -120,7 +123,7 @@ public class Login extends Fragment {
 
     public interface registerClickListener {
         void changeToRegisterPage();
-        void changeToMainPage();
+        void changeToMainPage(String usedmail);
     }
 
     /**

@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
     }
 
     @Override
-    public void changeToMainPage() {
+    public void changeToMainPage(String usedMail) {
         Intent myIntent = new Intent(this, LoggedIn_Activity.class);
+        myIntent.putExtra("email",usedMail);
         startActivity(myIntent);
     }
 

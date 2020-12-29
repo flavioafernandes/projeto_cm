@@ -12,7 +12,7 @@ import com.example.projectcm.fragments.EditarPerfil;
 import com.example.projectcm.fragments.EditarVeiculo;
 import com.example.projectcm.fragments.MainPage;
 
-public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener{
+public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,15 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
         fragmentTransaction.commit();   
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,5 +73,10 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
          */
     }
 
+    @Override
+    public void donothing() {
+        //do nothing
+        System.out.println("Cliquei no do nothing !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
+    }
 }
