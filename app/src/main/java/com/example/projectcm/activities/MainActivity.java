@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 import com.example.projectcm.fragments.Detalhes;
 import com.example.projectcm.fragments.EditarVeiculo;
@@ -14,7 +15,7 @@ import com.example.projectcm.fragments.Login;
 import com.example.projectcm.fragments.MainPage;
 import com.example.projectcm.fragments.Register;
 
-public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin, Detalhes.EditClickListener{
+public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +58,5 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
     public void backtoDetailsPage(){
         Detalhes detalhes = (Detalhes) getSupportFragmentManager().findFragmentByTag("detalhes");
         getSupportFragmentManager().popBackStack();
-    }
-
-    @Override
-    public void goToEditCarPage(int userID, int carID){
-        EditarVeiculo editarVeiculo = EditarVeiculo.newInstance(userID, carID);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.mainActivityLayout, editarVeiculo,"editarcarro");
-        fragmentTransaction.addToBackStack("Top");
-        fragmentTransaction.commit();
     }
 }
