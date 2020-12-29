@@ -7,24 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AddVeiculo">
 
-    <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-        <item android:bottom="20dp">
-            <shape android:shape="rectangle" >
-                <size android:height="20dp" />
-                <solid android:color="#ff0000" />
-            </shape>
-        </item>
-
-        <item android:top="20dp">
-            <shape android:shape="rectangle" >
-                <size android:height="20dp" />
-                <solid android:color="#0000ff" />
-            </shape>
-        </item>
-    </layer-list>
-
-
-
     <Spinner
         android:id="@+id/spinner4"
         android:layout_width="269dp"
