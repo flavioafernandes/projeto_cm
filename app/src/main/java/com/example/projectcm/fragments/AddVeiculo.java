@@ -119,7 +119,7 @@ public class AddVeiculo extends Fragment {
                 spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String modelSelected = (modelsArrayList.get(position);
+                        String modelSelected = (modelsArrayList.get(position));
                         System.out.println(modelSelected);
                     }
 
