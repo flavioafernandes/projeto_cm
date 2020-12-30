@@ -32,7 +32,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.745" />
 
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="355dp"
@@ -41,16 +40,15 @@
         android:text="Os meus carros"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="372dp"
-        android:layout_height="306dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="380dp"
+        android:layout_height="349dp"
+        android:layout_marginTop="12dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -61,29 +59,18 @@
             android:id="@+id/galery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"></LinearLayout>
 
 
     </HorizontalScrollView>
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:text="Detalhes"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
-
-    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Adicionar"
+        android:layout_marginBottom="36dp"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.091"
@@ -93,7 +80,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Partilhar"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.796"

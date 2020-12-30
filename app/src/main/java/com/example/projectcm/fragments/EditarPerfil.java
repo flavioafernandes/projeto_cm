@@ -1,28 +1,27 @@
 package com.example.projectcm.fragments;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.projectcm.DatabaseHelper;
-import com.example.projectcm.Notif;
+import com.example.projectcm.Event;
 import com.example.projectcm.R;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,100 +30,173 @@ import java.util.ArrayList;
  */
 public class EditarPerfil extends Fragment {
 
-    private static DatabaseHelper db;
-    private OnEditarPerfilListener mListener;
-    private static Integer UserID;
-    ListView listView;
-    ArrayList<Notif> notifs = new ArrayList<>();
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    DatabaseHelper db;
+    int userid;
+    ArrayList<Event> events = new ArrayList<>();
 
     public EditarPerfil() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditarPerfil.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditarPerfil newInstance(Integer userid) {
-        EditarPerfil fragment = new EditarPerfil();
-        UserID = userid;
 
+    // TODO: Rename and change types and number of parameters
+    public static EditarPerfil newInstance() {
+        EditarPerfil fragment = new EditarPerfil();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseHelper(getContext());
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Bundle b = getArguments();
+            userid = b.getInt("userid");
+
         }
-        db = new DatabaseHelper(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_editar_perfil, container, false);
+        View alertView = getLayoutInflater().inflate(R.layout.add_event_layout, null);
 
-        View PerfilEditView =inflater.inflate(R.layout.fragment_editar_perfil, container, false);
-        //add_note_to_db("Arranjar", "Corrigir problema no tubo de escape", "10/10/2021", 2);
-        load_notif_to_arrayList();
-
-        Cursor result = db.getUserFullInfo(UserID.toString());
-        while (result.moveToNext()){
-            String name=result.getString(0);
-            String birthdate = result.getString(1);
-            EditText edit1 = PerfilEditView.findViewById(R.id.textView10);
-            EditText edit2 = PerfilEditView.findViewById(R.id.textView11);
-            edit1.setText(name);
-            edit2.setText(birthdate);
-
-        }
-
-
-        listView = PerfilEditView.findViewById(R.id.listView);
-        listView.setLongClickable(true);
-        // para aparecer o contextMenu
-        registerForContextMenu(listView);
-        //adicionar os títulos
-        ArrayAdapter<Notif> adapter = new ArrayAdapter<Notif>(this.getActivity(), android.R.layout.simple_list_item_1,notifs);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
+        Button addEvent = v.findViewById(R.id.addToAgenda);
+        addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //mListener.donothing();
+            public void onClick(View v) {
+                if(alertView.getParent() != null) {
+                    ((ViewGroup)alertView.getParent()).removeView(alertView); // <- fix
+                }
+                // criar popup com nome, calendário e descrição
+                AlertDialog.Builder newEvent = new AlertDialog.Builder(v.getContext());
+                newEvent.setTitle("Adicionar Evento");
+                newEvent.setView(alertView);
+                AlertDialog dialog = newEvent.show();
+
+
+                Button confirmEvent = alertView.findViewById(R.id.AddEvent);
+                CalendarView cv = alertView.findViewById(R.id.calendarView2);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                final String[] selectedDate = {""};
+                selectedDate[0] = sdf.format(new Date());
+                cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                        selectedDate[0] = sdf.format(new Date(year,month,dayOfMonth));
+                    }
+                });
+                EditText nameEvent = alertView.findViewById(R.id.NameOfEvent);
+                EditText descriptionEvent = alertView.findViewById(R.id.DescriptionOfEvent);
+
+
+                confirmEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String name = nameEvent.getText().toString();
+                        String description = descriptionEvent.getText().toString();
+                        Event temp = new Event(name,description,selectedDate[0]);
+                        events.add(temp);
+                        System.out.println("Evento adiconado");
+                        dialog.dismiss();
+                    }
+                });
+                Button cancelEvent = alertView.findViewById(R.id.CancelBunttonEvent);
+                cancelEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
-        return PerfilEditView;
+
+
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_editar_perfil, container, false);
     }
 
-    private void load_notif_to_arrayList() {
-        Cursor resultado=db.getUserNotifications(UserID);
-        while (resultado.moveToNext()){
-            Notif notif_temp =  new Notif(Integer.parseInt(resultado.getString(0)),Integer.parseInt(resultado.getString(3)),resultado.getString(1),resultado.getString(2), resultado.getString(5),Integer.parseInt(resultado.getString(4)));
-            notifs.add(notif_temp);
+    public interface OnEditarPerfilListener {
+    }
+
+
+    /**
+     * Bundle:
+     * 0 - userID
+     * 1 - notifTitle
+     * 2 - notifBody
+     * 3 - notifDate
+     * 4 - carID
+     *
+     * Dá return do ID da notificação
+     * */
+    private class AddNewNotifTask extends AsyncTask<Bundle, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Bundle... bundles) {
+
+            System.out.printf("AddNewNotifTask");
+            Integer result = (int) db.addNotif(bundles[0].getInt("userID"), bundles[0].getString("notifTitle"),
+                    bundles[0].getString("notifBody"), bundles[0].getString("notifDate"), bundles[0].getInt("carID"));
+
+            return result;
         }
     }
-    private void add_note_to_db( String notiftitle, String notifbody, String notifdate, Integer carID){
-        db.addNotif( UserID, notiftitle, notifbody,  notifdate, carID);
+
+
+    /**
+     * Passar o userID
+     *
+     * Dá return de todas as notificações desse utilizador.
+     * */
+    private class GetAllNotfifs extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... userid) {
+
+            System.out.printf("GetAllNotfifs");
+            Cursor result = db.getNotifList(userid[0]);
+
+            return result;
+        }
     }
 
-    public interface OnEditarPerfilListener{
-        void donothing();
+
+    /**
+     * Passar o notifID
+     *
+     * Dá return do número de linhas que apagou.
+     * */
+    private class DeleteNotifTask extends AsyncTask<Integer, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Integer... notifID) {
+
+            System.out.printf("DeleteNotifTask");
+            Integer result = db.deleteNotif(notifID[0]);
+
+            return result;
+        }
     }
+
+
+    /**
+     * Passar o userID
+     *
+     * Dá return de todos os carros do utilizador.
+     * */
+    private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... ids) {
+
+            Cursor results = db.getCarsFromUser(ids[0]);
+
+            return results;
+        }
+    }
+
 }

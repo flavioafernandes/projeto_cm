@@ -2,6 +2,7 @@ package com.example.projectcm.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,7 +37,6 @@ public class MainPage extends Fragment {
 
     public MainPage() {
         // Required empty public constructor
-
     }
 
 
@@ -89,7 +89,9 @@ public class MainPage extends Fragment {
 
         Integer numbercars= 5;
         */
-        Cursor resultado1 =db.getCarsFromUser(currentUserID);
+        GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
+        Cursor resultado1 = getCarsFromUserTask.doInBackground(currentUserID);
+
         while (resultado1.moveToNext()){
 
             int carID = resultado1.getInt(0);
@@ -150,7 +152,7 @@ public class MainPage extends Fragment {
                 mListener.onMPImageInteraction(currentUserID);
             }
         });
-
+        /*
         //Add button click
         Button BAdd = (Button) MainPageView.findViewById(R.id.button);
         BAdd.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +160,7 @@ public class MainPage extends Fragment {
             public void onClick(View v) {
                 mListener.onMPAddButtonInteraction(Integer.parseInt(UserID));
             }
-        });
+        });*/
         //Add button click
         Button BShare = (Button) MainPageView.findViewById(R.id.button2);
         BShare.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +169,7 @@ public class MainPage extends Fragment {
                 mListener.onMPShareButtonInteraction();
             }
         });
+
 
 
         return MainPageView;
@@ -193,9 +196,20 @@ public class MainPage extends Fragment {
     }
     public interface OnMainPageListener{
 
-        void onMPImageInteraction(Integer userid);//open fragment for profile edit
-        void onMPAddButtonInteraction(Integer userid);//open fragment add car
+        void onMPImageInteraction(int userid);//open fragment for profile edit
+        void onMPAddButtonInteraction(int userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
         void onMPDetailsButtonInteraction();// open detalhes do carro
+    }
+
+    private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... ids) {
+
+            Cursor results = db.getCarsFromUser(ids[0]);
+
+            return results;
+        }
     }
 }

@@ -7,37 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AddVeiculo">
 
-    <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-        <item android:bottom="20dp">
-            <shape android:shape="rectangle" >
-                <size android:height="20dp" />
-                <solid android:color="#ff0000" />
-            </shape>
-        </item>
-
-        <item android:top="20dp">
-            <shape android:shape="rectangle" >
-                <size android:height="20dp" />
-                <solid android:color="#0000ff" />
-            </shape>
-        </item>
-    </layer-list>
-
-
-
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/spinnerModel"
         android:layout_width="269dp"
         android:layout_height="22dp"
-        tools:layout_editor_absoluteX="71dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="142dp" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerMake"
         android:layout_width="269dp"
         android:layout_height="22dp"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="90dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spinnerModel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -46,14 +31,14 @@
         android:layout_marginTop="72dp"
         android:text="Carregar Imagem"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAddImage"
         app:layout_constraintHorizontal_bias="0.677"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner4"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerModel"
         app:layout_constraintVertical_bias="0.004" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonAddImage"
         android:layout_width="43dp"
         android:layout_height="38dp"
         android:layout_marginEnd="84dp"
