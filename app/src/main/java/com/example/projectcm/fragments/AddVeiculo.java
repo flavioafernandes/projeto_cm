@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -31,6 +34,13 @@ public class AddVeiculo extends Fragment {
     Spinner spinnerMake;
     Spinner spinnerModel;
     Button addImageBtn;
+    Button addInfo;
+    Button saveNewCar;
+    Button cancelBtn;
+
+    String chosenMake;
+    String chosenModel;
+    String newCarInfo;
 
 
 
@@ -79,6 +89,11 @@ public class AddVeiculo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_veiculo, container, false);
+
+        addInfo = v.findViewById(R.id.Adicionar_caracteristica);
+        saveNewCar = v.findViewById(R.id.Guardar);
+        cancelBtn = v.findViewById(R.id.Cancelar);
+
         // Inflate the layout for this fragment
         ArrayList<String> carsArrayList = new ArrayList<String>();
         GetAllMakesTask getAllMakesTask = new GetAllMakesTask();
@@ -99,11 +114,11 @@ public class AddVeiculo extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                String makeSelected = carsArrayList.get(position);
+                chosenMake = carsArrayList.get(position);
                 //System.out.println(carsArrayList.get(position));
                 ArrayList<String> modelsArrayList = new ArrayList<String>();
                 GetAllModelsFromMakeTask getAllModelsFromMakeTask = new GetAllModelsFromMakeTask();
-                Cursor models = getAllModelsFromMakeTask.doInBackground(makeSelected);
+                Cursor models = getAllModelsFromMakeTask.doInBackground(chosenMake);
 
                 models.moveToFirst();
                 while(!models.isAfterLast()) {
@@ -119,8 +134,8 @@ public class AddVeiculo extends Fragment {
                 spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String modelSelected = (modelsArrayList.get(position));
-                        System.out.println(modelSelected);
+                        chosenModel = (modelsArrayList.get(position));
+                        System.out.println(chosenModel);
                     }
 
                     @Override
@@ -132,6 +147,39 @@ public class AddVeiculo extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        saveNewCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String model = chosenModel.split("\\(")[0];
+                String year = chosenModel.split("\\(")[1].replace(")", "");
+
+                try {
+                    newCarInfo = new JSONObject()
+                            .put("Motor", "1.5")
+                            .put("Portas", "5")
+                            .put("combustível", "Diesel")
+                            .toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(newCarInfo);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("make", chosenMake);
+                bundle.putString("model", model.substring(0, model.length()-1));
+                bundle.putString("year", year);
+                bundle.putString("info", newCarInfo);
+                bundle.putInt("ownerID", 1);
+
+                AddNewCarTask addNewCarTask = new AddNewCarTask();
+                addNewCarTask.doInBackground(bundle);
 
             }
         });
@@ -159,6 +207,26 @@ public class AddVeiculo extends Fragment {
 
             System.out.printf("GetAllMakesTask");
             Cursor result = db.getAllModelsFromAMake(makes[0]);
+
+            return result;
+        }
+    }
+
+
+    /**
+     * 0 - make
+     * 1 - model
+     * 2 - year
+     * 3 - info (JSON)
+     * 4 - ownerID
+     * */
+    private class AddNewCarTask extends AsyncTask<Bundle, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Bundle... bundles) {
+
+            System.out.printf("AddNewCarTask");
+            Integer result = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"));
 
             return result;
         }
