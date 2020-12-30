@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.projectcm.R;
+import com.example.projectcm.fragments.AddVeiculo;
 import com.example.projectcm.fragments.Detalhes;
 import com.example.projectcm.fragments.EditarPerfil;
 import com.example.projectcm.fragments.EditarVeiculo;
 import com.example.projectcm.fragments.MainPage;
 
-public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener{
+public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.EditClickListener{
 
     int userID;
 
@@ -27,31 +28,28 @@ public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnM
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        String usedmail = intent.getStringExtra("email");
+        String usedmail = intent.getStringExtra("mail");
+        System.out.println("Mail  "+usedmail+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Bundle b = intent.getExtras();
         userID = b.getInt("userID");
         setContentView(R.layout.activity_logged_in_);
-        MainPage mainPage = MainPage.newInstance(usedmail, userID);
+        MainPage mainPage = MainPage.newInstance(usedmail);
+        //AddVeiculo addVeiculo = AddVeiculo.newInstance(usedmail, usedmail);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
+        //fragmentTransaction.add(R.id.loggedIn, addVeiculo, "addveiculo");
         fragmentTransaction.commit();   
     }
 
 
 
-
-
-
-
-
-
-
-
-
     @Override
-    public void onMPImageInteraction(Integer userid) {
-        System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        EditarPerfil editarPerfil = EditarPerfil.newInstance(userid);
+    public void onMPImageInteraction(int userid) {
+        //System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        EditarPerfil editarPerfil = EditarPerfil.newInstance();
+        Bundle args = new Bundle();
+        args.putInt("userid", userid);
+        editarPerfil.setArguments(args);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.loggedIn, editarPerfil,"editarperfil");
         fragmentTransaction.addToBackStack("Top");
@@ -59,7 +57,7 @@ public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnM
     }
 
     @Override
-    public void onMPAddButtonInteraction(Integer userid) {
+    public void onMPAddButtonInteraction(int userid) {
 
     }
 
@@ -84,9 +82,13 @@ public class LoggedIn_Activity extends AppCompatActivity implements MainPage.OnM
     }
 
     @Override
-    public void donothing() {
-        //do nothing
-        System.out.println("Cliquei no do nothing !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
+    public void goToEditCarPage(int userID, int carID){
+        EditarVeiculo editarVeiculo = EditarVeiculo.newInstance(userID, carID);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.mainActivityLayout, editarVeiculo,"editarcarro");
+        fragmentTransaction.addToBackStack("Top");
+        fragmentTransaction.commit();
     }
+
+
 }

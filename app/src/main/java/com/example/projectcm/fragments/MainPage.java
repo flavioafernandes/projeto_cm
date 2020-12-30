@@ -2,6 +2,7 @@ package com.example.projectcm.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -33,17 +34,16 @@ public class MainPage extends Fragment {
     private static String UserID;
     private  static  String email;
     static int currentUserID;
-
+    Cursor resultado1;
     public MainPage() {
         // Required empty public constructor
-
     }
 
 
-    public static MainPage newInstance(String usedmail, int userID) {
+    public static MainPage newInstance(String usedmail) {
         MainPage fragment = new MainPage();
         email=usedmail;
-        currentUserID = userID;
+
         return fragment;
     }
 
@@ -65,8 +65,8 @@ public class MainPage extends Fragment {
 
         //Load "Os meus veículos"
         //get carid usercarmake usercarmodel
-
-
+        GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
+        resultado1 = getCarsFromUserTask.doInBackground(currentUserID);
         //Transaction for Adicionar
         //Transaction for Partilhar
 
@@ -89,7 +89,8 @@ public class MainPage extends Fragment {
 
         Integer numbercars= 5;
         */
-        Cursor resultado1 =db.getCarsFromUser(currentUserID);
+
+
         while (resultado1.moveToNext()){
 
             int carID = resultado1.getInt(0);
@@ -107,20 +108,20 @@ public class MainPage extends Fragment {
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             ImageView1.setImageResource(R.drawable.avatar);
 
-            Button details = view.findViewById(R.id.button7);
-            details.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    //TODO: Passar aqui o carID
-                    mListener.onMPDetailsButtonInteraction();
-                }
-            });
+
 
             gallery.addView(view);
 
         }
-
+        Button details = MainPageView.findViewById(R.id.button7);
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                //TODO: Passar aqui o carID
+                mListener.onMPDetailsButtonInteraction();
+            }
+        });
         /*
         for (int i =0; i <numbercars; i++){
             View view = inflater1.inflate(R.layout.caritem,gallery,false);
@@ -169,6 +170,7 @@ public class MainPage extends Fragment {
         });
 
 
+
         return MainPageView;
     }
 
@@ -184,7 +186,7 @@ public class MainPage extends Fragment {
         }
     }
 
-    private void loaduserInfor(String usedmail) {
+    private static void loaduserInfor(String usedmail) {
         Cursor resultado=db.getUserInfo(usedmail);
         while (resultado.moveToNext()){
             UserID = resultado.getString(0);
@@ -193,9 +195,20 @@ public class MainPage extends Fragment {
     }
     public interface OnMainPageListener{
 
-        void onMPImageInteraction(Integer userid);//open fragment for profile edit
-        void onMPAddButtonInteraction(Integer userid);//open fragment add car
+        void onMPImageInteraction(int userid);//open fragment for profile edit
+        void onMPAddButtonInteraction(int userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
         void onMPDetailsButtonInteraction();// open detalhes do carro
+    }
+
+    private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Integer... ids) {
+
+            Cursor results = db.getCarsFromUser(ids[0]);
+
+            return results;
+        }
     }
 }

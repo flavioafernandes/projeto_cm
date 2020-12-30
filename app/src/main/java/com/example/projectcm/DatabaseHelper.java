@@ -5,8 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -47,9 +57,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String NOTIF_CAR_ID = "carid";
     public static final String NOTIF_DATE = "notifdate";
 
+    Context context;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
+        this.context = context;
     }
 
     @Override
@@ -88,6 +100,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 NOTIF_USER_ID + " INTEGER, " +
                 NOTIF_CAR_ID + " INTEGER, " +
                 NOTIF_DATE + " TEXT )");
+
+        loadJSONFromAsset(db, context);
 
     }
 
@@ -141,9 +155,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public Cursor getUserInfo(String id){
+    public Cursor getUserInfo(String email){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select username, useremail, userbirthday from " + USER_TABLE_NAME + " where id =" + id + ";", null);
+        Cursor result = db.rawQuery("select userid, username from " + USER_TABLE_NAME + " where useremail ='" + email + "';", null);
         return result;
     }
 
@@ -169,14 +183,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getAllMakes(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select carmake from " + CAR_LIST_TABLE_NAME, null);
+        Cursor result = db.rawQuery("select distinct carmake from " + CAR_LIST_TABLE_NAME, null);
         return result;
     }
 
     public Cursor getAllModelsFromAMake(String make){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select carmodel, caryear from " + CAR_LIST_TABLE_NAME + " where make ='" + make + "';", null);
+        Cursor result = db.rawQuery("select carmodel, caryear from " + CAR_LIST_TABLE_NAME + " where carmake ='" + make + "';", null);
         return result;
+    }
+
+    public void loadAllCars(SQLiteDatabase db, String json){
+
+        try {
+            JSONObject obj = new JSONObject(json);
+            JSONArray m_jArry = obj.getJSONArray("results");
+
+            for (int i = 0; i < m_jArry.length(); i++) {
+                JSONObject singleObj = m_jArry.getJSONObject(i);
+                String make = singleObj.getString("Make");
+                String model = singleObj.getString("Model");
+                String year = singleObj.getString("Year");
+                String category = singleObj.getString("Category");
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(CAR_MAKE, make);
+                contentValues.put(CAR_MODEL, model);
+                contentValues.put(CAR_CATEGORY, category);
+                contentValues.put(CAR_YEAR, year);
+
+                db.insert(CAR_LIST_TABLE_NAME, null, contentValues);
+
+                contentValues.clear();
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -265,6 +308,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(CALENDAR_TABLE_NAME, "notifid = ?", new String[]{String.valueOf(notifID)});
     }
 
+    public Cursor getNotifList(int userID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from " + CALENDAR_TABLE_NAME + " where userid =" + userID + ";", null);
+        return result;
+    }
+
     public boolean updateNotif(int notifID, String notiftitle, String notifbody, String notifdate, int userid, int carid){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -275,6 +324,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(NOTIF_CAR_ID, carid);
         db.update(USER_CARS_TABLE_NAME, contentValues, "notifid = ?", new String[]{String.valueOf(notifID)});
         return true;
+    }
+
+    public void loadJSONFromAsset(SQLiteDatabase db, Context context) {
+        System.out.println("loadJSONFromAsset");
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open("cars.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        loadAllCars(db, json);
     }
 
 

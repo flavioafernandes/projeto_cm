@@ -1,7 +1,6 @@
 package com.example.projectcm.fragments;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -76,9 +75,9 @@ public class Login extends Fragment {
                 //verificar
                 loginTask lt = new loginTask();
                 try {
-                    int userID = lt.execute(b).get();
+                    int userID = lt.execute(b).get();//user id é true or false se logou ou não , não é o id do user...
                     if(userID != -1){
-                        registerListener.changeToMainPage(userID);
+                        registerListener.changeToMainPage(email);
                     }
                     else{
                         //mensagem de erro
@@ -120,7 +119,7 @@ public class Login extends Fragment {
 
     public interface registerClickListener {
         void changeToRegisterPage();
-        void changeToMainPage(int userID);
+        void changeToMainPage(String email);
     }
 
     /**
@@ -134,7 +133,7 @@ public class Login extends Fragment {
         @Override
         protected Integer doInBackground(Bundle... bundles) {
 
-            int result = db.loginUser(bundles[0].getString("email"), bundles[0].getString("password"));
+            int result = db.loginUser(bundles[0].getString("email"), bundles[0].getString("password"))? 1 : 0;;
 
             return result;
         }
