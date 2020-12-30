@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +41,7 @@ public class AddVeiculo extends Fragment {
 
     String chosenMake;
     String chosenModel;
-    String newCarInfo;
+    JSONObject newCarInfo;
 
 
 
@@ -156,60 +157,40 @@ public class AddVeiculo extends Fragment {
             @Override
             public void onClick(View v) {
 
+                System.out.println("SAVE NEW CAR CLICKED");
+
                 String model = chosenModel.split("\\(")[0];
                 String year = chosenModel.split("\\(")[1].replace(")", "");
 
+                newCarInfo = new JSONObject();
+
+                //TODO: Fazer um JSONArray por cada info que se queira guardar
+                JSONArray arr = new JSONArray();
+                arr.put("Motor");
+                arr.put("1.5");
+
+                JSONArray arr2 = new JSONArray();
+                arr2.put("Portas");
+                arr2.put("5");
+
+                JSONArray finalArr = new JSONArray();
+                finalArr.put(arr);
+                finalArr.put(arr2);
+
                 try {
-                    newCarInfo = new JSONObject()
-                            .put("Motor", "1.5")
-                            .put("Portas", "5")
-                            .put("combustível", "Diesel")
-                            .toString();
+                    newCarInfo.put("infos", finalArr);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                System.out.println(newCarInfo);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("make", chosenMake);
                 bundle.putString("model", model.substring(0, model.length()-1));
                 bundle.putString("year", year);
-                bundle.putString("info", newCarInfo);
+                bundle.putString("info", newCarInfo.toString());
                 bundle.putInt("ownerID", 1);
 
-                AddNewCarTask addNewCarTask = new AddNewCarTask();
-                addNewCarTask.doInBackground(bundle);
-
-            }
-        });
-
-
-        saveNewCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String model = chosenModel.split("\\(")[0];
-                String year = chosenModel.split("\\(")[1].replace(")", "");
-
-                try {
-                    newCarInfo = new JSONObject()
-                            .put("Motor", "1.5")
-                            .put("Portas", "5")
-                            .put("combustível", "Diesel")
-                            .toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println(newCarInfo);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("make", chosenMake);
-                bundle.putString("model", model.substring(0, model.length()-1));
-                bundle.putString("year", year);
-                bundle.putString("info", newCarInfo);
-                bundle.putInt("ownerID", 1);
+                System.out.println("OI");
 
                 AddNewCarTask addNewCarTask = new AddNewCarTask();
                 addNewCarTask.doInBackground(bundle);

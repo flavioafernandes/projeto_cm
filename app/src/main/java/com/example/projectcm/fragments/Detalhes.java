@@ -9,10 +9,12 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,9 @@ import android.widget.Toast;
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 /**
@@ -35,7 +40,7 @@ public class Detalhes extends Fragment {
     TextView carModel;
     ImageView carLogo;
     ImageView carImage;
-    ScrollView carDetails;
+    LinearLayout carDetails;
     Button removeCarBtn;
     Button editCarBtn;
     ImageView goBackBtn;
@@ -82,6 +87,8 @@ public class Detalhes extends Fragment {
         // Inflate the layout for this fragment
         View v  = inflater.inflate(R.layout.fragment_detalhes, container, false);
 
+        LayoutInflater singleItemList = LayoutInflater.from(getContext());
+
         GetCarInfoTask getCarInfoTask = new GetCarInfoTask();
         Cursor carInfo = getCarInfoTask.doInBackground(carID);
 
@@ -98,13 +105,42 @@ public class Detalhes extends Fragment {
             int carID = Integer.parseInt(carInfo.getString(0));
             String make = carInfo.getString(1);
             String model =  carInfo.getString(2);
-            String info =  carInfo.getString(3);
-            String year = carInfo.getString(4);
+            String year =  carInfo.getString(3);
+            String info = carInfo.getString(4);
+
+            JSONArray infoArray = null;
+
+            try {
+                JSONObject jsonInfo = new JSONObject(info);
+                infoArray = jsonInfo.getJSONArray("infos");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             carTitle.setText(make);
-            carModel.setText(model);
+            carModel.setText(model + " (" + year + ")");
             int resourceID =  getResources().getIdentifier(make.toLowerCase(), "drawable", getContext().getPackageName());
             carLogo.setImageResource(resourceID);
+
+            for (int i=0 ; i < infoArray.length(); i++){
+
+                View infoListView = singleItemList.inflate(R.layout.list_item_card, carDetails, false);
+
+                try {
+                    JSONArray singleInfo = (JSONArray) infoArray.get(i);
+                    System.out.println(singleInfo.get(0));
+
+                    TextView name = infoListView.findViewById(R.id.line1);
+                    TextView value = infoListView.findViewById(R.id.line2);
+                    name.setText(singleInfo.get(0).toString());
+                    value.setText(singleInfo.get(1).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                carDetails.addView(infoListView);
+            }
+
         }
 
 
