@@ -185,6 +185,39 @@ public class AddVeiculo extends Fragment {
         });
 
 
+        saveNewCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String model = chosenModel.split("\\(")[0];
+                String year = chosenModel.split("\\(")[1].replace(")", "");
+
+                try {
+                    newCarInfo = new JSONObject()
+                            .put("Motor", "1.5")
+                            .put("Portas", "5")
+                            .put("combustível", "Diesel")
+                            .toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(newCarInfo);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("make", chosenMake);
+                bundle.putString("model", model.substring(0, model.length()-1));
+                bundle.putString("year", year);
+                bundle.putString("info", newCarInfo);
+                bundle.putInt("ownerID", 1);
+
+                AddNewCarTask addNewCarTask = new AddNewCarTask();
+                addNewCarTask.doInBackground(bundle);
+
+            }
+        });
+
+
         return v;
     }
 
@@ -231,4 +264,6 @@ public class AddVeiculo extends Fragment {
             return result;
         }
     }
+
+
 }
