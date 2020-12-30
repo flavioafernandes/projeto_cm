@@ -2,6 +2,7 @@ package com.example.projectcm.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -102,6 +103,8 @@ public class Detalhes extends Fragment {
 
             carTitle.setText(make);
             carModel.setText(model);
+            int resourceID =  getResources().getIdentifier(make.toLowerCase(), "drawable", getContext().getPackageName());
+            carLogo.setImageResource(resourceID);
         }
 
 

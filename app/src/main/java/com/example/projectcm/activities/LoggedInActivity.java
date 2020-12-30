@@ -34,7 +34,7 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         userID = b.getInt("userID");
         setContentView(R.layout.activity_logged_in_);
         MainPage mainPage = MainPage.newInstance(userID);
-        //AddVeiculo addVeiculo = AddVeiculo.newInstance(usedmail, usedmail);
+        //AddVeiculo addVeiculo = AddVeiculo.newInstance("", "");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
         //fragmentTransaction.add(R.id.loggedIn, addVeiculo, "addveiculo");
