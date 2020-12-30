@@ -107,7 +107,15 @@ public class MainPage extends Fragment {
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             ImageView1.setImageResource(R.drawable.avatar);
 
-
+            Button details = view.findViewById(R.id.button7);
+            details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    //TODO: Passar aqui o carID
+                    mListener.onMPDetailsButtonInteraction();
+                }
+            });
 
             gallery.addView(view);
 
@@ -142,15 +150,7 @@ public class MainPage extends Fragment {
                 mListener.onMPImageInteraction(currentUserID);
             }
         });
-        Button details = MainPageView.findViewById(R.id.button7);
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                //TODO: Passar aqui o carID
-                mListener.onMPDetailsButtonInteraction();
-            }
-        });
+
         /*
         //Add button click
         Button BAdd = (Button) MainPageView.findViewById(R.id.button);
