@@ -23,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,6 +108,14 @@ public class AddVeiculo extends Fragment {
             cars.moveToNext();
         }
 
+        Collections.sort(carsArrayList, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
+
         spinnerMake = v.findViewById(R.id.spinnerMake);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carsArrayList);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -126,6 +136,13 @@ public class AddVeiculo extends Fragment {
                     modelsArrayList.add(models.getString(0) + " (" + models.getString(1) + ")"); //add the item
                     models.moveToNext();
                 }
+
+                Collections.sort(modelsArrayList, new Comparator<String>() {
+                    @Override
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });
 
                 spinnerModel = v.findViewById(R.id.spinnerModel);
                 ArrayAdapter<String> spinnerModelAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, modelsArrayList);
