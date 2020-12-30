@@ -86247,6 +86247,177 @@
     "Category": "Sedan, Wagon",
     "createdAt": "2020-01-27T20:44:21.610Z",
     "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2019,
+    "Make": "Opel",
+    "Model": "Corsa",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2020,
+    "Make": "Opel",
+    "Model": "Crossland",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2019,
+    "Make": "Opel",
+    "Model": "Mokka",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2018,
+    "Make": "Opel",
+    "Model": "Combo",
+    "Category": "Monovolume",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2015,
+    "Make": "Opel",
+    "Model": "Astra",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2016,
+    "Make": "Opel",
+    "Model": "Insignia",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2020,
+    "Make": "Opel",
+    "Model": "Grandland",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2016,
+    "Make": "Citroen",
+    "Model": "C3",
+    "Category": "Micro",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2018,
+    "Make": "Citroen",
+    "Model": "C3",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2016,
+    "Make": "Citroen",
+    "Model": "C3 Aircross",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2017,
+    "Make": "Citroen",
+    "Model": "C4 Cactus",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2018,
+    "Make": "Citroen",
+    "Model": "C-Elysee",
+    "Category": "Sedan",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2019,
+    "Make": "Citroen",
+    "Model": "C5 Aircross",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2019,
+    "Make": "Citroen",
+    "Model": "C-Zero",
+    "Category": "Micro",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2019,
+    "Make": "Seat",
+    "Model": "Ibiza",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2017,
+    "Make": "Seat",
+    "Model": "Arona",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2018,
+    "Make": "Seat",
+    "Model": "Leon",
+    "Category": "Hatchback",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2019,
+    "Make": "Seat",
+    "Model": "Ateca",
+    "Category": "SUV",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
+  },
+  {
+    "objectId": "IP98vgaAfx",
+    "Year": 2015,
+    "Make": "Seat",
+    "Model": "Alhambra",
+    "Category": "Monovolume",
+    "createdAt": "2020-01-27T20:44:21.610Z",
+    "updatedAt": "2020-01-27T20:44:21.610Z"
   }
 ]
 }
