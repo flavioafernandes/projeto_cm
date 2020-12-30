@@ -1,7 +1,5 @@
 package com.example.projectcm.fragments;
 
-import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,16 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 
-import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,13 +16,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AddVeiculo extends Fragment {
-
-    DatabaseHelper db;
-    Spinner spinnerMake;
-    Spinner spinnerModel;
-    Button addImageBtn;
-
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,7 +50,6 @@ public class AddVeiculo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        db = new DatabaseHelper(getContext());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -78,89 +60,7 @@ public class AddVeiculo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_veiculo, container, false);
         // Inflate the layout for this fragment
-        ArrayList<String> carsArrayList = new ArrayList<String>();
-        GetAllMakesTask getAllMakesTask = new GetAllMakesTask();
-        Cursor cars = getAllMakesTask.doInBackground();
-
-        cars.moveToFirst();
-        while(!cars.isAfterLast()) {
-            carsArrayList.add(cars.getString(0)); //add the item
-            cars.moveToNext();
-        }
-
-        spinnerMake = v.findViewById(R.id.spinnerMake);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carsArrayList);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerMake.setAdapter(spinnerArrayAdapter);
-
-        spinnerMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String makeSelected = carsArrayList.get(position);
-                //System.out.println(carsArrayList.get(position));
-                ArrayList<String> modelsArrayList = new ArrayList<String>();
-                GetAllModelsFromMakeTask getAllModelsFromMakeTask = new GetAllModelsFromMakeTask();
-                Cursor models = getAllModelsFromMakeTask.doInBackground(makeSelected);
-
-                models.moveToFirst();
-                while(!models.isAfterLast()) {
-                    modelsArrayList.add(models.getString(0) + " (" + models.getString(1) + ")"); //add the item
-                    models.moveToNext();
-                }
-
-                spinnerModel = v.findViewById(R.id.spinnerModel);
-                ArrayAdapter<String> spinnerModelAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, modelsArrayList);
-                spinnerModelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerModel.setAdapter(spinnerModelAdapter);
-
-                spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String modelSelected = (modelsArrayList.get(position));
-                        System.out.println(modelSelected);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        return v;
-    }
-
-    private class GetAllMakesTask extends AsyncTask<Void, Void, Cursor> {
-
-        @Override
-        protected Cursor doInBackground(Void... voids) {
-
-            System.out.printf("GetAllMakesTask");
-            Cursor result = db.getAllMakes();
-
-            return result;
-        }
-    }
-
-    private class GetAllModelsFromMakeTask extends AsyncTask<String, Void, Cursor> {
-
-        @Override
-        protected Cursor doInBackground(String... makes) {
-
-            System.out.printf("GetAllMakesTask");
-            Cursor result = db.getAllModelsFromAMake(makes[0]);
-
-            return result;
-        }
+        return inflater.inflate(R.layout.fragment_add_veiculo, container, false);
     }
 }

@@ -9,10 +9,12 @@ import android.os.Bundle;
 
 import com.example.projectcm.R;
 import com.example.projectcm.fragments.Detalhes;
+import com.example.projectcm.fragments.EditarVeiculo;
 import com.example.projectcm.fragments.Login;
+import com.example.projectcm.fragments.MainPage;
 import com.example.projectcm.fragments.Register;
 
-public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin{
+public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin, Detalhes.EditClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,13 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
     }
 
     public void changeToMainPage() {
-        Intent myIntent = new Intent(this, LoggedIn_Activity.class);
+        Intent myIntent = new Intent(this, LoggedInActivity.class);
     }
 
-    public void changeToMainPage(String email) {
+    public void changeToMainPage(int userID) {
         Bundle b = new Bundle();
-        b.putString("mail", email);
-        Intent myIntent = new Intent(this, LoggedIn_Activity.class);
+        b.putInt("userID", userID);
+        Intent myIntent = new Intent(this, LoggedInActivity.class);
         myIntent.putExtras(b);
 
         startActivity(myIntent);
@@ -61,5 +63,14 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
     public void backtoDetailsPage(){
         Detalhes detalhes = (Detalhes) getSupportFragmentManager().findFragmentByTag("detalhes");
         getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void goToEditCarPage(int userID, int carID){
+        EditarVeiculo editarVeiculo = EditarVeiculo.newInstance(userID, carID);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.mainActivityLayout, editarVeiculo,"editarcarro");
+        fragmentTransaction.addToBackStack("Top");
+        fragmentTransaction.commit();
     }
 }
