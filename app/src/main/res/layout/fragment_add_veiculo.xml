@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AddVeiculo">
 
-<<<<<<< Updated upstream
     <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
         <item android:bottom="20dp">
             <shape android:shape="rectangle" >
@@ -39,45 +38,11 @@
         android:layout_height="22dp"
         tools:layout_editor_absoluteX="71dp"
         tools:layout_editor_absoluteY="90dp" />
-=======
-    <View
-        android:id="@+id/group_42731"
-        android:layout_width="415dp"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="#C0C3CF"
-        android:elevation="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinnerModel"
-        android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMake" />
-
-    <Spinner
-        android:id="@+id/spinnerMake"
-        android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Adicionar_carro_text" />
->>>>>>> Stashed changes
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="191dp"
         android:layout_height="42dp"
-<<<<<<< Updated upstream
         android:layout_marginTop="72dp"
         android:text="Carregar Imagem"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,96 +56,66 @@
         android:id="@+id/button3"
         android:layout_width="43dp"
         android:layout_height="38dp"
-=======
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/carregar_imagem"
-        android:textColor="@color/blue_app"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAddImage"
-        app:layout_constraintHorizontal_bias="0.397"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerModel" />
-
-    <Button
-        android:id="@+id/buttonAddImage"
-        android:layout_width="48dp"
-        android:layout_height="43dp"
->>>>>>> Stashed changes
         android:layout_marginEnd="84dp"
-        android:background="@drawable/ic_upload"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeMinTextSize="18sp"
-        app:autoSizeTextType="uniform"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/Adicionar_caracteristica"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/adicionar"
+        android:layout_marginTop="48dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/Cancelar"
+        android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/cancelar"
-        app:layout_constraintEnd_toStartOf="@+id/Adicionar_caracteristica"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="24dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Adicionar_caracteristica" />
+        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:layout_constraintVertical_bias="0.117" />
 
     <Button
-        android:id="@+id/Guardar"
+        android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
-        android:text="Guardar"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/Adicionar_caracteristica"
-        app:layout_constraintTop_toBottomOf="@+id/Adicionar_caracteristica"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button4"
         app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="350dp"
+        android:layout_width="291dp"
         android:layout_height="228dp"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.13">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
-
-    <TextView
-        android:id="@+id/Adicionar_carro_text"
-        android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center"
-        android:text="@string/adicionarcarro"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/group_42731" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
