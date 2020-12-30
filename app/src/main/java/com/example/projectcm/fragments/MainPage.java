@@ -59,15 +59,6 @@ public class MainPage extends Fragment {
             UserName=resultado.getString(0);
         }
         System.out.println("Username "+UserName+" e  ID " + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        //UserName = "Ambrósio Ferrero";
-
-        //Load "Os meus veículos"
-        //get carid usercarmake usercarmodel
-
-
-        //Transaction for Adicionar
-        //Transaction for Partilhar
-
 
     }
 
@@ -113,7 +104,7 @@ public class MainPage extends Fragment {
                 public void onClick(View v) {
                     System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     //TODO: Passar aqui o carID
-                    mListener.onMPDetailsButtonInteraction();
+                    mListener.onMPDetailsButtonInteraction(currentUserID, carID);
                 }
             });
 
@@ -209,7 +200,7 @@ public class MainPage extends Fragment {
         void onMPImageInteraction(int userid);//open fragment for profile edit
         void onMPAddButtonInteraction(int userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
-        void onMPDetailsButtonInteraction();// open detalhes do carro
+        void onMPDetailsButtonInteraction(int userID, int carID);// open detalhes do carro
     }
 
 

@@ -11,9 +11,10 @@ import com.example.projectcm.fragments.AddVeiculo;
 import com.example.projectcm.fragments.Detalhes;
 import com.example.projectcm.fragments.EditarPerfil;
 import com.example.projectcm.fragments.EditarVeiculo;
+import com.example.projectcm.fragments.Login;
 import com.example.projectcm.fragments.MainPage;
 
-public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.EditClickListener{
+public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.DetailsClickListener{
 
     int userID;
 
@@ -66,18 +67,17 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
     }
 
     @Override
-    public void onMPDetailsButtonInteraction() {
+    public void onMPDetailsButtonInteraction(int userID, int carID) {
+
         System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        /*
-        Integer arg1 = 0;
-        Integer arg2= 0;
-        Detalhes detalhes = Detalhes.newInstance(arg1,arg2);
+
+        Detalhes detalhes = Detalhes.newInstance(userID, carID);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.loggedIn, detalhes,"detalhes");
         fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
 
-         */
+
     }
 
     @Override
@@ -87,6 +87,13 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         fragmentTransaction.replace(R.id.mainActivityLayout, editarVeiculo,"editarcarro");
         fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public void goToMainPage(int userID){
+        MainPage mainPage = (MainPage) getSupportFragmentManager().findFragmentByTag("mainpage");
+        getSupportFragmentManager().popBackStack();
     }
 
 

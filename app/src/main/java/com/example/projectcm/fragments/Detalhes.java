@@ -38,7 +38,7 @@ public class Detalhes extends Fragment {
     Button removeCarBtn;
     Button editCarBtn;
     ImageView goBackBtn;
-    EditClickListener editPageListener;
+    DetailsClickListener editPageListener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,16 +65,8 @@ public class Detalhes extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        db = new DatabaseHelper(getContext());
 
-        /*AddNewCarTask addNewCarTask = new AddNewCarTask();
-        Bundle bundle = new Bundle();
-        bundle.putString("make", "BMW");
-        bundle.putString("model", "Serie 1");
-        bundle.putString("year", "1231234");
-        bundle.putString("info", "26/11/2020");
-        bundle.putInt("ownerID", userID);
-        testID = addNewCarTask.doInBackground(bundle);*/
+        db = new DatabaseHelper(getContext());
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -121,6 +113,7 @@ public class Detalhes extends Fragment {
                 removeCarTask.doInBackground(carID);
                 Toast.makeText(getActivity(), "Carro removido", Toast.LENGTH_LONG).show();
                 //TODO: Chamar o fragmento da lista dos carros
+                editPageListener.goToMainPage(userID);
             }
         });
 
@@ -137,6 +130,7 @@ public class Detalhes extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: Chamar o fragmento da lista dos carros
+                editPageListener.goToMainPage(userID);
             }
         });
 
@@ -146,8 +140,8 @@ public class Detalhes extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof EditClickListener){
-            editPageListener = (EditClickListener) context;
+        if(context instanceof DetailsClickListener){
+            editPageListener = (DetailsClickListener) context;
         }
         else {
             throw new RuntimeException(context.toString()
@@ -155,8 +149,9 @@ public class Detalhes extends Fragment {
         }
     }
 
-    public interface EditClickListener {
+    public interface DetailsClickListener {
         void goToEditCarPage(int userID, int carID);
+        void goToMainPage(int userID);
     }
 
     private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
