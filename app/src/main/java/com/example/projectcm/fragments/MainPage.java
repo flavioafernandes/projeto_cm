@@ -144,9 +144,13 @@ public class MainPage extends Fragment {
 
         /*
         //Add button click
-        Button BAdd = (Button) MainPageView.findViewById(R.id.Adicionar_carro);
-        BAdd.setOnClickListener(v -> mListener.onMPAddButtonInteraction(Integer.parseInt(UserID)));
-        */
+        Button BAdd = (Button) MainPageView.findViewById(R.id.button);
+        BAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onMPAddButtonInteraction(Integer.parseInt(UserID));
+            }
+        });*/
         //Add button click
         Button BShare = (Button) MainPageView.findViewById(R.id.button2);
         BShare.setOnClickListener(new View.OnClickListener() {
