@@ -11,4 +11,9 @@
     <string name="inserir_password">Insira uma password</string>
     <string name="register">register</string>
     <string name="register_to_autohub">Registar no AutoHub</string>
+    <string name="plus">+</string>
+    <string name="carregar_imagem">Carregar Imagem:</string>
+    <string name="adicionarcarro">Adicionar um carro</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

@@ -33,16 +33,15 @@ public class MainPage extends Fragment {
     private static String UserName;
     private static String UserID;
     private  static  String email;
-    static int currentUserID;
+    static Integer currentUserID;
 
     public MainPage() {
         // Required empty public constructor
     }
 
 
-    public static MainPage newInstance(String usedmail, int userID) {
+    public static MainPage newInstance(int userID) {
         MainPage fragment = new MainPage();
-        email=usedmail;
         currentUserID = userID;
         return fragment;
     }
@@ -54,13 +53,12 @@ public class MainPage extends Fragment {
 
         }
         db = new DatabaseHelper(getContext());
-        //Load from db user name
-        //Load avatar /photo/image WIP
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //get username e userid by usermail on DB
-        loaduserInfor(email);
-        System.out.println("Username "+UserName+" e  ID" + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        GetUserName getUserName = new GetUserName();
+        Cursor resultado = getUserName.doInBackground(currentUserID.toString());
+        while (resultado.moveToNext()){
+            UserName=resultado.getString(0);
+        }
+        System.out.println("Username "+UserName+" e  ID " + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         //UserName = "Ambrósio Ferrero";
 
         //Load "Os meus veículos"
@@ -109,15 +107,7 @@ public class MainPage extends Fragment {
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             ImageView1.setImageResource(R.drawable.avatar);
 
-            Button details = view.findViewById(R.id.button7);
-            details.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    //TODO: Passar aqui o carID
-                    mListener.onMPDetailsButtonInteraction();
-                }
-            });
+
 
             gallery.addView(view);
 
@@ -150,6 +140,15 @@ public class MainPage extends Fragment {
             public void onClick(View v) {
                 System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 mListener.onMPImageInteraction(currentUserID);
+            }
+        });
+        Button details = MainPageView.findViewById(R.id.button7);
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                //TODO: Passar aqui o carID
+                mListener.onMPDetailsButtonInteraction();
             }
         });
         /*
@@ -187,21 +186,14 @@ public class MainPage extends Fragment {
         }
     }
 
-    private void loaduserInfor(String usedmail) {
-        Cursor resultado=db.getUserInfo(usedmail);
-        while (resultado.moveToNext()){
-            UserID = resultado.getString(0);
-            UserName=resultado.getString(1);
+    private class GetUserName extends AsyncTask<String, Cursor, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(String... strings) {
+            Cursor results=db.getUserInfo(strings[0]);
+            return results;
         }
     }
-    public interface OnMainPageListener{
-
-        void onMPImageInteraction(int userid);//open fragment for profile edit
-        void onMPAddButtonInteraction(int userid);//open fragment add car
-        void onMPShareButtonInteraction();//open fragment for share
-        void onMPDetailsButtonInteraction();// open detalhes do carro
-    }
-
     private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
 
         @Override
@@ -212,4 +204,13 @@ public class MainPage extends Fragment {
             return results;
         }
     }
+    public interface OnMainPageListener{
+
+        void onMPImageInteraction(int userid);//open fragment for profile edit
+        void onMPAddButtonInteraction(int userid);//open fragment add car
+        void onMPShareButtonInteraction();//open fragment for share
+        void onMPDetailsButtonInteraction();// open detalhes do carro
+    }
+
+
 }

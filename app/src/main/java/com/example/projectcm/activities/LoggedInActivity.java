@@ -28,11 +28,11 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        String usedmail = intent.getStringExtra("email");
+        //String usedmail = intent.getStringExtra("email");
         Bundle b = intent.getExtras();
         userID = b.getInt("userID");
         setContentView(R.layout.activity_logged_in_);
-        MainPage mainPage = MainPage.newInstance(usedmail, userID);
+        MainPage mainPage = MainPage.newInstance(userID);
         //AddVeiculo addVeiculo = AddVeiculo.newInstance(usedmail, usedmail);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
