@@ -72,7 +72,7 @@
     </HorizontalScrollView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Adicionar_carro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adicionar"
@@ -88,11 +88,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Partilhar"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="@+id/Adicionar_carro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.841"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/Adicionar_carro"
+        app:layout_constraintTop_toTopOf="@+id/Adicionar_carro"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
