@@ -132,7 +132,9 @@ public class AddVeiculo extends Fragment {
 
                     blur.setVisibility(View.INVISIBLE);
                     add.setVisibility(View.INVISIBLE);
+                    nome.setText("");
                     nome.setVisibility(View.INVISIBLE);
+                    valor.setText("");
                     valor.setVisibility(View.INVISIBLE);
                     guardar.setVisibility(View.INVISIBLE);
                     cancelar.setVisibility(View.INVISIBLE);
