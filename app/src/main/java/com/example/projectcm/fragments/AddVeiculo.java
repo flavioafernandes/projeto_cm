@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -94,12 +95,24 @@ public class AddVeiculo extends Fragment {
 
         addInfo = v.findViewById(R.id.Adicionar_caracteristica);
         addInfo.setOnClickListener(v1 -> {
-            v1.findViewById(R.id.add_caracteristica_grey_square).setVisibility(View.VISIBLE);
-            v1.findViewById(R.id.blur_grey_square).setVisibility(View.VISIBLE);
-            v1.findViewById(R.id.nome_caracteristica_adicionar).setVisibility(View.VISIBLE);
-            v1.findViewById(R.id.valor_caracteristica_adicionar).setVisibility(View.VISIBLE);
-            v1.findViewById(R.id.Cancelar_adicionar_caracteristica).setVisibility(View.VISIBLE);
-            v1.findViewById(R.id.Guardar_adicionar_caracteristica).setVisibility(View.VISIBLE);
+
+            View blur = (View) v.findViewById(R.id.blur_grey_square);
+            blur.setVisibility(View.VISIBLE);
+
+            View add = (View) v.findViewById(R.id.add_caracteristica_grey_square);
+            add.setVisibility(View.VISIBLE);
+
+            EditText nome = (EditText) v.findViewById(R.id.nome_caracteristica_adicionar);
+            nome.setVisibility(View.VISIBLE);
+
+            EditText valor = (EditText) v.findViewById(R.id.valor_caracteristica_adicionar);
+            valor.setVisibility(View.VISIBLE);
+
+            Button guardar = (Button) v.findViewById(R.id.Guardar_adicionar_caracteristica);
+            guardar.setVisibility(View.VISIBLE);
+
+            Button cancelar = (Button) v.findViewById(R.id.Cancelar_adicionar_caracteristica);
+            cancelar.setVisibility(View.VISIBLE);
         });
 
         saveNewCar = v.findViewById(R.id.Guardar);
