@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
@@ -51,6 +52,7 @@ public class AddVeiculo extends Fragment {
     Button addInfo;
     Button saveNewCar;
     Button cancelBtn;
+    ListView addedInfos;
 
     String chosenMake;
     String chosenModel;
@@ -58,6 +60,9 @@ public class AddVeiculo extends Fragment {
     int userID;
 
     Uri selectedImageURI;
+
+    ArrayList<String> newInfos = new ArrayList<String>();
+    ArrayAdapter<String> arrayAdapter;
 
     OnActionListener onActionListener;
 
@@ -129,6 +134,8 @@ public class AddVeiculo extends Fragment {
                     arr.put(value);
 
                     finalArr.put(arr);
+                    newInfos.add(name + " - " + value);
+                    arrayAdapter.notifyDataSetChanged();
 
                     blur.setVisibility(View.INVISIBLE);
                     add.setVisibility(View.INVISIBLE);
@@ -234,6 +241,23 @@ public class AddVeiculo extends Fragment {
             }
         });
 
+        addedInfos = v.findViewById(R.id.nome_caracteristica);
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+
+        arrayAdapter = new ArrayAdapter<String>(
+                getContext(),
+                android.R.layout.simple_list_item_1,
+                newInfos );
+
+        addedInfos.setAdapter(arrayAdapter);
 
         //BUSCAR imagem
         Button buttonaddImage = v.findViewById(R.id.buttonAddImage);

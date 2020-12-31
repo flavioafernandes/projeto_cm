@@ -83,13 +83,12 @@
         android:id="@+id/Adicionar_caracteristica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="372dp"
         android:text="@string/adicionar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerModel" />
 
     <Button
         android:id="@+id/Cancelar"
@@ -98,42 +97,35 @@
         android:layout_marginTop="8dp"
         android:text="@string/cancelar"
         app:layout_constraintEnd_toStartOf="@+id/Guardar"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Adicionar_caracteristica" />
+
 
     <Button
         android:id="@+id/Guardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="40dp"
         android:text="@string/guardar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Adicionar_caracteristica" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="350dp"
-        android:layout_height="228dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="10dp"
+
+    <ListView
+        android:id="@+id/nome_caracteristica"
+        android:layout_width="match_parent"
+        android:layout_height="500px"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carregar_image_text"
-        app:layout_constraintVertical_bias="0.13">
-
-        <ListView
-            android:id="@+id/nome_caracteristica"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:listSelector="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@null">
-
-        </ListView>
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/carregar_image_text" />
 
     <TextView
         android:id="@+id/Adicionar_carro_text"
@@ -175,8 +167,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/nome_caracteristica_adicionar"
@@ -210,33 +204,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nome_caracteristica_adicionar" />
 
+
     <Button
         android:id="@+id/Cancelar_adicionar_caracteristica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stateListAnimator="@null"
+        android:layout_marginTop="8dp"
         android:elevation="10dp"
-        android:layout_marginTop="20dp"
-        android:visibility="invisible"
-        app:layout_constraintHorizontal_bias="0.1"
+        android:stateListAnimator="@null"
         android:text="@string/cancelar"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/add_caracteristica_grey_square"
+        app:layout_constraintEnd_toEndOf="@+id/add_caracteristica_grey_square"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/valor_caracteristica_adicionar"
         app:layout_constraintTop_toBottomOf="@+id/valor_caracteristica_adicionar" />
-
 
     <Button
         android:id="@+id/Guardar_adicionar_caracteristica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stateListAnimator="@null"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
         android:elevation="10dp"
-        android:visibility="invisible"
-        android:layout_marginTop="20dp"
-        app:layout_constraintHorizontal_bias="0.9"
+        android:stateListAnimator="@null"
         android:text="@string/guardar"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/add_caracteristica_grey_square"
+        app:layout_constraintEnd_toEndOf="@+id/valor_caracteristica_adicionar"
         app:layout_constraintTop_toBottomOf="@+id/valor_caracteristica_adicionar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
