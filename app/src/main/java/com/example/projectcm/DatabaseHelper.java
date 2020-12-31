@@ -47,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USER_CAR_YEAR = "usercaryear";
     public static final String USER_CAR_INFO = "usercarinfo"; //JSON
     public static final String OWNER_ID = "ownerid";
+    public static final String IMAGE_URI = "imageuri";
 
 
     //CALENDAR TABLE VARS
@@ -90,7 +91,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 USER_CAR_MODEL + " TEXT, " +
                 USER_CAR_YEAR + " INTEGER, " +
                 USER_CAR_INFO + " TEXT, " +
-                OWNER_ID + " INTEGER )");
+                OWNER_ID + " INTEGER, " +
+                IMAGE_URI + " TEXT )");
 
         //CALENDAR CREATE TABLE
         db.execSQL("create table " + CALENDAR_TABLE_NAME +
@@ -226,7 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Funções de auxílio na comunicação com a base de dados local -> User Car List
      */
-    public long addACarToAUser(String carMake, String carModel, String carYear, String carInfo, int ownerID){
+    public long addACarToAUser(String carMake, String carModel, String carYear, String carInfo, int ownerID, String imageURI){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_CAR_MAKE, carMake);
@@ -234,6 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_CAR_YEAR, carYear);
         contentValues.put(USER_CAR_INFO, carInfo);
         contentValues.put(OWNER_ID, ownerID);
+        contentValues.put(IMAGE_URI, imageURI);
         long carID = db.insert(USER_CARS_TABLE_NAME, null, contentValues);
 
         if(carID == -1){

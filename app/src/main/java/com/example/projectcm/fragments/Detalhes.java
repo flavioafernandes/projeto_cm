@@ -2,7 +2,10 @@ package com.example.projectcm.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -21,11 +24,18 @@ import android.widget.Toast;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
+import com.example.projectcm.activities.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,7 +117,9 @@ public class Detalhes extends Fragment {
             String model =  carInfo.getString(2);
             String year =  carInfo.getString(3);
             String info = carInfo.getString(4);
-
+            String imageURI = carInfo.getString(6);
+            System.out.println(carInfo.getColumnNames());
+            System.out.println(carInfo.toString());
             JSONArray infoArray = null;
 
             try {
@@ -122,6 +134,17 @@ public class Detalhes extends Fragment {
             int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ","_").replace("-","_"), "drawable", getContext().getPackageName());
             System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
             carLogo.setImageResource(resourceID);
+
+            /**
+             * TODO: Colocar a imagem do carro na página dos detalhes
+             *
+            System.out.println(imageURI);
+            File file = new File(imageURI);
+            System.out.println(file);
+            Picasso.with(getContext()).load(new File(imageURI)).into(carImage);
+            //carImage.setImageURI(Uri.fromFile(new File(imageURI)));
+             *
+             */
 
             for (int i=0 ; i < infoArray.length(); i++){
 
@@ -224,7 +247,7 @@ public class Detalhes extends Fragment {
         protected Integer doInBackground(Bundle... bundles) {
 
             System.out.printf("AddNewCarTask");
-            int id = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"));
+            int id = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"), bundles[0].getString("imageURI"));
             System.out.println("ID: " + id);
             return id;
         }

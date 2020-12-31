@@ -24,6 +24,7 @@ import android.widget.Spinner;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
+import com.example.projectcm.activities.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +56,8 @@ public class AddVeiculo extends Fragment {
     String chosenModel;
     JSONObject newCarInfo;
     int userID;
+
+    Uri selectedImageURI;
 
     OnActionListener onActionListener;
 
@@ -249,6 +252,7 @@ public class AddVeiculo extends Fragment {
                 bundle.putString("year", year);
                 bundle.putString("info", newCarInfo.toString());
                 bundle.putInt("ownerID", userID);
+                bundle.putString("imageURI", selectedImageURI.toString());
 
                 System.out.println("OI");
 
@@ -273,7 +277,7 @@ public class AddVeiculo extends Fragment {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
-                Uri selectedImageURI = data.getData();
+                selectedImageURI = data.getData();
                 System.out.println(selectedImageURI.toString());
             }
         }
@@ -335,7 +339,7 @@ public class AddVeiculo extends Fragment {
         protected Integer doInBackground(Bundle... bundles) {
 
             System.out.printf("AddNewCarTask");
-            Integer result = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"));
+            Integer result = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"), bundles[0].getString("imageURI"));
 
             return result;
         }
