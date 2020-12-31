@@ -93,7 +93,14 @@ public class AddVeiculo extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_veiculo, container, false);
 
         addInfo = v.findViewById(R.id.Adicionar_caracteristica);
-
+        addInfo.setOnClickListener(v1 -> {
+            v1.findViewById(R.id.add_caracteristica_grey_square).setVisibility(View.VISIBLE);
+            v1.findViewById(R.id.blur_grey_square).setVisibility(View.VISIBLE);
+            v1.findViewById(R.id.nome_caracteristica_adicionar).setVisibility(View.VISIBLE);
+            v1.findViewById(R.id.valor_caracteristica_adicionar).setVisibility(View.VISIBLE);
+            v1.findViewById(R.id.Cancelar_adicionar_caracteristica).setVisibility(View.VISIBLE);
+            v1.findViewById(R.id.Guardar_adicionar_caracteristica).setVisibility(View.VISIBLE);
+        });
 
         saveNewCar = v.findViewById(R.id.Guardar);
 

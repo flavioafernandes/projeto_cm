@@ -18,4 +18,6 @@
     <string name="cancelar">Cancelar</string>
     <string name="os_meus_veiculos">Os meus veículos:</string>
     <string name="guardar">Guardar</string>
+    <string name="caracteristica">Caracteristica</string>
+    <string name="valor">Valor</string>
 </resources>
