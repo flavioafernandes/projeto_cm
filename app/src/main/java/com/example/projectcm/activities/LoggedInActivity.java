@@ -58,6 +58,16 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
 
     @Override
     public void onMPAddButtonInteraction(int userid) {
+        System.out.println("A ir para a adicionar carro");
+        AddVeiculo addVeiculo = AddVeiculo.newInstance();
+        Bundle args = new Bundle();
+        args.putInt("userid", userid);
+        addVeiculo.setArguments(args);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.loggedIn, addVeiculo,"addCar");
+        fragmentTransaction.addToBackStack("Top");
+        fragmentTransaction.commit();
+
 
     }
 

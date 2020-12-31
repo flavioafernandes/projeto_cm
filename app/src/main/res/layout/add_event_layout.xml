@@ -14,8 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.603"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.756" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/NameOfEvent"
@@ -47,14 +46,13 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="204dp"
         android:text="Name for event"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView2"
+        app:layout_constraintBottom_toTopOf="@+id/DescriptionOfEvent"
         app:layout_constraintEnd_toStartOf="@+id/NameOfEvent"
-        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681" />
+        app:layout_constraintVertical_bias="0.645" />
 
     <TextView
         android:id="@+id/textView15"
@@ -63,10 +61,10 @@
         android:text="Description of event"
         app:layout_constraintBottom_toTopOf="@+id/calendarView2"
         app:layout_constraintEnd_toStartOf="@+id/DescriptionOfEvent"
-        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.416" />
+        app:layout_constraintVertical_bias="0.485" />
 
     <Button
         android:id="@+id/AddEvent"
@@ -78,7 +76,7 @@
         app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView2"
-        app:layout_constraintVertical_bias="0.542" />
+        app:layout_constraintVertical_bias="0.773" />
 
     <Button
         android:id="@+id/CancelBunttonEvent"
@@ -90,6 +88,13 @@
         app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView2"
-        app:layout_constraintVertical_bias="0.542" />
+        app:layout_constraintVertical_bias="0.773" />
+
+    <Spinner
+        android:id="@+id/spinnerSelectCar"
+        android:layout_width="368dp"
+        android:layout_height="21dp"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="554dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

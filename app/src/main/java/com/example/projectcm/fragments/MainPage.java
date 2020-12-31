@@ -31,7 +31,6 @@ public class MainPage extends Fragment {
     private static DatabaseHelper db;
     private OnMainPageListener mListener;
     private static String UserName;
-    private static String UserID;
     private  static  String email;
     static Integer currentUserID;
 
@@ -142,15 +141,16 @@ public class MainPage extends Fragment {
             }
         });
 
-        /*
+
         //Add button click
-        Button BAdd = (Button) MainPageView.findViewById(R.id.button);
+        Button BAdd = (Button) MainPageView.findViewById(R.id.addCarButton);
         BAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onMPAddButtonInteraction(Integer.parseInt(UserID));
+                mListener.onMPAddButtonInteraction(currentUserID);
             }
-        });*/
+        });
+
         //Add button click
         Button BShare = (Button) MainPageView.findViewById(R.id.button2);
         BShare.setOnClickListener(new View.OnClickListener() {
