@@ -59,18 +59,28 @@
         app:layout_constraintVertical_bias="0.508" />
 
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/ScrollView"
         android:layout_width="314dp"
         android:layout_height="289dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/InformationToEdit">
-
+        app:layout_constraintTop_toBottomOf="@+id/InformationToEdit"
+        android:fillViewport="true">
         <LinearLayout
+            android:id="@+id/galery2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+
+             />
+        </LinearLayout>
     </ScrollView>
 
     <Button
@@ -82,7 +92,7 @@
         app:layout_constraintEnd_toStartOf="@+id/GuardarEditUser"
         app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:layout_constraintVertical_bias="0.468" />
 
     <Button
@@ -94,6 +104,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:layout_constraintVertical_bias="0.468" />
 </androidx.constraintlayout.widget.ConstraintLayout>
