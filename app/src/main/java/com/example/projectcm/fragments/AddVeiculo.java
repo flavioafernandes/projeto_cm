@@ -1,5 +1,6 @@
 package com.example.projectcm.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -54,6 +55,7 @@ public class AddVeiculo extends Fragment {
     JSONObject newCarInfo;
     int userID;
 
+    OnActionListener onActionListener;
 
     private static int RESULT_LOAD_IMAGE = 1;
     private static int SELECT_PICTURE = 1;
@@ -184,6 +186,12 @@ public class AddVeiculo extends Fragment {
         });
 
 
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActionListener.goToMainPage(userID);
+            }
+        });
 
         saveNewCar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +235,7 @@ public class AddVeiculo extends Fragment {
                 AddNewCarTask addNewCarTask = new AddNewCarTask();
                 addNewCarTask.doInBackground(bundle);
 
+                onActionListener.goToMainPage(userID);
             }
         });
 
@@ -250,6 +259,23 @@ public class AddVeiculo extends Fragment {
         }
     }
 
+
+
+    public interface OnActionListener{
+        void goToMainPage(int id);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof AddVeiculo.OnActionListener){
+            onActionListener = (AddVeiculo.OnActionListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     private class GetAllMakesTask extends AsyncTask<Void, Void, Cursor> {
 

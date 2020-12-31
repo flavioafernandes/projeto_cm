@@ -14,7 +14,7 @@ import com.example.projectcm.fragments.EditarVeiculo;
 import com.example.projectcm.fragments.Login;
 import com.example.projectcm.fragments.MainPage;
 
-public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.DetailsClickListener{
+public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.DetailsClickListener,AddVeiculo.OnActionListener{
 
     int userID;
 
@@ -105,6 +105,7 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         MainPage mainPage = (MainPage) getSupportFragmentManager().findFragmentByTag("mainpage");
         getSupportFragmentManager().popBackStack();
     }
+
 
 
 }
