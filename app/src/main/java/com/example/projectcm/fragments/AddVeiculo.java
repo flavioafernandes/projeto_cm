@@ -96,6 +96,9 @@ public class AddVeiculo extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_veiculo, container, false);
 
+        newCarInfo = new JSONObject();
+        JSONArray finalArr = new JSONArray();
+
         addInfo = v.findViewById(R.id.Adicionar_caracteristica);
         addInfo.setOnClickListener(v1 -> {
 
@@ -112,10 +115,44 @@ public class AddVeiculo extends Fragment {
             valor.setVisibility(View.VISIBLE);
 
             Button guardar = (Button) v.findViewById(R.id.Guardar_adicionar_caracteristica);
-            guardar.setVisibility(View.VISIBLE);
-
             Button cancelar = (Button) v.findViewById(R.id.Cancelar_adicionar_caracteristica);
+
+            guardar.setVisibility(View.VISIBLE);
+            guardar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = nome.getText().toString();
+                    String value = valor.getText().toString();
+
+                    JSONArray arr = new JSONArray();
+                    arr.put(name);
+                    arr.put(value);
+
+                    finalArr.put(arr);
+
+                    blur.setVisibility(View.INVISIBLE);
+                    add.setVisibility(View.INVISIBLE);
+                    nome.setVisibility(View.INVISIBLE);
+                    valor.setVisibility(View.INVISIBLE);
+                    guardar.setVisibility(View.INVISIBLE);
+                    cancelar.setVisibility(View.INVISIBLE);
+
+                }
+            });
+
+
             cancelar.setVisibility(View.VISIBLE);
+            cancelar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blur.setVisibility(View.INVISIBLE);
+                    add.setVisibility(View.INVISIBLE);
+                    nome.setVisibility(View.INVISIBLE);
+                    valor.setVisibility(View.INVISIBLE);
+                    guardar.setVisibility(View.INVISIBLE);
+                    cancelar.setVisibility(View.INVISIBLE);
+                }
+            });
         });
 
         saveNewCar = v.findViewById(R.id.Guardar);
@@ -224,21 +261,6 @@ public class AddVeiculo extends Fragment {
 
                 String model = chosenModel.split("\\(")[0];
                 String year = chosenModel.split("\\(")[1].replace(")", "");
-
-                newCarInfo = new JSONObject();
-
-                //TODO: Fazer um JSONArray por cada info que se queira guardar
-                JSONArray arr = new JSONArray();
-                arr.put("Motor");
-                arr.put("1.5");
-
-                JSONArray arr2 = new JSONArray();
-                arr2.put("Portas");
-                arr2.put("5");
-
-                JSONArray finalArr = new JSONArray();
-                finalArr.put(arr);
-                finalArr.put(arr2);
 
                 try {
                     newCarInfo.put("infos", finalArr);
