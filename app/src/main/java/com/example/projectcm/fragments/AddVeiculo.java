@@ -79,7 +79,11 @@ public class AddVeiculo extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_veiculo, container, false);
 
         addInfo = v.findViewById(R.id.Adicionar_caracteristica);
+
+
         saveNewCar = v.findViewById(R.id.Guardar);
+
+
         cancelBtn = v.findViewById(R.id.Cancelar);
 
         // Inflate the layout for this fragment
