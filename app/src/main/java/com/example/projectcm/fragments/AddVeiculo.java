@@ -1,17 +1,22 @@
 package com.example.projectcm.fragments;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
@@ -26,12 +31,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddVeiculo#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class AddVeiculo extends Fragment {
+
 
     DatabaseHelper db;
     Spinner spinnerMake;
@@ -45,6 +53,10 @@ public class AddVeiculo extends Fragment {
     String chosenModel;
     JSONObject newCarInfo;
     int userID;
+
+
+    private static int RESULT_LOAD_IMAGE = 1;
+    private static int SELECT_PICTURE = 1;
 
 
 
@@ -159,6 +171,20 @@ public class AddVeiculo extends Fragment {
         });
 
 
+        //BUSCAR imagem
+        Button buttonaddImage = v.findViewById(R.id.buttonAddImage);
+        buttonaddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+            }
+        });
+
+
+
         saveNewCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,6 +233,23 @@ public class AddVeiculo extends Fragment {
 
         return v;
     }
+    //TODO:guardar URI na base de dados junto à informação do carro do carro
+    //TODO:
+    // Picasso.with(MainActivity.this).load(selectedImageURI).noPlaceholder().centerCrop().fit()
+    // .into((ImageView) findViewById(R.id.image_display));
+    //TODO: esta linnha para chamar depois a imagem
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageURI = data.getData();
+                System.out.println(selectedImageURI.toString());
+            }
+        }
+    }
+
 
     private class GetAllMakesTask extends AsyncTask<Void, Void, Cursor> {
 
