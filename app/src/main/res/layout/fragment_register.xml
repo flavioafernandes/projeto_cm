@@ -13,7 +13,7 @@
         android:id="@+id/newName"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/inserir_nome"
         android:inputType="textPersonName"
@@ -26,7 +26,7 @@
         android:id="@+id/confirmNewPassword"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/confimar_pass"
         android:inputType="textPassword"
@@ -39,7 +39,7 @@
         android:id="@+id/newEmail"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/inserir_email"
         android:inputType="textPersonName"
@@ -54,6 +54,7 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:text="@string/select_date_of_birth"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -62,7 +63,7 @@
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="350dp"
-        android:layout_height="330dp"
+        android:layout_height="300dp"
         android:layout_marginTop="282dp"
         android:layout_marginBottom="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +77,7 @@
         android:id="@+id/newpassword"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/inserir_password"
         android:inputType="textPassword"
@@ -87,15 +88,16 @@
 
     <Button
         android:id="@+id/confirmRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rectangle_blue_right"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
+        app:layout_constraintHorizontal_bias="0.893"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.848" />
+        app:layout_constraintVertical_bias="0.615" />
 
     <TextView
         android:id="@+id/textView6"
