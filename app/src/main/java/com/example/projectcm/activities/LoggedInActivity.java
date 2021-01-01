@@ -11,9 +11,10 @@ import com.example.projectcm.fragments.AddVeiculo;
 import com.example.projectcm.fragments.Detalhes;
 import com.example.projectcm.fragments.EditarPerfil;
 import com.example.projectcm.fragments.EditarVeiculo;
+import com.example.projectcm.fragments.Login;
 import com.example.projectcm.fragments.MainPage;
 
-public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.EditClickListener{
+public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMainPageListener,EditarPerfil.OnEditarPerfilListener, Detalhes.DetailsClickListener,AddVeiculo.OnActionListener{
 
     int userID;
 
@@ -33,7 +34,7 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         userID = b.getInt("userID");
         setContentView(R.layout.activity_logged_in_);
         MainPage mainPage = MainPage.newInstance(userID);
-        //AddVeiculo addVeiculo = AddVeiculo.newInstance(usedmail, usedmail);
+        //AddVeiculo addVeiculo = AddVeiculo.newInstance("", "");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.loggedIn,mainPage,"mainpage");
         //fragmentTransaction.add(R.id.loggedIn, addVeiculo, "addveiculo");
@@ -57,6 +58,16 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
 
     @Override
     public void onMPAddButtonInteraction(int userid) {
+        System.out.println("A ir para a adicionar carro");
+        AddVeiculo addVeiculo = AddVeiculo.newInstance();
+        Bundle args = new Bundle();
+        args.putInt("userid", userid);
+        addVeiculo.setArguments(args);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.loggedIn, addVeiculo,"addCar");
+        fragmentTransaction.addToBackStack("Top");
+        fragmentTransaction.commit();
+
 
     }
 
@@ -66,18 +77,17 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
     }
 
     @Override
-    public void onMPDetailsButtonInteraction() {
+    public void onMPDetailsButtonInteraction(int userID, int carID) {
+
         System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        /*
-        Integer arg1 = 0;
-        Integer arg2= 0;
-        Detalhes detalhes = Detalhes.newInstance(arg1,arg2);
+
+        Detalhes detalhes = Detalhes.newInstance(userID, carID);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.loggedIn, detalhes,"detalhes");
         fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
 
-         */
+
     }
 
     @Override
@@ -97,5 +107,13 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
     public void ONEPSaveClick(Integer UserID) {
 
     }
+
+    @Override
+    public void goToMainPage(int userID){
+        MainPage mainPage = (MainPage) getSupportFragmentManager().findFragmentByTag("mainpage");
+        getSupportFragmentManager().popBackStack();
+    }
+
+
 
 }

@@ -31,7 +31,6 @@ public class MainPage extends Fragment {
     private static DatabaseHelper db;
     private OnMainPageListener mListener;
     private static String UserName;
-    private static String UserID;
     private  static  String email;
     static Integer currentUserID;
 
@@ -59,15 +58,6 @@ public class MainPage extends Fragment {
             UserName=resultado.getString(0);
         }
         System.out.println("Username "+UserName+" e  ID " + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        //UserName = "Ambrósio Ferrero";
-
-        //Load "Os meus veículos"
-        //get carid usercarmake usercarmodel
-
-
-        //Transaction for Adicionar
-        //Transaction for Partilhar
-
 
     }
 
@@ -116,7 +106,7 @@ public class MainPage extends Fragment {
                 public void onClick(View v) {
                     System.out.println("Cliquei no botao detalhes de 1 carro !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     //TODO: Passar aqui o carID
-                    mListener.onMPDetailsButtonInteraction();
+                    mListener.onMPDetailsButtonInteraction(currentUserID, carID);
                 }
             });
 
@@ -138,15 +128,16 @@ public class MainPage extends Fragment {
             }
         });
 
-        /*
+
         //Add button click
-        Button BAdd = (Button) MainPageView.findViewById(R.id.button);
+        Button BAdd = (Button) MainPageView.findViewById(R.id.addCarButton);
         BAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onMPAddButtonInteraction(Integer.parseInt(UserID));
+                mListener.onMPAddButtonInteraction(currentUserID);
             }
-        });*/
+        });
+
         //Add button click
         Button BShare = (Button) MainPageView.findViewById(R.id.button2);
         BShare.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +188,7 @@ public class MainPage extends Fragment {
         void onMPImageInteraction(int userid);//open fragment for profile edit
         void onMPAddButtonInteraction(int userid);//open fragment add car
         void onMPShareButtonInteraction();//open fragment for share
-        void onMPDetailsButtonInteraction();// open detalhes do carro
+        void onMPDetailsButtonInteraction(int userID, int carID);// open detalhes do carro
     }
 
 

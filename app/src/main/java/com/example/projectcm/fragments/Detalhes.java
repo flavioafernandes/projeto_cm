@@ -1,25 +1,43 @@
 package com.example.projectcm.fragments;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.provider.MediaStore;
+import android.util.Size;
 import android.view.LayoutInflater;
+import android.view.PointerIcon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
+import com.example.projectcm.activities.MainActivity;
 
-import org.w3c.dom.Text;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.sql.SQLOutput;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,11 +52,11 @@ public class Detalhes extends Fragment {
     TextView carModel;
     ImageView carLogo;
     ImageView carImage;
-    ScrollView carDetails;
+    LinearLayout carDetails;
     Button removeCarBtn;
     Button editCarBtn;
     ImageView goBackBtn;
-    EditClickListener editPageListener;
+    DetailsClickListener editPageListener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,16 +83,8 @@ public class Detalhes extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        db = new DatabaseHelper(getContext());
 
-        /*AddNewCarTask addNewCarTask = new AddNewCarTask();
-        Bundle bundle = new Bundle();
-        bundle.putString("make", "BMW");
-        bundle.putString("model", "Serie 1");
-        bundle.putString("year", "1231234");
-        bundle.putString("info", "26/11/2020");
-        bundle.putInt("ownerID", userID);
-        testID = addNewCarTask.doInBackground(bundle);*/
+        db = new DatabaseHelper(getContext());
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -89,6 +99,8 @@ public class Detalhes extends Fragment {
         // Inflate the layout for this fragment
         View v  = inflater.inflate(R.layout.fragment_detalhes, container, false);
 
+        LayoutInflater singleItemList = LayoutInflater.from(getContext());
+
         GetCarInfoTask getCarInfoTask = new GetCarInfoTask();
         Cursor carInfo = getCarInfoTask.doInBackground(carID);
 
@@ -101,15 +113,81 @@ public class Detalhes extends Fragment {
         editCarBtn = v.findViewById(R.id.editar);
         goBackBtn = v.findViewById(R.id.voltar);
 
+
         while (carInfo.moveToNext()){
             int carID = Integer.parseInt(carInfo.getString(0));
             String make = carInfo.getString(1);
             String model =  carInfo.getString(2);
-            String info =  carInfo.getString(3);
-            String year = carInfo.getString(4);
+            String year =  carInfo.getString(3);
+            String info = carInfo.getString(4);
+            String imageURI = carInfo.getString(6);
+            System.out.println(carInfo.getColumnNames());
+            System.out.println(carInfo.toString());
+            JSONArray infoArray = null;
+
+            try {
+                JSONObject jsonInfo = new JSONObject(info);
+                infoArray = jsonInfo.getJSONArray("infos");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             carTitle.setText(make);
-            carModel.setText(model);
+            carModel.setText(model + " (" + year + ")");
+            int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ","_").replace("-","_"), "drawable", getContext().getPackageName());
+            System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
+            carLogo.setImageResource(resourceID);
+            System.out.println("Passo aqui");
+            System.out.println(imageURI);
+                Uri imageuri = Uri.parse(imageURI);
+            try {
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
+                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+
+                carImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //final String[] split = imageURI.split(":");//split the path.
+            //String imgFilepath = split[1];
+            //System.out.println(imgFilepath);
+
+
+
+
+
+
+            /**
+             * TODO: Colocar a imagem do carro na página dos detalhes
+             *
+            System.out.println(imageURI);
+            File file = new File(imageURI);
+            System.out.println(file);
+            Picasso.with(getContext()).load(new File(imageURI)).into(carImage);
+            //carImage.setImageURI(Uri.fromFile(new File(imageURI)));
+             *
+             */
+
+            for (int i=0 ; i < infoArray.length(); i++){
+
+                View infoListView = singleItemList.inflate(R.layout.list_item_card, carDetails, false);
+
+                try {
+                    JSONArray singleInfo = (JSONArray) infoArray.get(i);
+                    System.out.println(singleInfo.get(0));
+
+                    TextView name = infoListView.findViewById(R.id.line1);
+                    TextView value = infoListView.findViewById(R.id.line2);
+                    name.setText(singleInfo.get(0).toString());
+                    value.setText(singleInfo.get(1).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                carDetails.addView(infoListView);
+            }
+
         }
 
 
@@ -121,6 +199,7 @@ public class Detalhes extends Fragment {
                 removeCarTask.doInBackground(carID);
                 Toast.makeText(getActivity(), "Carro removido", Toast.LENGTH_LONG).show();
                 //TODO: Chamar o fragmento da lista dos carros
+                editPageListener.goToMainPage(userID);
             }
         });
 
@@ -137,17 +216,19 @@ public class Detalhes extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: Chamar o fragmento da lista dos carros
+                editPageListener.goToMainPage(userID);
             }
         });
 
         return v;
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof EditClickListener){
-            editPageListener = (EditClickListener) context;
+        if(context instanceof DetailsClickListener){
+            editPageListener = (DetailsClickListener) context;
         }
         else {
             throw new RuntimeException(context.toString()
@@ -155,8 +236,9 @@ public class Detalhes extends Fragment {
         }
     }
 
-    public interface EditClickListener {
+    public interface DetailsClickListener {
         void goToEditCarPage(int userID, int carID);
+        void goToMainPage(int userID);
     }
 
     private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
@@ -189,7 +271,7 @@ public class Detalhes extends Fragment {
         protected Integer doInBackground(Bundle... bundles) {
 
             System.out.printf("AddNewCarTask");
-            int id = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"));
+            int id = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"), bundles[0].getString("imageURI"));
             System.out.println("ID: " + id);
             return id;
         }

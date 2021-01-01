@@ -17,9 +17,7 @@
             android:layout_marginStart="36dp"
             android:text="Remover"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info"
-            app:layout_constraintVertical_bias="0.489" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/editar"
@@ -29,24 +27,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.623"
-            app:layout_constraintStart_toEndOf="@+id/remover"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info" />
+            app:layout_constraintStart_toEndOf="@+id/remover" />
 
         <ImageView
             android:id="@+id/Car_image"
             android:layout_width="376dp"
             android:layout_height="153dp"
             android:src="@mipmap/car_temp_foreground"
-            app:layout_constraintBottom_toTopOf="@+id/scroll_car_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SubTitle_car"
-            app:layout_constraintVertical_bias="0.464" />
+            app:layout_constraintTop_toBottomOf="@+id/SubTitle_car" />
 
         <ImageView
             android:id="@+id/Car_logo"
-            android:layout_width="wrap_content"
+            android:layout_width="200px"
             android:layout_height="wrap_content"
             android:src="@android:drawable/btn_star"
             app:layout_constraintBottom_toTopOf="@+id/Car_image"
@@ -55,23 +50,6 @@
             app:layout_constraintStart_toEndOf="@+id/Title_car"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.369" />
-
-        <ScrollView
-            android:id="@+id/scroll_car_info"
-            android:layout_width="334dp"
-            android:layout_height="365dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.775">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
 
         <TextView
             android:id="@+id/Title_car"
@@ -109,5 +87,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.39"
             android:rotation="90"/>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="370dp"
+            android:layout_height="308dp"
+            app:layout_constraintBottom_toTopOf="@+id/remover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Car_image">
+
+            <LinearLayout
+                android:id="@+id/scroll_car_info"
+                android:layout_width="359dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/remover"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Car_image"
+                app:layout_constraintVertical_bias="0.113"></LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

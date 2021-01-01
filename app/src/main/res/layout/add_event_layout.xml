@@ -35,12 +35,13 @@
         android:layout_width="112dp"
         android:layout_height="20dp"
         android:text="Name for event"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView2"
+        app:layout_constraintBottom_toTopOf="@+id/DescriptionOfEvent"
         app:layout_constraintEnd_toStartOf="@+id/NameOfEvent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.611" />
+
 
     <Button
         android:id="@+id/NextEvent"
@@ -52,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView2"
-        app:layout_constraintVertical_bias="0.542" />
+        app:layout_constraintVertical_bias="0.773" />
 
     <Button
         android:id="@+id/CancelBunttonEvent"
@@ -66,5 +67,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView2"
         app:layout_constraintVertical_bias="0.543" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

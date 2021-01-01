@@ -38,6 +38,7 @@ import java.util.concurrent.ExecutionException;
  * Use the {@link EditarPerfil#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class EditarPerfil extends Fragment {
 
     DatabaseHelper db;
@@ -66,7 +67,15 @@ public class EditarPerfil extends Fragment {
         if (getArguments() != null) {
             Bundle b = getArguments();
             userid = b.getInt("userid");
+        }
 
+        GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
+        try {
+            cars = getCarsFromUserTask.execute(userid).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
@@ -119,7 +128,6 @@ public class EditarPerfil extends Fragment {
                 newEvent.setTitle("Adicionar Evento");
                 newEvent.setView(alertView);
                 AlertDialog dialog = newEvent.show();
-
                 //Spinner selectCar = alertView.findViewById(R.id.spinnerSelectCar);
 
                 //adicionar carros

@@ -1,27 +1,42 @@
 package com.example.projectcm.fragments;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
+import com.example.projectcm.activities.MainActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +45,7 @@ import java.util.ArrayList;
  */
 public class AddVeiculo extends Fragment {
 
+
     DatabaseHelper db;
     Spinner spinnerMake;
     Spinner spinnerModel;
@@ -37,21 +53,25 @@ public class AddVeiculo extends Fragment {
     Button addInfo;
     Button saveNewCar;
     Button cancelBtn;
+    Button gobackbutton;
+    ListView addedInfos;
 
     String chosenMake;
     String chosenModel;
-    String newCarInfo;
+    JSONObject newCarInfo;
+    int userID;
+
+    Uri selectedImageURI;
+
+    ArrayList<String> newInfos = new ArrayList<String>();
+    ArrayAdapter<String> arrayAdapter;
+
+    OnActionListener onActionListener;
+
+    private static int RESULT_LOAD_IMAGE = 1;
+    private static int SELECT_PICTURE = 1;
 
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public AddVeiculo() {
         // Required empty public constructor
@@ -61,17 +81,11 @@ public class AddVeiculo extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment AddVeiculo.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddVeiculo newInstance(String param1, String param2) {
+    public static AddVeiculo newInstance() {
         AddVeiculo fragment = new AddVeiculo();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -80,8 +94,7 @@ public class AddVeiculo extends Fragment {
         db = new DatabaseHelper(getContext());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            userID = getArguments().getInt("userid");
         }
     }
 
@@ -90,9 +103,77 @@ public class AddVeiculo extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_veiculo, container, false);
 
+        newCarInfo = new JSONObject();
+        JSONArray finalArr = new JSONArray();
+
         addInfo = v.findViewById(R.id.Adicionar_caracteristica);
+        addInfo.setOnClickListener(v1 -> {
+
+            View blur = (View) v.findViewById(R.id.blur_grey_square);
+            blur.setVisibility(View.VISIBLE);
+
+            View add = (View) v.findViewById(R.id.add_caracteristica_grey_square);
+            add.setVisibility(View.VISIBLE);
+
+            EditText nome = (EditText) v.findViewById(R.id.nome_caracteristica_adicionar);
+            nome.setVisibility(View.VISIBLE);
+
+            EditText valor = (EditText) v.findViewById(R.id.valor_caracteristica_adicionar);
+            valor.setVisibility(View.VISIBLE);
+
+            Button guardar = (Button) v.findViewById(R.id.Guardar_adicionar_caracteristica);
+            Button cancelar = (Button) v.findViewById(R.id.Cancelar_adicionar_caracteristica);
+
+            guardar.setVisibility(View.VISIBLE);
+            guardar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = nome.getText().toString();
+                    String value = valor.getText().toString();
+
+                    JSONArray arr = new JSONArray();
+                    arr.put(name);
+                    arr.put(value);
+
+                    finalArr.put(arr);
+                    newInfos.add(name + " - " + value);
+                    arrayAdapter.notifyDataSetChanged();
+
+                    blur.setVisibility(View.INVISIBLE);
+                    add.setVisibility(View.INVISIBLE);
+                    nome.setText("");
+                    nome.setVisibility(View.INVISIBLE);
+                    valor.setText("");
+                    valor.setVisibility(View.INVISIBLE);
+                    guardar.setVisibility(View.INVISIBLE);
+                    cancelar.setVisibility(View.INVISIBLE);
+
+                }
+            });
+
+
+            cancelar.setVisibility(View.VISIBLE);
+            cancelar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blur.setVisibility(View.INVISIBLE);
+                    add.setVisibility(View.INVISIBLE);
+                    nome.setVisibility(View.INVISIBLE);
+                    valor.setVisibility(View.INVISIBLE);
+                    guardar.setVisibility(View.INVISIBLE);
+                    cancelar.setVisibility(View.INVISIBLE);
+                }
+            });
+        });
+
         saveNewCar = v.findViewById(R.id.Guardar);
+
+
         cancelBtn = v.findViewById(R.id.Cancelar);
+
+        gobackbutton = v.findViewById(R.id.go_back_button);
+
+
 
         // Inflate the layout for this fragment
         ArrayList<String> carsArrayList = new ArrayList<String>();
@@ -104,6 +185,14 @@ public class AddVeiculo extends Fragment {
             carsArrayList.add(cars.getString(0)); //add the item
             cars.moveToNext();
         }
+
+        Collections.sort(carsArrayList, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
 
         spinnerMake = v.findViewById(R.id.spinnerMake);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carsArrayList);
@@ -125,6 +214,13 @@ public class AddVeiculo extends Fragment {
                     modelsArrayList.add(models.getString(0) + " (" + models.getString(1) + ")"); //add the item
                     models.moveToNext();
                 }
+
+                Collections.sort(modelsArrayList, new Comparator<String>() {
+                    @Override
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });
 
                 spinnerModel = v.findViewById(R.id.spinnerModel);
                 ArrayAdapter<String> spinnerModelAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, modelsArrayList);
@@ -151,74 +247,144 @@ public class AddVeiculo extends Fragment {
             }
         });
 
+        addedInfos = v.findViewById(R.id.nome_caracteristica);
+        /*newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");
+        newInfos.add("teste");*/
 
-        saveNewCar.setOnClickListener(new View.OnClickListener() {
+        arrayAdapter = new ArrayAdapter<String>(
+                getContext(),
+                android.R.layout.simple_list_item_1,
+                newInfos );
+
+        addedInfos.setAdapter(arrayAdapter);
+
+        //BUSCAR imagem
+        Button buttonaddImage = v.findViewById(R.id.buttonAddImage);
+        buttonaddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String model = chosenModel.split("\\(")[0];
-                String year = chosenModel.split("\\(")[1].replace(")", "");
-
-                try {
-                    newCarInfo = new JSONObject()
-                            .put("Motor", "1.5")
-                            .put("Portas", "5")
-                            .put("combustível", "Diesel")
-                            .toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println(newCarInfo);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("make", chosenMake);
-                bundle.putString("model", model.substring(0, model.length()-1));
-                bundle.putString("year", year);
-                bundle.putString("info", newCarInfo);
-                bundle.putInt("ownerID", 1);
-
-                AddNewCarTask addNewCarTask = new AddNewCarTask();
-                addNewCarTask.doInBackground(bundle);
-
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
             }
         });
 
 
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActionListener.goToMainPage(userID);
+            }
+        });
+
+        gobackbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActionListener.goToMainPage(userID);
+            }
+        });
+
         saveNewCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                System.out.println("SAVE NEW CAR CLICKED");
+
                 String model = chosenModel.split("\\(")[0];
                 String year = chosenModel.split("\\(")[1].replace(")", "");
 
+                newCarInfo = new JSONObject();
+
+                //TODO: Fazer um JSONArray por cada info que se queira guardar
+                JSONArray arr = new JSONArray();
+                arr.put("Motor");
+                arr.put("1.5");
+
+                JSONArray arr2 = new JSONArray();
+                arr2.put("Portas");
+                arr2.put("5");
+
+                JSONArray finalArr = new JSONArray();
+                finalArr.put(arr);
+                finalArr.put(arr2);
+
                 try {
-                    newCarInfo = new JSONObject()
-                            .put("Motor", "1.5")
-                            .put("Portas", "5")
-                            .put("combustível", "Diesel")
-                            .toString();
+                    newCarInfo.put("infos", finalArr);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                System.out.println(newCarInfo);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("make", chosenMake);
                 bundle.putString("model", model.substring(0, model.length()-1));
                 bundle.putString("year", year);
-                bundle.putString("info", newCarInfo);
-                bundle.putInt("ownerID", 1);
+                bundle.putString("info", newCarInfo.toString());
+                bundle.putInt("ownerID", userID);
+                bundle.putString("imageURI", selectedImageURI.toString());
+
+                System.out.println("OI");
 
                 AddNewCarTask addNewCarTask = new AddNewCarTask();
                 addNewCarTask.doInBackground(bundle);
 
+                onActionListener.goToMainPage(userID);
             }
         });
 
 
         return v;
+    }
+    //TODO:guardar URI na base de dados junto à informação do carro do carro
+    //TODO:
+    // Picasso.with(MainActivity.this).load(selectedImageURI).noPlaceholder().centerCrop().fit()
+    // .into((ImageView) findViewById(R.id.image_display));
+    //TODO: esta linnha para chamar depois a imagem
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                selectedImageURI = data.getData();
+                final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
+                ContentResolver resolver = getActivity().getContentResolver();
+                resolver.takePersistableUriPermission(selectedImageURI, takeFlags);
+
+
+                System.out.println(selectedImageURI.toString());
+            }
+        }
+    }
+
+
+
+    public interface OnActionListener{
+        void goToMainPage(int id);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof AddVeiculo.OnActionListener){
+            onActionListener = (AddVeiculo.OnActionListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     private class GetAllMakesTask extends AsyncTask<Void, Void, Cursor> {
@@ -259,7 +425,7 @@ public class AddVeiculo extends Fragment {
         protected Integer doInBackground(Bundle... bundles) {
 
             System.out.printf("AddNewCarTask");
-            Integer result = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"));
+            Integer result = (int) db.addACarToAUser(bundles[0].getString("make"), bundles[0].getString("model"), bundles[0].getString("year"), bundles[0].getString("info"), bundles[0].getInt("ownerID"), bundles[0].getString("imageURI"));
 
             return result;
         }
