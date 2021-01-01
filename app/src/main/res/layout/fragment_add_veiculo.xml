@@ -81,10 +81,11 @@
 
     <Button
         android:id="@+id/Adicionar_caracteristica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:text="@string/adicionar"
+        android:background="@drawable/rectangle_blue_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,10 +93,11 @@
 
     <Button
         android:id="@+id/Cancelar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:text="@string/cancelar"
+        android:background="@drawable/rectangle_white_left"
         app:layout_constraintEnd_toStartOf="@+id/Guardar"
         app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,11 +106,12 @@
 
     <Button
         android:id="@+id/Guardar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:text="@string/guardar"
+        android:background="@drawable/rectangle_blue_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintTop_toBottomOf="@+id/Adicionar_caracteristica" />
@@ -135,7 +138,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/adicionarcarro"
-        android:textColor="#000000"
+        android:textColor="@color/blue_app"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
