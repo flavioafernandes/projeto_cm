@@ -52,6 +52,7 @@ public class AddVeiculo extends Fragment {
     Button addInfo;
     Button saveNewCar;
     Button cancelBtn;
+    Button gobackbutton;
     ListView addedInfos;
 
     String chosenMake;
@@ -169,6 +170,10 @@ public class AddVeiculo extends Fragment {
 
         cancelBtn = v.findViewById(R.id.Cancelar);
 
+        gobackbutton = v.findViewById(R.id.go_back_button);
+
+
+
         // Inflate the layout for this fragment
         ArrayList<String> carsArrayList = new ArrayList<String>();
         GetAllMakesTask getAllMakesTask = new GetAllMakesTask();
@@ -273,6 +278,13 @@ public class AddVeiculo extends Fragment {
 
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActionListener.goToMainPage(userID);
+            }
+        });
+
+        gobackbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onActionListener.goToMainPage(userID);
