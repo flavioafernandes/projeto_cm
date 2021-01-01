@@ -1,6 +1,9 @@
 package com.example.projectcm;
 
 public class Event {
+    int id;
+    int carid;
+    int userid;
     String name;
     String description;
     String date;
@@ -11,6 +14,39 @@ public class Event {
         this.date = date;
     }
 
+
+    public Event(int id, int carid, int userid, String name, String description, String date) {
+        this.id = id;
+        this.carid = carid;
+        this.userid = userid;
+        this.name = name;
+        this.description = description;
+        this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCarid() {
+        return carid;
+    }
+
+    public void setCarid(int carid) {
+        this.carid = carid;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     public String getName() {
         return name;

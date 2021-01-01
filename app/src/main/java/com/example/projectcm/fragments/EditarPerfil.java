@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.projectcm.DatabaseHelper;
@@ -22,17 +23,21 @@ import com.example.projectcm.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditarPerfil#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class EditarPerfil extends Fragment {
 
     DatabaseHelper db;
     int userid;
     ArrayList<Event> events = new ArrayList<>();
+    Cursor cars;
+    ArrayList<String> carsArrayList = new ArrayList<>();
 
     public EditarPerfil() {
         // Required empty public constructor
@@ -53,8 +58,17 @@ public class EditarPerfil extends Fragment {
         if (getArguments() != null) {
             Bundle b = getArguments();
             userid = b.getInt("userid");
-
         }
+
+        GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
+        try {
+            cars = getCarsFromUserTask.execute(userid).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -76,6 +90,11 @@ public class EditarPerfil extends Fragment {
                 newEvent.setView(alertView);
                 AlertDialog dialog = newEvent.show();
 
+                Spinner selectCar = alertView.findViewById(R.id.spinnerSelectCar);
+
+                //adicionar carros
+
+                //selectCar.setAdapter();
 
                 Button confirmEvent = alertView.findViewById(R.id.AddEvent);
                 CalendarView cv = alertView.findViewById(R.id.calendarView2);
@@ -97,8 +116,20 @@ public class EditarPerfil extends Fragment {
                     public void onClick(View v) {
                         String name = nameEvent.getText().toString();
                         String description = descriptionEvent.getText().toString();
-                        Event temp = new Event(name,description,selectedDate[0]);
-                        events.add(temp);
+                        AddNewNotifTask addnewnotiftask = new AddNewNotifTask();
+                        Bundle b = new Bundle();
+                        b.putInt("userID",userid);
+                        b.putString("notifTitle",name);
+                        b.putString("notifBody",description);
+                        b.putString("notifDate",selectedDate[0]);
+                        //b.putInt("carID",carID);
+                        try {
+                            int id = addnewnotiftask.execute().get();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("Evento adiconado");
                         dialog.dismiss();
                     }

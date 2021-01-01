@@ -1,5 +1,6 @@
 package com.example.projectcm.fragments;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -271,7 +272,11 @@ public class AddVeiculo extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
             }
         });
@@ -299,6 +304,21 @@ public class AddVeiculo extends Fragment {
 
                 String model = chosenModel.split("\\(")[0];
                 String year = chosenModel.split("\\(")[1].replace(")", "");
+
+                newCarInfo = new JSONObject();
+
+                //TODO: Fazer um JSONArray por cada info que se queira guardar
+                JSONArray arr = new JSONArray();
+                arr.put("Motor");
+                arr.put("1.5");
+
+                JSONArray arr2 = new JSONArray();
+                arr2.put("Portas");
+                arr2.put("5");
+
+                JSONArray finalArr = new JSONArray();
+                finalArr.put(arr);
+                finalArr.put(arr2);
 
                 try {
                     newCarInfo.put("infos", finalArr);
@@ -338,6 +358,12 @@ public class AddVeiculo extends Fragment {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 selectedImageURI = data.getData();
+                final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
+                ContentResolver resolver = getActivity().getContentResolver();
+                resolver.takePersistableUriPermission(selectedImageURI, takeFlags);
+
+
                 System.out.println(selectedImageURI.toString());
             }
         }
