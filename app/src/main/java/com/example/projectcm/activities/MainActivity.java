@@ -10,12 +10,13 @@ import android.os.Bundle;
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 import com.example.projectcm.fragments.Detalhes;
+import com.example.projectcm.fragments.EditarPerfil;
 import com.example.projectcm.fragments.EditarVeiculo;
 import com.example.projectcm.fragments.Login;
 import com.example.projectcm.fragments.MainPage;
 import com.example.projectcm.fragments.Register;
 
-public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin{
+public class MainActivity extends AppCompatActivity implements Login.registerClickListener, Register.ListenerToLogin {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,4 +66,6 @@ public class MainActivity extends AppCompatActivity implements Login.registerCli
         Detalhes detalhes = (Detalhes) getSupportFragmentManager().findFragmentByTag("detalhes");
         getSupportFragmentManager().popBackStack();
     }
+
+
 }

@@ -80,13 +80,16 @@ public class MainPage extends Fragment {
         GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
         Cursor resultado1 = getCarsFromUserTask.doInBackground(currentUserID);
 
+
+        //galery
         while (resultado1.moveToNext()){
 
             int carID = resultado1.getInt(0);
             String carmake = resultado1.getString(1);
             String carmodel= resultado1.getString(2);
-
             View view = inflater1.inflate(R.layout.caritem, gallery,false);
+            Button details = view.findViewById(R.id.button7);
+
 
             TextView textView1 = view.findViewById(R.id.textView4);
             textView1.setText(carmake);
@@ -97,7 +100,7 @@ public class MainPage extends Fragment {
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             ImageView1.setImageResource(R.drawable.avatar);
 
-            Button details = view.findViewById(R.id.button7);
+
             details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,22 +114,6 @@ public class MainPage extends Fragment {
 
         }
 
-        /*
-        for (int i =0; i <numbercars; i++){
-            View view = inflater1.inflate(R.layout.caritem,gallery,false);
-
-            TextView textView1 = view.findViewById(R.id.textView4);
-            textView1.setText("Marca ");
-
-            TextView textView2 = view.findViewById(R.id.textView5);
-            textView2.setText("Modelo ");
-
-            ImageView ImageView1 = view.findViewById(R.id.imageView2);
-            ImageView1.setImageResource(R.drawable.avatar);
-
-            gallery.addView(view);
-        }
-        */
         //for test is default avatar + random name
         TextView TVUserName = (TextView)  MainPageView.findViewById(R.id.textView);
         TVUserName.setText(UserName);
@@ -136,7 +123,7 @@ public class MainPage extends Fragment {
         IVAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                //System.out.println("Cliquei na imagem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 mListener.onMPImageInteraction(currentUserID);
             }
         });
@@ -185,6 +172,7 @@ public class MainPage extends Fragment {
             return results;
         }
     }
+
     private class GetCarsFromUserTask extends AsyncTask<Integer, Void, Cursor> {
 
         @Override

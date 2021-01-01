@@ -98,7 +98,15 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
         fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
     }
+    @Override
+    public void OnEPCancelClick(Integer UserID) {
 
+    }
+
+    @Override
+    public void ONEPSaveClick(Integer UserID) {
+
+    }
 
     @Override
     public void goToMainPage(int userID){
