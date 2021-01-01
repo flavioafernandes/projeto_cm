@@ -305,21 +305,6 @@ public class AddVeiculo extends Fragment {
                 String model = chosenModel.split("\\(")[0];
                 String year = chosenModel.split("\\(")[1].replace(")", "");
 
-                newCarInfo = new JSONObject();
-
-                //TODO: Fazer um JSONArray por cada info que se queira guardar
-                JSONArray arr = new JSONArray();
-                arr.put("Motor");
-                arr.put("1.5");
-
-                JSONArray arr2 = new JSONArray();
-                arr2.put("Portas");
-                arr2.put("5");
-
-                JSONArray finalArr = new JSONArray();
-                finalArr.put(arr);
-                finalArr.put(arr2);
-
                 try {
                     newCarInfo.put("infos", finalArr);
                 } catch (JSONException e) {
