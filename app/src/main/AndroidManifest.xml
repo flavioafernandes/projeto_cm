@@ -13,7 +13,8 @@
         android:theme="@style/Theme.ProjectCM">
         <activity
             android:name=".activities.LoggedInActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
 
         </activity>
 
