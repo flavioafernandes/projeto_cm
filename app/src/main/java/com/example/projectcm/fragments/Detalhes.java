@@ -1,26 +1,26 @@
 package com.example.projectcm.fragments;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.provider.MediaStore;
+import android.util.Size;
 import android.view.LayoutInflater;
-import android.view.SoundEffectConstants;
+import android.view.PointerIcon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
@@ -30,12 +30,15 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.sql.SQLOutput;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,6 +114,7 @@ public class Detalhes extends Fragment {
         editCarBtn = v.findViewById(R.id.editar);
         goBackBtn = v.findViewById(R.id.voltar);
 
+
         while (carInfo.moveToNext()){
             int carID = Integer.parseInt(carInfo.getString(0));
             String make = carInfo.getString(1);
@@ -134,6 +138,26 @@ public class Detalhes extends Fragment {
             int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ","_").replace("-","_"), "drawable", getContext().getPackageName());
             System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
             carLogo.setImageResource(resourceID);
+            System.out.println("Passo aqui");
+            System.out.println(imageURI);
+                Uri imageuri = Uri.parse(imageURI);
+            try {
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
+                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+
+                carImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //final String[] split = imageURI.split(":");//split the path.
+            //String imgFilepath = split[1];
+            //System.out.println(imgFilepath);
+
+
+
+
+
 
             /**
              * TODO: Colocar a imagem do carro na página dos detalhes
@@ -199,6 +223,7 @@ public class Detalhes extends Fragment {
 
         return v;
     }
+
 
     @Override
     public void onAttach(Context context) {
