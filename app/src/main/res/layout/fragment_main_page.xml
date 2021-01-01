@@ -73,9 +73,10 @@
 
     <Button
         android:id="@+id/addCarButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Adicionar"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="@string/adicionar"
+        android:background="@drawable/rectangle_blue_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.094"
@@ -85,9 +86,10 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:text="Partilhar"
+        android:background="@drawable/rectangle_blue_right"
         app:layout_constraintBottom_toBottomOf="@+id/addCarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.841"
