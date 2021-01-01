@@ -87,12 +87,12 @@ public class EditarVeiculo extends Fragment {
      * 4 - carInfo (JSON)
      * 5 - imageURI
      * */
-    private class AddNewCarTask extends AsyncTask<Bundle, Void, Boolean> {
+    private class UpdateCarTask extends AsyncTask<Bundle, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Bundle... bundles) {
 
-            System.out.printf("AddNewCarTask");
+            System.out.printf("UpdateCarTask");
             boolean result = db.updateCarInfo(bundles[0].getInt("carID"), bundles[0].getString("carMake"), bundles[0].getString("carModel"), bundles[0].getString("carYear"), bundles[0].getString("carInfo"), bundles[0].getString("imageURI"));
 
             return result;
