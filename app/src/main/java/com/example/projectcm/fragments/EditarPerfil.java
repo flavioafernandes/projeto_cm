@@ -38,7 +38,6 @@ import java.util.concurrent.ExecutionException;
  * Use the {@link EditarPerfil#newInstance} factory method to
  * create an instance of this fragment.
  */
-
 public class EditarPerfil extends Fragment {
 
     DatabaseHelper db;
@@ -67,15 +66,7 @@ public class EditarPerfil extends Fragment {
         if (getArguments() != null) {
             Bundle b = getArguments();
             userid = b.getInt("userid");
-        }
 
-        GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
-        try {
-            cars = getCarsFromUserTask.execute(userid).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
     }
@@ -95,7 +86,7 @@ public class EditarPerfil extends Fragment {
         while (resultado.moveToNext()) {
             textView4.setText(resultado.getString(0));
         }
-    //getUserCars
+        //getUserCars
         GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
         Cursor resultado3 = getCarsFromUserTask.doInBackground(userid);
         String car2 = null;
@@ -128,6 +119,7 @@ public class EditarPerfil extends Fragment {
                 newEvent.setTitle("Adicionar Evento");
                 newEvent.setView(alertView);
                 AlertDialog dialog = newEvent.show();
+
                 //Spinner selectCar = alertView.findViewById(R.id.spinnerSelectCar);
 
                 //adicionar carros
@@ -310,7 +302,7 @@ public class EditarPerfil extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // mListener.OnEPCancelClick(userid);
+                // mListener.OnEPCancelClick(userid);
             }
         });
 
@@ -318,7 +310,7 @@ public class EditarPerfil extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //mListener.ONEPSaveClick(userid);
+                //mListener.ONEPSaveClick(userid);
                 //como o adicionar evento é feito logo no dialog n precisa deste botão
             }
         });
@@ -420,10 +412,10 @@ public class EditarPerfil extends Fragment {
     }
 
 
-        public interface OnEditarPerfilListener {
+    public interface OnEditarPerfilListener {
 
-            void OnEPCancelClick(Integer UserID);
+        void OnEPCancelClick(Integer UserID);
 
-            void ONEPSaveClick(Integer UserID);
-        }
+        void ONEPSaveClick(Integer UserID);
+    }
 }
