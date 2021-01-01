@@ -1,6 +1,7 @@
 package com.example.projectcm.fragments;
 
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
 /**
@@ -21,6 +23,8 @@ import com.example.projectcm.R;
  * create an instance of this fragment.
  */
 public class EditarVeiculo extends Fragment {
+
+    DatabaseHelper db;
 
     ImageView goBackBtn;
     TextView carMake;
@@ -53,6 +57,7 @@ public class EditarVeiculo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        db = new DatabaseHelper(getContext());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             userID = getArguments().getString(USER_ID);
@@ -72,5 +77,25 @@ public class EditarVeiculo extends Fragment {
         carLogo = v.findViewById(R.id.Car_logo);
         carImage = v.findViewById(R.id.Car_image);
         return v;
+    }
+
+    /**
+     * 0 - carID
+     * 1 - carMake
+     * 2 - carModel
+     * 3 - carYear
+     * 4 - carInfo (JSON)
+     * 5 - imageURI
+     * */
+    private class AddNewCarTask extends AsyncTask<Bundle, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Bundle... bundles) {
+
+            System.out.printf("AddNewCarTask");
+            boolean result = db.updateCarInfo(bundles[0].getInt("carID"), bundles[0].getString("carMake"), bundles[0].getString("carModel"), bundles[0].getString("carYear"), bundles[0].getString("carInfo"), bundles[0].getString("imageURI"));
+
+            return result;
+        }
     }
 }

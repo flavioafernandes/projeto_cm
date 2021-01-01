@@ -251,13 +251,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(USER_CARS_TABLE_NAME, "carid = ?", new String[]{String.valueOf(carID)});
     }
 
-    public boolean updateCarInfo(int carID, String carMake, String carModel, String carYear, String carInfo){
+    public boolean updateCarInfo(int carID, String carMake, String carModel, String carYear, String carInfo, String imageURI){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_CAR_MAKE, carMake);
         contentValues.put(USER_CAR_MODEL, carModel);
         contentValues.put(USER_CAR_YEAR, carYear);
         contentValues.put(USER_CAR_INFO, carInfo);
+        contentValues.put(IMAGE_URI, imageURI);
         db.update(USER_CARS_TABLE_NAME, contentValues, "carid = ?", new String[]{String.valueOf(carID)});
         return true;
     }
