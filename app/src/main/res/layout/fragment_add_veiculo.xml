@@ -83,12 +83,12 @@
         android:id="@+id/Adicionar_caracteristica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="372dp"
+        android:layout_marginTop="20dp"
         android:text="@string/adicionar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerModel" />
+        app:layout_constraintTop_toBottomOf="@+id/nome_caracteristica" />
 
     <Button
         android:id="@+id/Cancelar"
@@ -110,6 +110,7 @@
         android:layout_marginEnd="40dp"
         android:text="@string/guardar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintTop_toBottomOf="@+id/Adicionar_caracteristica" />
 
 
@@ -147,12 +148,12 @@
         android:layout_height="270dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="200dp"
-        android:background="#C0C3CF"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/grey_rectangle_add_c"
         android:elevation="7dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -177,12 +178,12 @@
         android:layout_width="307dp"
         android:layout_height="48dp"
         android:layout_marginTop="276dp"
-        android:background="#FFFFFF"
         android:elevation="10dp"
         android:visibility="invisible"
         android:hint="@string/caracteristica"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:background="@drawable/white_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +194,7 @@
         android:layout_width="307dp"
         android:layout_height="48dp"
         android:layout_marginTop="30dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/white_rectangle"
         android:elevation="10dp"
         android:hint="@string/valor"
         android:inputType="textEmailAddress"
@@ -207,13 +208,14 @@
 
     <Button
         android:id="@+id/Cancelar_adicionar_caracteristica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:elevation="10dp"
         android:stateListAnimator="@null"
         android:text="@string/cancelar"
         android:visibility="invisible"
+        android:background="@drawable/rectangle_white_left"
         app:layout_constraintBottom_toBottomOf="@+id/add_caracteristica_grey_square"
         app:layout_constraintEnd_toEndOf="@+id/add_caracteristica_grey_square"
         app:layout_constraintHorizontal_bias="0.0"
@@ -222,14 +224,15 @@
 
     <Button
         android:id="@+id/Guardar_adicionar_caracteristica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:elevation="10dp"
         android:stateListAnimator="@null"
         android:text="@string/guardar"
         android:visibility="invisible"
+        android:background="@drawable/rectangle_blue_right"
         app:layout_constraintBottom_toBottomOf="@+id/add_caracteristica_grey_square"
         app:layout_constraintEnd_toEndOf="@+id/valor_caracteristica_adicionar"
         app:layout_constraintTop_toBottomOf="@+id/valor_caracteristica_adicionar" />

@@ -242,6 +242,7 @@ public class AddVeiculo extends Fragment {
         });
 
         addedInfos = v.findViewById(R.id.nome_caracteristica);
+        /*newInfos.add("teste");
         newInfos.add("teste");
         newInfos.add("teste");
         newInfos.add("teste");
@@ -249,8 +250,7 @@ public class AddVeiculo extends Fragment {
         newInfos.add("teste");
         newInfos.add("teste");
         newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
+        newInfos.add("teste");*/
 
         arrayAdapter = new ArrayAdapter<String>(
                 getContext(),
