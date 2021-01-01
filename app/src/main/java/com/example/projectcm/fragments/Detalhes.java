@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 import com.example.projectcm.activities.MainActivity;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
