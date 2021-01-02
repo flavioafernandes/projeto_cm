@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
@@ -55,6 +56,7 @@ public class AddVeiculo extends Fragment {
     Button cancelBtn;
     Button gobackbutton;
     ListView addedInfos;
+    TextView addImageText;
 
     String chosenMake;
     String chosenModel;
@@ -168,11 +170,11 @@ public class AddVeiculo extends Fragment {
 
         saveNewCar = v.findViewById(R.id.Guardar);
 
-
         cancelBtn = v.findViewById(R.id.Cancelar);
 
         gobackbutton = v.findViewById(R.id.go_back_button);
 
+        addImageText = v.findViewById(R.id.carregar_image_text);
 
 
         // Inflate the layout for this fragment
@@ -248,15 +250,6 @@ public class AddVeiculo extends Fragment {
         });
 
         addedInfos = v.findViewById(R.id.nome_caracteristica);
-        /*newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");
-        newInfos.add("teste");*/
 
         arrayAdapter = new ArrayAdapter<String>(
                 getContext(),
@@ -331,11 +324,7 @@ public class AddVeiculo extends Fragment {
 
         return v;
     }
-    //TODO:guardar URI na base de dados junto à informação do carro do carro
-    //TODO:
-    // Picasso.with(MainActivity.this).load(selectedImageURI).noPlaceholder().centerCrop().fit()
-    // .into((ImageView) findViewById(R.id.image_display));
-    //TODO: esta linnha para chamar depois a imagem
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -348,7 +337,7 @@ public class AddVeiculo extends Fragment {
                 ContentResolver resolver = getActivity().getContentResolver();
                 resolver.takePersistableUriPermission(selectedImageURI, takeFlags);
 
-
+                addImageText.setText(R.string.imagemSelecionada);
                 System.out.println(selectedImageURI.toString());
             }
         }
