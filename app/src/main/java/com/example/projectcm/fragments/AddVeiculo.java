@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
@@ -293,31 +294,35 @@ public class AddVeiculo extends Fragment {
             @Override
             public void onClick(View v) {
 
-                System.out.println("SAVE NEW CAR CLICKED");
+                if(selectedImageURI == null){
+                    Toast.makeText(getActivity(), "Erro a adicionar veículo! Selecione uma imagem.", Toast.LENGTH_LONG).show();
+                }else{
 
-                String model = chosenModel.split("\\(")[0];
-                String year = chosenModel.split("\\(")[1].replace(")", "");
+                    System.out.println("SAVE NEW CAR CLICKED");
 
-                try {
-                    newCarInfo.put("infos", finalArr);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    String model = chosenModel.split("\\(")[0];
+                    String year = chosenModel.split("\\(")[1].replace(")", "");
+
+                    try {
+                        newCarInfo.put("infos", finalArr);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("make", chosenMake);
+                    bundle.putString("model", model.substring(0, model.length()-1));
+                    bundle.putString("year", year);
+                    bundle.putString("info", newCarInfo.toString());
+                    bundle.putInt("ownerID", userID);
+                    bundle.putString("imageURI", selectedImageURI.toString());
+
+                    System.out.println("OI");
+
+                    AddNewCarTask addNewCarTask = new AddNewCarTask();
+                    addNewCarTask.doInBackground(bundle);
+                    onActionListener.goToMainPage(userID);
                 }
-
-                Bundle bundle = new Bundle();
-                bundle.putString("make", chosenMake);
-                bundle.putString("model", model.substring(0, model.length()-1));
-                bundle.putString("year", year);
-                bundle.putString("info", newCarInfo.toString());
-                bundle.putInt("ownerID", userID);
-                bundle.putString("imageURI", selectedImageURI.toString());
-
-                System.out.println("OI");
-
-                AddNewCarTask addNewCarTask = new AddNewCarTask();
-                addNewCarTask.doInBackground(bundle);
-
-                onActionListener.goToMainPage(userID);
             }
         });
 
