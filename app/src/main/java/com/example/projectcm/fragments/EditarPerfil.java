@@ -227,8 +227,8 @@ public class EditarPerfil extends Fragment {
         GetAllNotfifs getallnotifs = new GetAllNotfifs();
         Cursor resultado1 = getallnotifs.doInBackground(userid);
 
-        View view = inflater1.inflate(R.layout.notification_item, gallery2, false);
         while (resultado1.moveToNext()) {
+            View view = inflater1.inflate(R.layout.notification_item, gallery2, false);
 
             String title = resultado1.getString(1);
             Integer carid = resultado1.getInt(4);
@@ -296,24 +296,6 @@ public class EditarPerfil extends Fragment {
             gallery2.addView(view);
 
         }
-
-
-        Button cancelButton = v.findViewById(R.id.Cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // mListener.OnEPCancelClick(userid);
-            }
-        });
-
-        Button saveButton = v.findViewById(R.id.GuardarEditUser);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mListener.ONEPSaveClick(userid);
-                //como o adicionar evento é feito logo no dialog n precisa deste botão
-            }
-        });
         return v;
     }
 
