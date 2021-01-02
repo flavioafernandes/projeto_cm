@@ -94,7 +94,7 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
     public void goToEditCarPage(int userID, int carID){
         EditarVeiculo editarVeiculo = EditarVeiculo.newInstance(userID, carID);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.mainActivityLayout, editarVeiculo,"editarcarro");
+        fragmentTransaction.replace(R.id.loggedIn, editarVeiculo,"editarcarro");
         fragmentTransaction.addToBackStack("Top");
         fragmentTransaction.commit();
     }

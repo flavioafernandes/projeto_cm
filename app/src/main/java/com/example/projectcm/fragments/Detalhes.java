@@ -154,21 +154,6 @@ public class Detalhes extends Fragment {
             //System.out.println(imgFilepath);
 
 
-
-
-
-
-            /**
-             * TODO: Colocar a imagem do carro na página dos detalhes
-             *
-            System.out.println(imageURI);
-            File file = new File(imageURI);
-            System.out.println(file);
-            Picasso.with(getContext()).load(new File(imageURI)).into(carImage);
-            //carImage.setImageURI(Uri.fromFile(new File(imageURI)));
-             *
-             */
-
             for (int i=0 ; i < infoArray.length(); i++){
 
                 View infoListView = singleItemList.inflate(R.layout.list_item_card, carDetails, false);

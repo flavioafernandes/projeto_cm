@@ -19,7 +19,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scroll_car_info"
-            app:layout_constraintVertical_bias="0.489" />
+            app:layout_constraintVertical_bias="0.746" />
 
         <Button
             android:id="@+id/Guardar"
@@ -28,9 +28,10 @@
             android:text="Guardar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.623"
+            app:layout_constraintHorizontal_bias="0.673"
             app:layout_constraintStart_toEndOf="@+id/cancelar"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info" />
+            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info"
+            app:layout_constraintVertical_bias="0.741" />
 
         <ImageView
             android:id="@+id/Car_image"
@@ -39,15 +40,15 @@
             android:src="@mipmap/car_temp_foreground"
             app:layout_constraintBottom_toTopOf="@+id/scroll_car_info"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SubTitle_car"
-            app:layout_constraintVertical_bias="0.464" />
+            app:layout_constraintVertical_bias="0.583" />
 
         <ImageView
             android:id="@+id/Car_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="56dp"
             android:src="@android:drawable/btn_star"
             app:layout_constraintBottom_toTopOf="@+id/Car_image"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,16 +59,17 @@
 
         <ScrollView
             android:id="@+id/scroll_car_info"
-            android:layout_width="334dp"
-            android:layout_height="365dp"
+            android:layout_width="343dp"
+            android:layout_height="283dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintHorizontal_bias="0.529"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.775">
+            app:layout_constraintVertical_bias="0.649">
 
             <LinearLayout
+                android:id="@+id/scroll_car_info2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
@@ -135,5 +137,13 @@
             app:layout_constraintTop_toTopOf="@+id/Car_image"
             app:layout_constraintVertical_bias="0.0"
             android:elevation="1dp" />
+
+        <Button
+            android:id="@+id/Adicionar_caracteristica_on_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar nova Caracteristica"
+            tools:layout_editor_absoluteX="56dp"
+            tools:layout_editor_absoluteY="589dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
