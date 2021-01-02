@@ -79,6 +79,7 @@ public class EditarPerfil extends Fragment {
         View alertView2 = getLayoutInflater().inflate(R.layout.add_event_layout2, null);
         View alertView3 = getLayoutInflater().inflate(R.layout.add_event_layout3, null);
         TextView textView4 = v.findViewById(R.id.InformationToEdit);
+        LinearLayout gallery2 = v.findViewById(R.id.galery2);
 
 
         GetUserName getUserName = new GetUserName();
@@ -198,6 +199,43 @@ public class EditarPerfil extends Fragment {
                                 System.out.println("Notificação com : "+userid.toString()+" +"+CarID+"+" + title + "+" + description + "+" + selectedDate[0] + "+" + CarID + "+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                 addnewnotiftask.doInBackground(b);
                                 System.out.println("Evento adiconado");
+
+                                //Adicionar à lista
+                                LayoutInflater inflater1 = LayoutInflater.from(getContext());
+                                View view = inflater1.inflate(R.layout.notification_item, gallery2, false);
+
+                                GetCarModel getCarModel = new GetCarModel();
+                                Cursor resultado2 = getCarModel.doInBackground(Integer.parseInt(CarID));
+
+                                String car = null;
+                                while (resultado2.moveToNext()) {
+                                    String carmake = resultado2.getString(1);
+                                    String carmodel = resultado2.getString(2);
+                                    car = carmake + " " + carmodel;
+                                }
+
+                                TextView textView1 = view.findViewById(R.id.textView8);
+                                textView1.setText(title);
+
+                                TextView textView2 = view.findViewById(R.id.textView12);
+                                textView2.setText(car);
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                Date today = java.util.Calendar.getInstance().getTime();
+                                Date date = null;
+                                try {
+                                    date = sdf.parse(selectedDate[0]);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                if (!today.after(date)) {
+                                    long diff = date.getTime() - today.getTime();
+                                    Long days = diff / (24 * 60 * 60 * 1000);
+
+                                    TextView textView3 = view.findViewById(R.id.textView10);
+                                    textView3.setText(days.toString() + " Dias");
+                                }
+
+                                gallery2.addView(view);
                                 dialog2.dismiss();
                                 dialog.dismiss();
 
@@ -224,7 +262,7 @@ public class EditarPerfil extends Fragment {
             }
         });
 
-        LinearLayout gallery2 = v.findViewById(R.id.galery2);
+
         LayoutInflater inflater1 = LayoutInflater.from(getContext());
 
         GetAllNotfifs getallnotifs = new GetAllNotfifs();

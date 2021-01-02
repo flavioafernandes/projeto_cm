@@ -40,7 +40,7 @@
     <EditText
         android:id="@+id/DescriptionOfEvent"
         android:layout_width="300dp"
-        android:layout_height="160dp"
+        android:layout_height="57dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="4dp"
         android:ems="10"
