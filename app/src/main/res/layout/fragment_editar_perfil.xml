@@ -9,6 +9,18 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <Button
+        android:id="@+id/go_back_button"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/ic_vector_1"
+        android:elevation="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/group_42731"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/group_42731"
         android:layout_width="415dp"
