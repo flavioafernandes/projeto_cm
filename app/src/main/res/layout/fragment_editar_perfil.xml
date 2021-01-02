@@ -60,11 +60,14 @@
 
     <ScrollView
         android:id="@+id/ScrollView"
-        android:layout_width="314dp"
+        android:layout_width="match_parent"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
         android:layout_height="289dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintTop_toBottomOf="@+id/InformationToEdit"
         android:fillViewport="true">
         <LinearLayout
