@@ -2,12 +2,15 @@ package com.example.projectcm.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,9 @@ import android.widget.TextView;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,6 +93,7 @@ public class MainPage extends Fragment {
             int carID = resultado1.getInt(0);
             String carmake = resultado1.getString(1);
             String carmodel= resultado1.getString(2);
+            String carImage=resultado1.getString(6);
             View view = inflater1.inflate(R.layout.caritem, gallery,false);
             Button details = view.findViewById(R.id.button7);
 
@@ -98,8 +105,17 @@ public class MainPage extends Fragment {
             textView2.setText(carmodel);
 
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
-            ImageView1.setImageResource(R.drawable.avatar);
+            Uri imageuri = Uri.parse(carImage);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imageuri);
+                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
 
+                ImageView1.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             details.setOnClickListener(new View.OnClickListener() {
                 @Override

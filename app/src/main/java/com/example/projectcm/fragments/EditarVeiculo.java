@@ -307,6 +307,8 @@ public class EditarVeiculo extends Fragment {
                 bundle.putInt("carID", carID);
                 bundle.putString("imageURI", selectedImageURI.toString());
 
+                System.out.println("OI");
+
                 UpdateCarTask updateCarTask = new UpdateCarTask();
                 try {
                     updateCarTask.execute(bundle).get();

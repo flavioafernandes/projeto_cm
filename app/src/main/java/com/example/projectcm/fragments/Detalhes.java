@@ -134,7 +134,9 @@ public class Detalhes extends Fragment {
 
             carTitle.setText(make);
             carModel.setText(model + " (" + year + ")");
-            int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ","_").replace("-","_"), "drawable", getContext().getPackageName());
+            int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ",
+                    "_").replace("-","_"), "drawable",
+                    getContext().getPackageName());
             System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
             carLogo.setImageResource(resourceID);
             System.out.println("Passo aqui");

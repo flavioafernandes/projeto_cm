@@ -260,6 +260,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_CAR_YEAR, carYear);
         contentValues.put(USER_CAR_INFO, carInfo);
         contentValues.put(IMAGE_URI, imageURI);
+        System.out.println("CarID = "+carID);
         db.update(USER_CARS_TABLE_NAME, contentValues, "carid = ?", new String[]{String.valueOf(carID)});
         return true;
     }

@@ -28,6 +28,8 @@ import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.Event;
 import com.example.projectcm.R;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -206,8 +208,25 @@ public class EditarPerfil extends Fragment {
                                 b.putString("notifDate", selectedDate[0]);
 
                                 b.putInt("carID",Integer.parseInt(CarID));
+                                        /* int id;
+                                        int carid;
+                                        int userid;
+                                        String name;
+                                        String description;
+                                        String date;
+                                    */
+
                                 System.out.println("Notificação com : "+userid.toString()+" +"+CarID+"+" + title + "+" + description + "+" + selectedDate[0] + "+" + CarID + "+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                                addnewnotiftask.doInBackground(b);
+                                try {
+                                    int idNottif = addnewnotiftask.execute(b).get();
+                                    Event temp = new Event(idNottif,Integer.parseInt(CarID),userid,title,description,selectedDate[0]);
+                                    events.add(temp);
+
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 System.out.println("Evento adiconado");
 
                                 //Adicionar à lista
@@ -247,7 +266,17 @@ public class EditarPerfil extends Fragment {
                                     TextView textView3 = view.findViewById(R.id.textView10);
                                     textView3.setText("Atrasado");
                                 }
-
+                                view.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setTitle("Descrição");
+                                        TextView tv = new TextView(getContext());
+                                        tv.setText(description);
+                                        builder.setView(tv);
+                                        builder.show();
+                                    }
+                                });
                                 gallery2.addView(view);
                                 dialog2.dismiss();
                                 dialog.dismiss();
@@ -288,6 +317,26 @@ public class EditarPerfil extends Fragment {
             Integer carid = resultado1.getInt(4);
             String datenotif = resultado1.getString(5);
             //String descriptnotif = resultado1.getString(5);
+           /* int id;
+            int carid;
+            int userid;
+            String name;
+            String description;
+            String date;
+*/
+            Event temp = new Event(resultado1.getInt(0),carid,resultado1.getInt(3),title,resultado1.getString(2),resultado1.getString(5));
+            events.add(temp);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Descrição");
+                    TextView tv = new TextView(getContext());
+                    tv.setText(temp.getDescription());
+                    builder.setView(tv);
+                    builder.show();
+                }
+            });
             GetCarModel getCarModel = new GetCarModel();
             Cursor resultado2 = getCarModel.doInBackground(carid);
 
@@ -350,6 +399,7 @@ public class EditarPerfil extends Fragment {
             gallery2.addView(view);
 
         }
+
         return v;
     }
 
