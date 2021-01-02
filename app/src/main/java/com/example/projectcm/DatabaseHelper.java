@@ -248,6 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Integer deleteCarFromUser(int carID){
         SQLiteDatabase db = this.getWritableDatabase();
+        deleteNotifWhenCarRemoved(carID);
         return db.delete(USER_CARS_TABLE_NAME, "carid = ?", new String[]{String.valueOf(carID)});
     }
 
@@ -306,6 +307,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Integer deleteNotif(int notifID){
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(CALENDAR_TABLE_NAME, "notifid = ?", new String[]{String.valueOf(notifID)});
+    }
+
+    public Integer deleteNotifWhenCarRemoved(int carID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(CALENDAR_TABLE_NAME, "carid = ?", new String[]{String.valueOf(carID)});
     }
 
     public Cursor getNotifList(int userID){
