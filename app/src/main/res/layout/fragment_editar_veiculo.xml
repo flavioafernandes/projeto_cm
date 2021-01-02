@@ -69,9 +69,11 @@
 
         <ScrollView
             android:id="@+id/scroll_car_info"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_marginTop="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.529"
             app:layout_constraintStart_toStartOf="parent"
@@ -159,15 +161,15 @@
             android:layout_marginBottom="80dp"
             android:background="@drawable/rectangle_blue_right"
             android:text="Adicionar nova Caracteristica"
-            app:layout_constraintBottom_toTopOf="@+id/cancelar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_car_info" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:id="@+id/blur_grey_square2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="match_parent"    
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="#55FFFFFF"
