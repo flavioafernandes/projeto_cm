@@ -1,6 +1,7 @@
 package com.example.projectcm.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,11 +41,13 @@ import java.util.concurrent.ExecutionException;
  */
 public class EditarPerfil extends Fragment {
 
+    EditarPerfilListener editProfilePageListener;
     DatabaseHelper db;
     Integer userid;
     ArrayList<Event> events = new ArrayList<>();
     String CarID ;
     private OnEditarPerfilListener mListener;
+    Button goBackBtn;
 
     public EditarPerfil() {
         // Required empty public constructor
@@ -81,6 +84,13 @@ public class EditarPerfil extends Fragment {
         TextView textView4 = v.findViewById(R.id.InformationToEdit);
         LinearLayout gallery2 = v.findViewById(R.id.galery2);
 
+        goBackBtn = v.findViewById(R.id.go_back_button);
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProfilePageListener.goToMainPage(userid);
+            }
+        });
 
         GetUserName getUserName = new GetUserName();
         Cursor resultado = getUserName.doInBackground(userid.toString());
@@ -343,6 +353,21 @@ public class EditarPerfil extends Fragment {
         return v;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof EditarPerfilListener){
+            editProfilePageListener = (EditarPerfilListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    public interface EditarPerfilListener {
+        void goToMainPage(int userID);
+    }
 
     /**
      * Bundle:
