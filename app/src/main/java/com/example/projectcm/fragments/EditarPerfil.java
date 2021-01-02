@@ -266,9 +266,6 @@ public class EditarPerfil extends Fragment {
 
                 TextView textView3 = view.findViewById(R.id.textView10);
                 textView3.setText(days.toString() + " Dias");
-
-
-
             }
             //remove if break till end
             /*
