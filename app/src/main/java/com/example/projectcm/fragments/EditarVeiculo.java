@@ -300,14 +300,12 @@ public class EditarVeiculo extends Fragment {
                     e.printStackTrace();
                 }
                 Bundle bundle = new Bundle();
-                bundle.putString("make", make);
-                bundle.putString("model", model);
-                bundle.putString("year", year);
-                bundle.putString("info", newCarInfo.toString());
-                bundle.putInt("ownerID", userID);
+                bundle.putString("carMake", make);
+                bundle.putString("carModel", model);
+                bundle.putString("carYear", year);
+                bundle.putString("carInfo", newCarInfo.toString());
+                bundle.putInt("carID", carID);
                 bundle.putString("imageURI", selectedImageURI.toString());
-
-                System.out.println("OI");
 
                 UpdateCarTask updateCarTask = new UpdateCarTask();
                 try {
