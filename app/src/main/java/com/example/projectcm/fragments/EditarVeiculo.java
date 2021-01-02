@@ -156,7 +156,7 @@ public class EditarVeiculo extends Fragment {
                     arr.put(name);
                     arr.put(value);
 
-                    finalArr.put(arr);
+                    //finalArr.put(arr);
                     newInfos.add(name + " - " + value);
                     LayoutInflater li = LayoutInflater.from(getContext());
                     View viewli = li.inflate(R.layout.list_item_edit_card, carDetails, false);
@@ -287,13 +287,18 @@ public class EditarVeiculo extends Fragment {
                     View card = carDetails.getChildAt(i);
                     TextView name = card.findViewById(R.id.line1);
                     EditText value = card.findViewById(R.id.line2);
-                    try {
-                        newCarInfo.put(name.getText().toString(),value.getText().toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    JSONArray arr = new JSONArray();
+                    arr.put(name.getText().toString());
+                    arr.put(value.getText().toString());
+                    finalArr.put(arr);
+                    System.out.println(finalArr);
                 }
-                System.out.println(newCarInfo.toString());
+                try {
+                    newCarInfo.put("infos", finalArr);
+                    System.out.println("Edited ARRAY : \n"+newCarInfo.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("make", make);
                 bundle.putString("model", model);
@@ -304,16 +309,16 @@ public class EditarVeiculo extends Fragment {
 
                 System.out.println("OI");
 
-                UpdateCarTask addNewCarTask = new UpdateCarTask();
+                UpdateCarTask updateCarTask = new UpdateCarTask();
                 try {
-                    addNewCarTask.execute(bundle).get();
+                    updateCarTask.execute(bundle).get();
+                    System.out.println("Do i pass here? ");
+                    listener.goToMainPage(userID);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Do i pass here? ");
-                listener.goToMainPage(userID);
             }
         });
 

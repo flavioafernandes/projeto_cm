@@ -305,6 +305,7 @@ public class AddVeiculo extends Fragment {
 
                     try {
                         newCarInfo.put("infos", finalArr);
+                        System.out.println("ADICIONAR ARRAY : \n"+newCarInfo.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
