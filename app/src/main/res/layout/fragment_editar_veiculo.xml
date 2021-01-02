@@ -163,5 +163,100 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/add_caracteristica_grey_square"
+            android:layout_width="350dp"
+            android:layout_height="270dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="220dp"
+            android:background="@drawable/grey_rectangle_add_c"
+            android:elevation="7dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/blur_grey_square"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="#55FFFFFF"
+            android:elevation="5dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/nome_caracteristica_adicionar"
+            android:layout_width="307dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="276dp"
+            android:elevation="10dp"
+            android:visibility="invisible"
+            android:hint="@string/caracteristica"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:background="@drawable/white_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/valor_caracteristica_adicionar"
+            android:layout_width="307dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/white_rectangle"
+            android:elevation="10dp"
+            android:hint="@string/valor"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nome_caracteristica_adicionar" />
+
+
+        <Button
+            android:id="@+id/Cancelar_adicionar_caracteristica"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:elevation="10dp"
+            android:stateListAnimator="@null"
+            android:text="@string/cancelar"
+            android:visibility="invisible"
+            android:background="@drawable/rectangle_white_left"
+            app:layout_constraintBottom_toBottomOf="@+id/add_caracteristica_grey_square"
+            app:layout_constraintEnd_toEndOf="@+id/add_caracteristica_grey_square"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/valor_caracteristica_adicionar"
+            app:layout_constraintTop_toBottomOf="@+id/valor_caracteristica_adicionar" />
+
+        <Button
+            android:id="@+id/Guardar_adicionar_caracteristica"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="10dp"
+            android:stateListAnimator="@null"
+            android:text="@string/guardar"
+            android:visibility="invisible"
+            android:background="@drawable/rectangle_blue_right"
+            app:layout_constraintBottom_toBottomOf="@+id/add_caracteristica_grey_square"
+            app:layout_constraintEnd_toEndOf="@+id/valor_caracteristica_adicionar"
+            app:layout_constraintTop_toBottomOf="@+id/valor_caracteristica_adicionar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
