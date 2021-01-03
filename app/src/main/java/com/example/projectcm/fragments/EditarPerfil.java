@@ -1,13 +1,18 @@
 package com.example.projectcm.fragments;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +35,15 @@ import com.example.projectcm.R;
 
 import org.w3c.dom.Text;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +51,8 @@ import java.util.concurrent.ExecutionException;
  * create an instance of this fragment.
  */
 public class EditarPerfil extends Fragment {
+
+    private static int SELECT_PICTURE = 1;
 
     EditarPerfilListener editProfilePageListener;
     DatabaseHelper db;
@@ -51,6 +62,10 @@ public class EditarPerfil extends Fragment {
     String userEmail;
     String userBirthday;
     String imageURI;
+    ImageView perfilImg;
+    Button changeImg;
+
+    Uri selectedImageURI;
 
     ArrayList<Event> events = new ArrayList<>();
     String CarID ;
@@ -90,6 +105,7 @@ public class EditarPerfil extends Fragment {
         View alertView3 = getLayoutInflater().inflate(R.layout.add_event_layout3, null);
         TextView textView4 = v.findViewById(R.id.InformationToEdit);
         LinearLayout gallery2 = v.findViewById(R.id.galery2);
+        perfilImg = v.findViewById(R.id.imageView3);
 
         goBackBtn = v.findViewById(R.id.go_back_button);
         goBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +124,33 @@ public class EditarPerfil extends Fragment {
             userBirthday = resultado.getString(2);
             imageURI = resultado.getString(3);
             textView4.setText(userName);
+            if(imageURI!=""){
+                Uri imageuri = Uri.parse(imageURI);
+                try {
+
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+
+                    perfilImg.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        changeImg = v.findViewById(R.id.changeImage);
+        changeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+            }
+        });
         //getUserCars
         GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
         Cursor resultado3 = getCarsFromUserTask.doInBackground(userid);
@@ -397,6 +439,37 @@ public class EditarPerfil extends Fragment {
         }
 
         return v;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                selectedImageURI = data.getData();
+                final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
+                ContentResolver resolver = getActivity().getContentResolver();
+                resolver.takePersistableUriPermission(selectedImageURI, takeFlags);
+
+                try {
+
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), selectedImageURI);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+                    perfilImg.setImageBitmap(bitmap);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("userID",userid);
+                    bundle.putString("imageURI",selectedImageURI.toString());
+                    UpdateUserImageTask updateUserImageTask = new UpdateUserImageTask();
+                    updateUserImageTask.execute(bundle);
+                    System.out.println(selectedImageURI.toString());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

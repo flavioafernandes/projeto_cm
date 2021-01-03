@@ -39,6 +39,7 @@ public class MainPage extends Fragment {
     private static String UserName;
     private  static  String email;
     static Integer currentUserID;
+    String userpic;
 
     public MainPage() {
         // Required empty public constructor
@@ -57,13 +58,6 @@ public class MainPage extends Fragment {
         if (getArguments() != null) {
 
         }
-        db = new DatabaseHelper(getContext());
-        GetUserName getUserName = new GetUserName();
-        Cursor resultado = getUserName.doInBackground(currentUserID.toString());
-        while (resultado.moveToNext()){
-            UserName=resultado.getString(0);
-        }
-        System.out.println("Username "+UserName+" e  ID " + currentUserID +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     }
 
@@ -73,6 +67,13 @@ public class MainPage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View MainPageView = inflater.inflate(R.layout.fragment_main_page, container, false);
+        db = new DatabaseHelper(getContext());
+        GetUserName getUserName = new GetUserName();
+        Cursor resultado = getUserName.doInBackground(currentUserID.toString());
+        while (resultado.moveToNext()){
+            UserName=resultado.getString(0);
+            userpic=resultado.getString(3);
+        }
 
         LinearLayout gallery = MainPageView.findViewById(R.id.galery);
         LayoutInflater inflater1 = LayoutInflater.from(getContext());
@@ -136,6 +137,18 @@ public class MainPage extends Fragment {
 
         //Edit profile on avatar click
         ImageView IVAvatar = (ImageView) MainPageView.findViewById(R.id.imageView);
+        if(userpic!=""){
+            Uri imageuri = Uri.parse(userpic);
+            try {
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
+                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+
+                    IVAvatar.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         IVAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
