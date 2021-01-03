@@ -75,7 +75,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 USER_NAME + " TEXT, " +
                 USER_EMAIL + " TEXT, " +
                 USER_BIRTHDAY + " TEXT, " +
-                USER_PASS + " TEXT )");
+                USER_PASS + " TEXT, " +
+                IMAGE_URI + " TEXT )");
 
         //CARLIST CREATE TABLE
         db.execSQL("create table " + CAR_LIST_TABLE_NAME +
@@ -129,7 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_EMAIL, email);
         contentValues.put(USER_BIRTHDAY, birth);
         contentValues.put(USER_PASS, pass);
-
+        contentValues.put(IMAGE_URI, "");
         Cursor verifyExistingUser = db.rawQuery("select username from " + USER_TABLE_NAME + " where useremail ='" + email + "';", null);
         if(verifyExistingUser.getCount() == 0){
             long userID = db.insert(USER_TABLE_NAME, null, contentValues);
@@ -159,7 +160,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getUserInfo(String id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select username, useremail, userbirthday from " + USER_TABLE_NAME + " where userid =" + id + ";", null);
+        Cursor result = db.rawQuery("select username, useremail, userbirthday, imageuri from " + USER_TABLE_NAME + " where userid =" + id + ";", null);
         return result;
     }
 
@@ -169,12 +170,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(USER_TABLE_NAME, "userid = ?", new String[]{String.valueOf(id)});
     }
 
-    public boolean updateUser(int id, String userName, String userEmail, String userBirthday){
+    public boolean updateUser(int id, String userName, String userEmail, String userBirthday, String imageURI){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_NAME, userName);
         contentValues.put(USER_EMAIL, userEmail);
         contentValues.put(USER_BIRTHDAY, userBirthday);
+        contentValues.put(IMAGE_URI, imageURI);
         db.update(USER_TABLE_NAME, contentValues, "userid = ?", new String[]{String.valueOf(id)});
         return true;
     }
@@ -260,7 +262,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_CAR_YEAR, carYear);
         contentValues.put(USER_CAR_INFO, carInfo);
         contentValues.put(IMAGE_URI, imageURI);
-        System.out.println("CarID = "+carID);
         db.update(USER_CARS_TABLE_NAME, contentValues, "carid = ?", new String[]{String.valueOf(carID)});
         return true;
     }

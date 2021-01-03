@@ -45,7 +45,13 @@ public class EditarPerfil extends Fragment {
 
     EditarPerfilListener editProfilePageListener;
     DatabaseHelper db;
+
     Integer userid;
+    String userName;
+    String userEmail;
+    String userBirthday;
+    String imageURI;
+
     ArrayList<Event> events = new ArrayList<>();
     String CarID ;
     private OnEditarPerfilListener mListener;
@@ -71,7 +77,6 @@ public class EditarPerfil extends Fragment {
         if (getArguments() != null) {
             Bundle b = getArguments();
             userid = b.getInt("userid");
-
         }
 
     }
@@ -96,8 +101,13 @@ public class EditarPerfil extends Fragment {
 
         GetUserName getUserName = new GetUserName();
         Cursor resultado = getUserName.doInBackground(userid.toString());
+
         while (resultado.moveToNext()) {
-            textView4.setText(resultado.getString(0));
+            userName = resultado.getString(0);
+            userEmail = resultado.getString(1);
+            userBirthday = resultado.getString(2);
+            imageURI = resultado.getString(3);
+            textView4.setText(userName);
         }
         //getUserCars
         GetCarsFromUserTask getCarsFromUserTask = new GetCarsFromUserTask();
@@ -201,20 +211,13 @@ public class EditarPerfil extends Fragment {
                                 String title = nameEvent.getText().toString();
                                 String description = descriptionEvent.getText().toString();
                                 AddNewNotifTask addnewnotiftask = new AddNewNotifTask();
+
                                 Bundle b = new Bundle();
                                 b.putInt("userID", userid);
                                 b.putString("notifTitle", title);
                                 b.putString("notifBody", description);
                                 b.putString("notifDate", selectedDate[0]);
-
                                 b.putInt("carID",Integer.parseInt(CarID));
-                                        /* int id;
-                                        int carid;
-                                        int userid;
-                                        String name;
-                                        String description;
-                                        String date;
-                                    */
 
                                 System.out.println("Notificação com : "+userid.toString()+" +"+CarID+"+" + title + "+" + description + "+" + selectedDate[0] + "+" + CarID + "+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                 try {
@@ -316,14 +319,7 @@ public class EditarPerfil extends Fragment {
             String title = resultado1.getString(1);
             Integer carid = resultado1.getInt(4);
             String datenotif = resultado1.getString(5);
-            //String descriptnotif = resultado1.getString(5);
-           /* int id;
-            int carid;
-            int userid;
-            String name;
-            String description;
-            String date;
-*/
+
             Event temp = new Event(resultado1.getInt(0),carid,resultado1.getInt(3),title,resultado1.getString(2),resultado1.getString(5));
             events.add(temp);
             view.setOnClickListener(new View.OnClickListener() {
@@ -509,6 +505,25 @@ public class EditarPerfil extends Fragment {
         protected Cursor doInBackground(Integer... integers) {
             Cursor results=db.getCarInfo(integers[0]);
             return results;
+        }
+    }
+
+    /**
+     * Bundle:
+     * 0 - userID
+     * 1 - userName
+     * 2 - userEmail
+     * 3 - userBirthday
+     * 4 - imageURI
+     *
+     * */
+    private class UpdateUserInfoTask extends AsyncTask<Bundle, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Bundle... bundles) {
+
+            boolean result = db.updateUser(bundles[0].getInt("userID"), bundles[0].getString("userName"), bundles[0].getString("userEmail"), bundles[0].getString("userBirthday"), bundles[0].getString("imageURI"));
+            return result;
         }
     }
 
