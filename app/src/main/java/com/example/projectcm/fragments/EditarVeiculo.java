@@ -232,7 +232,7 @@ public class EditarVeiculo extends Fragment {
                 e.printStackTrace();
             }
 
-            //carTitle.setText(make);
+            carMake.setText(make);
             carModel.setText(model + " (" + year + ")");
             int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ","_").replace("-","_"), "drawable", getContext().getPackageName());
             System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
