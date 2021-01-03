@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,6 +87,12 @@ public class Register extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!isEmailValid(email.getText().toString())){
+                    tvError.setText("Formato de e-mail inválido.");
+                    return;
+                }
+
                 if(password.getText().toString().compareTo(confirmPassword.getText().toString())!=0){
                     // se as palavras pass forem diferentes aparecer erro
                     tvError.setText("Passwords são diferentes.");
@@ -121,6 +128,10 @@ public class Register extends Fragment {
         });
         // Inflate the layout for this fragment
         return v;
+    }
+
+    boolean isEmailValid(CharSequence email){
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     @Override
