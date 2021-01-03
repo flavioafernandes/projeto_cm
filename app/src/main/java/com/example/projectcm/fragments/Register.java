@@ -78,7 +78,9 @@ public class Register extends Fragment {
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate[0] = sdf.format(new Date(year,month,dayOfMonth));
+                month = month + 1;
+
+                selectedDate[0] = dayOfMonth + "/" + month + "/" + year;
             }
         });
         b.setOnClickListener(new View.OnClickListener() {
