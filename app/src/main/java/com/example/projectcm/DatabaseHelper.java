@@ -170,12 +170,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(USER_TABLE_NAME, "userid = ?", new String[]{String.valueOf(id)});
     }
 
-    public boolean updateUser(int id, String userName, String userEmail, String userBirthday, String imageURI){
+    public boolean updateUser(int id, String imageURI){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_NAME, userName);
-        contentValues.put(USER_EMAIL, userEmail);
-        contentValues.put(USER_BIRTHDAY, userBirthday);
         contentValues.put(IMAGE_URI, imageURI);
         db.update(USER_TABLE_NAME, contentValues, "userid = ?", new String[]{String.valueOf(id)});
         return true;

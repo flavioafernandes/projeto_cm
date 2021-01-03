@@ -511,18 +511,15 @@ public class EditarPerfil extends Fragment {
     /**
      * Bundle:
      * 0 - userID
-     * 1 - userName
-     * 2 - userEmail
-     * 3 - userBirthday
-     * 4 - imageURI
+     * 1 - imageURI
      *
      * */
-    private class UpdateUserInfoTask extends AsyncTask<Bundle, Void, Boolean> {
+    private class UpdateUserImageTask extends AsyncTask<Bundle, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Bundle... bundles) {
 
-            boolean result = db.updateUser(bundles[0].getInt("userID"), bundles[0].getString("userName"), bundles[0].getString("userEmail"), bundles[0].getString("userBirthday"), bundles[0].getString("imageURI"));
+            boolean result = db.updateUser(bundles[0].getInt("userID"), bundles[0].getString("imageURI"));
             return result;
         }
     }
