@@ -329,6 +329,13 @@ public class EditarVeiculo extends Fragment {
             }
         });
 
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.goToMainPage(userID);
+            }
+        });
+
         return v;
     }
 
