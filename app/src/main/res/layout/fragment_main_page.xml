@@ -11,13 +11,15 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="75dp"
-        android:layout_height="93dp"
+        android:layout_height="75dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="24dp"
-        android:textColor="@color/blue_app"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#00000000"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/avatar"
