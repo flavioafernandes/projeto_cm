@@ -181,7 +181,6 @@ public class EditarPerfil extends Fragment {
 
                 // criar popup com nome, calendário e descrição
                 AlertDialog.Builder newEvent = new AlertDialog.Builder(v.getContext());
-                newEvent.setTitle("Adicionar Evento");
                 newEvent.setView(alertView);
                 AlertDialog dialog = newEvent.show();
 
@@ -218,7 +217,6 @@ public class EditarPerfil extends Fragment {
                         }
                         //passa ao resto do "alert"
                         AlertDialog.Builder newEvent2 = new AlertDialog.Builder(v.getContext());
-                        newEvent2.setTitle("Adicionar Evento");
                         newEvent2.setView(alertView2);
                         AlertDialog dialog2 = newEvent2.show();
                         EditText descriptionEvent = alertView2.findViewById(R.id.DescriptionOfEvent);

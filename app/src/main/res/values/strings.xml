@@ -34,4 +34,5 @@
     <string name="cancel">Cancel</string>
     <string name="imagemSelecionada">Imagem Selecionada</string>
     <string name="add_caracteristica">Adicionar Característica</string>
+    <string name="adicionar_evento">Adicionar Evento</string>
 </resources>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grey">
 
     <TextView
         android:id="@+id/textView7"
@@ -67,7 +68,8 @@
         android:layout_height="40dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/rectangle_blue_left"
+        android:background="@drawable/rec_white_left"
+        android:textColor="@color/blue_app"
         android:text="@string/voltar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

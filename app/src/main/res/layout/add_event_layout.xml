@@ -4,8 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grey">
 
+
+    <TextView
+        android:id="@+id/adicionar_evento"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/adicionar_evento"
+        android:textSize="20sp"
+        android:textColor="@color/blue_app"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CalendarView
         android:id="@+id/calendarView2"
@@ -14,20 +31,20 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameOfEvent" />
+        app:layout_constraintTop_toBottomOf="@+id/NameOfEvent"/>
 
     <EditText
         android:id="@+id/NameOfEvent"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/nome_do_evento"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/adicionar_evento" />
 
     <Button
         android:id="@+id/NextEvent"
@@ -51,7 +68,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/rectangle_blue_left"
+        android:background="@drawable/rec_white_left"
+        android:textColor="@color/blue_app"
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
