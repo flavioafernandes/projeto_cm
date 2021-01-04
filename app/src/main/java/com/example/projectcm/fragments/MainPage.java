@@ -137,7 +137,8 @@ public class MainPage extends Fragment {
 
         //Edit profile on avatar click
         ImageView IVAvatar = (ImageView) MainPageView.findViewById(R.id.imageView);
-        if(userpic!=""){
+        System.out.println("USER PIC: -" + userpic + "-");
+        if(!userpic.equals("")){
             Uri imageuri = Uri.parse(userpic);
             try {
 
@@ -148,6 +149,8 @@ public class MainPage extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+            IVAvatar.setImageResource(R.drawable.avatar);
         }
         IVAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
