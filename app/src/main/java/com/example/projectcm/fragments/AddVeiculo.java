@@ -198,8 +198,8 @@ public class AddVeiculo extends Fragment {
 
 
         spinnerMake = v.findViewById(R.id.spinnerMake);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carsArrayList);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, carsArrayList);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.dropdown_item);
         spinnerMake.setAdapter(spinnerArrayAdapter);
 
         spinnerMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -226,8 +226,8 @@ public class AddVeiculo extends Fragment {
                 });
 
                 spinnerModel = v.findViewById(R.id.spinnerModel);
-                ArrayAdapter<String> spinnerModelAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, modelsArrayList);
-                spinnerModelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ArrayAdapter<String> spinnerModelAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, modelsArrayList);
+                spinnerModelAdapter.setDropDownViewResource(R.layout.dropdown_item);
                 spinnerModel.setAdapter(spinnerModelAdapter);
 
                 spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
