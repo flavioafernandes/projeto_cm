@@ -139,21 +139,22 @@ public class Detalhes extends Fragment {
                     getContext().getPackageName());
             System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
             carLogo.setImageResource(resourceID);
-            System.out.println("Passo aqui");
-            System.out.println(imageURI);
-                Uri imageuri = Uri.parse(imageURI);
-            try {
 
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
-                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+            Uri imageuri = Uri.parse(imageURI);
 
-                carImage.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(!imageURI.equals("none")){
+                try {
+
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+
+                    carImage.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                carImage.setImageResource(R.drawable.car_default);
             }
-            //final String[] split = imageURI.split(":");//split the path.
-            //String imgFilepath = split[1];
-            //System.out.println(imgFilepath);
 
 
             for (int i=0 ; i < infoArray.length(); i++){

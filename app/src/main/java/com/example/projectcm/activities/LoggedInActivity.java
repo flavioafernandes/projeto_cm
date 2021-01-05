@@ -82,7 +82,6 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
 
 
         try {
-            System.out.println("Tudo aconteceu quando comecei isto");
             IMqttToken token = client.connect();
 
             token.setActionCallback(new IMqttActionListener() {
@@ -133,7 +132,7 @@ public class LoggedInActivity extends AppCompatActivity implements MainPage.OnMa
                                     bundlecar.putString("year", reciverdyear);
                                     bundlecar.putString("info", reciverdinfo);
                                     bundlecar.putInt("ownerID", userID);
-                                    bundlecar.putString("imageURI", "content://com.android.providers.media.documents/document/image%3A152243");
+                                    bundlecar.putString("imageURI", "none");
                                     AddNewCarTask addNewCarTask = new AddNewCarTask();
                                     Integer lastcarID = addNewCarTask.doInBackground(bundlecar);
                                     String recievedtitle = "";
