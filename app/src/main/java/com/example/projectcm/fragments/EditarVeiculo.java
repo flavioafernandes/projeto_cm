@@ -235,21 +235,25 @@ public class EditarVeiculo extends Fragment {
             carMake.setText(make);
             carModel.setText(model + " (" + year + ")");
             int resourceID =  getResources().getIdentifier(make.toLowerCase().replace(" ","_").replace("-","_"), "drawable", getContext().getPackageName());
-            System.out.println("\n\n\n\n\n\nResource ID: " + resourceID);
+
             carLogo.setImageResource(resourceID);
-            System.out.println("Passo aqui");
-            System.out.println(imageURI);
             Uri imageuri = Uri.parse(imageURI);
             selectedImageURI = imageuri;
-            try {
 
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
-                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+            if(!imageURI.equals("none")){
+                try {
 
-                carImage.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(),imageuri);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+
+                    carImage.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                carImage.setImageResource(R.drawable.car_default);
             }
+
             //final String[] split = imageURI.split(":");//split the path.
             //String imgFilepath = split[1];
             //System.out.println(imgFilepath);
