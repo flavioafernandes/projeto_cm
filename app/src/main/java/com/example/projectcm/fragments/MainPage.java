@@ -222,7 +222,6 @@ public class MainPage extends Fragment {
                 String[] CarID = {""};
 
                 android.app.AlertDialog.Builder newEvent = new android.app.AlertDialog.Builder(v.getContext());
-                newEvent.setTitle("Partilhar");
                 newEvent.setView(alertView);
                 AlertDialog dialog = newEvent.show();
 

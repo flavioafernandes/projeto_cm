@@ -35,4 +35,8 @@
     <string name="imagemSelecionada">Imagem Selecionada</string>
     <string name="add_caracteristica">Adicionar Característica</string>
     <string name="adicionar_evento">Adicionar Evento</string>
+    <string name="partilhar_carro">Partilhar carro</string>
+    <string name="c_digo_do_destinat_rio">Código do destinatário:</string>
+    <string name="selecione_o_carro_a_partilhar">Selecione o Carro a partilhar:</string>
+    <string name="partilhar">Partilhar</string>
 </resources>
