@@ -125,15 +125,20 @@ public class MainPage extends Fragment {
             ImageView ImageView1 = view.findViewById(R.id.imageView2);
             Uri imageuri = Uri.parse(carImage);
 
-            try {
-                Bitmap bitmapcar = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imageuri);
-                //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
+            System.out.println("IMAGE: -" + carImage + "-");
+            if(!carImage.equals("none")){
+                try {
+                    Bitmap bitmapcar = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imageuri);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, carImage.getMaxWidth(), carImage.getMaxHeight(), false);
 
-                ImageView1.setImageBitmap(bitmapcar);
-            }catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    ImageView1.setImageBitmap(bitmapcar);
+                }catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                ImageView1.setImageResource(R.drawable.car_default);
             }
 
             details.setOnClickListener(new View.OnClickListener() {
