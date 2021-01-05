@@ -39,4 +39,5 @@
     <string name="c_digo_do_destinat_rio">Código do destinatário:</string>
     <string name="selecione_o_carro_a_partilhar">Selecione o Carro a partilhar:</string>
     <string name="partilhar">Partilhar</string>
+    <string name="clique_aqui_para_registar">Sem conta? Clique aqui para se registar!</string>
 </resources>
