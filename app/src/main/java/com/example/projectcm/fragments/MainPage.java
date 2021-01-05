@@ -7,11 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
@@ -32,7 +30,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,9 +67,6 @@ public class MainPage extends Fragment {
         if (getArguments() != null) {
 
         }
-
-
-
 
     }
 
@@ -198,6 +192,12 @@ public class MainPage extends Fragment {
         //Add button click
         View alertView = getLayoutInflater().inflate(R.layout.share_event_layout, null);
         Button BShare = (Button) MainPageView.findViewById(R.id.button2);
+        if(gallery.getChildCount()<1){
+            BShare.setEnabled(false);
+        }
+        else {
+            BShare.setEnabled(true);
+        }
         BShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
