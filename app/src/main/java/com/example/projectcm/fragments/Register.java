@@ -3,26 +3,20 @@ package com.example.projectcm.fragments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -72,18 +66,22 @@ public class Register extends Fragment {
         EditText confirmPassword = v.findViewById(R.id.confirmNewPassword);
         TextView tvError = v.findViewById(R.id.errorDisplayRegister);
         Button b = v.findViewById(R.id.confirmRegister);
-        CalendarView cv = v.findViewById(R.id.calendarView);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         final String[] selectedDate = {""};
-        selectedDate[0] = sdf.format(new Date());
+
+        /*CalendarView cv = v.findViewById(R.id.calendarView);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-
                 selectedDate[0] = dayOfMonth + "/" + month + "/" + year;
             }
         });
+        cv
+        */
+        DatePicker picker = v.findViewById(R.id.date_picker);
+
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +98,8 @@ public class Register extends Fragment {
                 //verificar se o email existe
 
                 else{
+                    selectedDate[0] = picker.getDayOfMonth()+"/" + (picker.getMonth()+1)+"/"+picker.getYear()+"";
+                    System.out.println(selectedDate[0]);
                     //guardar na base de dados
                     Bundle info = new Bundle();
                     info.putString("name",name.getText().toString());

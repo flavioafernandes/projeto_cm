@@ -55,23 +55,25 @@
         android:gravity="center"
         android:text="@string/select_date_of_birth"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="282dp"
-        android:layout_marginBottom="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmNewPassword"
-        app:layout_constraintVertical_bias="0.932" />
+        app:layout_constraintVertical_bias="0.025" />
+
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.211" />
 
     <EditText
         android:id="@+id/newpassword"
@@ -96,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.893"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/date_picker"
         app:layout_constraintVertical_bias="0.615" />
 
     <TextView
