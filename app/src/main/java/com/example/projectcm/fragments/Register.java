@@ -64,7 +64,6 @@ public class Register extends Fragment {
         EditText email = v.findViewById(R.id.newEmail);
         EditText password = v.findViewById(R.id.newpassword);
         EditText confirmPassword = v.findViewById(R.id.confirmNewPassword);
-        TextView tvError = v.findViewById(R.id.errorDisplayRegister);
         Button b = v.findViewById(R.id.confirmRegister);
         final String[] selectedDate = {""};
 
@@ -87,13 +86,25 @@ public class Register extends Fragment {
             public void onClick(View v) {
 
                 if (!isEmailValid(email.getText().toString())){
-                    tvError.setText("Formato de e-mail inválido.");
+                    Toast.makeText(getContext(),"Formato de e-mail inválido.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(password.getText().toString().compareTo(confirmPassword.getText().toString())!=0){
                     // se as palavras pass forem diferentes aparecer erro
-                    tvError.setText("Passwords são diferentes.");
+                    Toast.makeText(getContext(),"Passwords são diferentes.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(name.getText().toString().isEmpty()){
+                    //email existe erro
+                    Toast.makeText(getContext(),"Necessita de introduzir um nome de utilizador", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.getText().toString().isEmpty()){
+                    //email existe erro
+                    Toast.makeText(getContext(),"Necessita de introduzir uma password", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 //verificar se o email existe
 
@@ -111,14 +122,12 @@ public class Register extends Fragment {
                         int result = rt.execute(info).get();
                         if(result == -1){
                             //email existe erro
-                            tvError.setText("Email já existe no sistema");
+                            Toast.makeText(getContext(),"Email já existe no sistema", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             ltl.backToLogin();
                         }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
+                    } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
                     //ir para o login page

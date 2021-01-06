@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projectcm.DatabaseHelper;
 import com.example.projectcm.R;
@@ -82,6 +83,7 @@ public class Login extends Fragment {
                     }
                     else{
                         //mensagem de erro
+                        Toast.makeText(getContext(), "Por favor insira um email e uma password válidas", Toast.LENGTH_LONG).show();
                     }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
